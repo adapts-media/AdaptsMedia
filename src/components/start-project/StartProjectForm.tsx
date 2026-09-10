@@ -38,6 +38,7 @@ export default function StartProjectForm() {
   const [errors, setErrors] = useState<Record<string, string | undefined>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [direction, setDirection] = useState<1 | -1>(1);
 
   const stepContainerRef = useRef<HTMLDivElement>(null);
@@ -104,10 +105,26 @@ export default function StartProjectForm() {
       console.error("Validation failed:", result.error);
       return;
     }
+
+    setSubmitError(null);
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setIsSubmitting(false);
-    setIsSuccess(true);
+    try {
+      const res = await fetch("/api/leads/start-project", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(result.data),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to submit project request");
+      }
+
+      setIsSuccess(true);
+    } catch {
+      setSubmitError("Something went wrong sending your request. Please try again, or email us directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }, [data]);
 
   const handleReset = useCallback(() => {
@@ -115,6 +132,7 @@ export default function StartProjectForm() {
     setStep(0);
     setIsSuccess(false);
     setErrors({});
+    setSubmitError(null);
   }, []);
 
   // Keyboard navigation
@@ -191,7 +209,9 @@ export default function StartProjectForm() {
           {step === 4 && <StepBudget value={data.budget} onChange={(v) => updateField("budget", v)} />}
           {step === 5 && <StepTimeline value={data.timeline} onChange={(v) => updateField("timeline", v)} />}
           {step === 6 && <StepDescription value={data.description} onChange={(v) => updateField("description", v)} error={errors.description} />}
-          {step === 7 && <StepReview data={data} onSubmit={handleSubmit} isSubmitting={isSubmitting} />}
+          {step === 7 && (
+            <StepReview data={data} onSubmit={handleSubmit} isSubmitting={isSubmitting} submitError={submitError} />
+          )}
         </div>
 
         {/* Navigation buttons */}

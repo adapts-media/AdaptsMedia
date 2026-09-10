@@ -1,0 +1,51 @@
+// Adapts Media CMS — leads database
+// Docs: https://www.prisma.io/docs
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum LeadType {
+  start_project
+  contact
+}
+
+enum LeadStatus {
+  new
+  contacted
+  in_progress
+  archived
+}
+
+// A single submission from either the "Start a Project" wizard or the
+// site-wide contact form. `payload` holds the full validated form data
+// so each form type can evolve its own fields without a migration.
+model Lead {
+  id        String     @id @default(cuid())
+  type      LeadType
+  status    LeadStatus @default(new)
+
+  // Denormalized for fast list/search/sort in the admin dashboard.
+  name      String
+  email     String
+  company   String?
+  phone     String?
+  subject   String?
+
+  // Full form payload (all fields specific to that form type).
+  payload   Json
+
+  // Internal notes left by whoever is triaging leads in /admin.
+  notes     String?
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([type])
+  @@index([status])
+  @@index([createdAt])
+}
