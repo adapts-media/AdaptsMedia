@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
 import FullscreenMenu from "./FullscreenMenu";
@@ -21,6 +22,7 @@ const IDLE_TIMEOUT = 2500; // ms before hiding on no movement
 const TOP_HOVER_ZONE = 80; // px from top to trigger show on hover
 
 const Navbar = () => {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
@@ -125,6 +127,10 @@ const Navbar = () => {
       if (idleTimer.current) clearTimeout(idleTimer.current);
     };
   }, []);
+
+  // The internal CMS dashboard has its own admin nav — don't show the
+  // public marketing navbar there.
+  if (pathname?.startsWith("/admin")) return null;
 
   return (
     <>

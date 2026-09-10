@@ -59,6 +59,10 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     };
   }, [isMobile]);
 
+  // The internal CMS dashboard wants native scrolling (tables, sticky
+  // headers) rather than the marketing site's smooth-scroll feel.
+  if (pathname?.startsWith("/admin")) return <>{children}</>;
+
   return (
     <ReactLenis
       root

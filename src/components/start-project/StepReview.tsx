@@ -8,6 +8,7 @@ interface StepReviewProps {
   data: ProjectFormData;
   onSubmit: () => void;
   isSubmitting: boolean;
+  submitError?: string | null;
 }
 
 function SummaryCard({ label, value, delay }: { label: string; value: string; delay: number }) {
@@ -33,7 +34,7 @@ function SummaryCard({ label, value, delay }: { label: string; value: string; de
   );
 }
 
-export default function StepReview({ data, onSubmit, isSubmitting }: StepReviewProps) {
+export default function StepReview({ data, onSubmit, isSubmitting, submitError }: StepReviewProps) {
   const projectType = PROJECT_TYPES.find((t) => t.id === data.projectType);
   const goals = data.goals.map((g) => PROJECT_GOALS.find((pg) => pg.id === g)?.label).filter(Boolean).join(", ");
   const budget = BUDGET_RANGES.find((b) => b.id === data.budget);
@@ -83,6 +84,16 @@ export default function StepReview({ data, onSubmit, isSubmitting }: StepReviewP
               <p className="text-white/70 text-sm font-light leading-relaxed font-sans line-clamp-2 md:line-clamp-3" title={data.description}>{data.description}</p>
             </div>
           </motion.div>
+        )}
+
+        {submitError && (
+          <motion.p
+            className="mb-4 text-center text-sm text-red-400"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            {submitError}
+          </motion.p>
         )}
 
         <motion.div className="flex justify-center relative" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}>
