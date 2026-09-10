@@ -15,23 +15,30 @@ function safeCompare(a: string, b: string) {
 }
 
 export async function POST(request: Request) {
+  const adminUsername = process.env.ADMIN_USERNAME;
   const adminPassword = process.env.ADMIN_PASSWORD;
-  if (!adminPassword) {
-    console.error("[admin/login] ADMIN_PASSWORD is not configured.");
+  if (!adminUsername || !adminPassword) {
+    console.error("[admin/login] ADMIN_USERNAME / ADMIN_PASSWORD is not configured.");
     return NextResponse.json({ error: "Admin login is not configured." }, { status: 500 });
   }
 
-  let body: { password?: string };
+  let body: { username?: string; password?: string };
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 
-  if (!body.password || !safeCompare(body.password, adminPassword)) {
-    return NextResponse.json({ error: "Incorrect password" }, { status: 401 });
+  const usernameOk = Boolean(body.username) && safeCompare(body.username!, adminUsername);
+  const passwordOk = Boolean(body.password) && safeCompare(body.password!, adminPassword);
+
+  // Check both before responding (rather than short-circuiting on the
+  // first mismatch) so a wrong username alone doesn't respond faster
+  // than a wrong password, which would leak which one was wrong.
+  if (!usernameOk || !passwordOk) {
+    return NextResponse.json({ error: "Incorrect username or password" }, { status: 401 });
   }
 
-  await createAdminSession();
+  await createAdminSession(adminUsername);
   return NextResponse.json({ ok: true });
 }

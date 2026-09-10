@@ -17,6 +17,7 @@ function getSecretKey() {
 
 export type AdminSessionPayload = {
   role: "admin";
+  username: string;
   expiresAt: string;
 };
 
@@ -39,9 +40,9 @@ export async function decryptSession(token: string | undefined) {
 }
 
 /** Sets the signed admin session cookie. Call only after verifying credentials. */
-export async function createAdminSession() {
+export async function createAdminSession(username: string) {
   const expiresAt = new Date(Date.now() + SESSION_DURATION_MS);
-  const session = await encryptSession({ role: "admin", expiresAt: expiresAt.toISOString() });
+  const session = await encryptSession({ role: "admin", username, expiresAt: expiresAt.toISOString() });
 
   (await cookies()).set(COOKIE_NAME, session, {
     httpOnly: true,
@@ -61,11 +62,14 @@ export async function deleteAdminSession() {
  * Components, Route Handlers and Server Actions. This is the source of
  * truth for authorization — `proxy.ts` only does an optimistic redirect
  * so logged-out users don't briefly see admin UI flash by.
+ *
+ * Returns the session payload (truthy) when valid, or null — callers that
+ * only need the yes/no check can still write `if (!(await verifyAdminSession()))`.
  */
 export async function verifyAdminSession() {
   const token = (await cookies()).get(COOKIE_NAME)?.value;
   const session = await decryptSession(token);
-  return Boolean(session?.role === "admin");
+  return session?.role === "admin" ? session : null;
 }
 
 export { COOKIE_NAME as ADMIN_SESSION_COOKIE };

@@ -8,6 +8,7 @@ function LoginForm() {
   const searchParams = useSearchParams();
   const from = searchParams.get("from") || "/admin/leads";
 
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -21,7 +22,7 @@ function LoginForm() {
       const res = await fetch("/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ username, password }),
       });
 
       if (!res.ok) {
@@ -48,14 +49,28 @@ function LoginForm() {
         <h1 className="mb-1 text-xl font-medium tracking-tight">Adapts Media CMS</h1>
         <p className="mb-6 text-sm text-white/50">Sign in to manage leads.</p>
 
+        <label htmlFor="username" className="mb-2 block text-xs uppercase tracking-wide text-white/60">
+          Username
+        </label>
+        <input
+          id="username"
+          type="text"
+          autoFocus
+          required
+          autoComplete="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="mb-4 w-full rounded-lg border border-white/10 bg-black/30 px-4 py-2.5 text-sm text-white outline-none focus:border-[#FAC02D]/60 focus:ring-1 focus:ring-[#FAC02D]/60"
+        />
+
         <label htmlFor="password" className="mb-2 block text-xs uppercase tracking-wide text-white/60">
           Password
         </label>
         <input
           id="password"
           type="password"
-          autoFocus
           required
+          autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="mb-4 w-full rounded-lg border border-white/10 bg-black/30 px-4 py-2.5 text-sm text-white outline-none focus:border-[#FAC02D]/60 focus:ring-1 focus:ring-[#FAC02D]/60"
