@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import Script from "next/script";
+import { SITE_NAME, SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/seo";
 
 import localFont from "next/font/local";
 
@@ -59,54 +60,32 @@ const dmSans = DM_Sans({
   weight: ["300", "400", "500"],
 });
 
-export async function generateMetadata(): Promise<Metadata> {
-  try {
-    const response = await fetch(
-      `https://adaptsmedia.com/wp-json/yoast/v1/get_head?url=https://adaptsmedia.com/`,
-      { next: { revalidate: 3600 }, signal: AbortSignal.timeout(2000) }
-    );
-
-    if (response.ok) {
-      const data = await response.json();
-      const yoast = data?.json;
-      if (yoast) {
-        return {
-          metadataBase: new URL('https://adaptsmedia.com'),
-          title: {
-            default: yoast.title || "Adapts Media",
-            template: "%s"
-          },
-          description: yoast.description,
-          openGraph: {
-            title: yoast.og_title,
-            description: yoast.og_description,
-            siteName: yoast.og_site_name,
-            images: [
-              {
-                url: yoast.og_image?.[0]?.url || "/default-og.jpg",
-              }
-            ],
-            type: 'website',
-          },
-          twitter: {
-            card: 'summary_large_image',
-            title: yoast.twitter_title,
-            description: yoast.twitter_description,
-            images: [yoast.twitter_image || yoast.og_image?.[0]?.url],
-          },
-          robots: yoast.robots?.index === 'noindex' ? 'noindex, nofollow' : 'index, follow',
-        };
-      }
-    }
-  } catch (error) {
-    // Fallback if API fails or yoast object is missing
-  }
-
-  return {
-    title: "Adapts Media | Digital Marketing Agency",
-    description: "Expert digital marketing solutions in Dubai and globally."
-  };
-}
+// Site-wide defaults only — this used to fetch the *homepage's* Yoast SEO
+// data unconditionally and apply it to every route that didn't define its
+// own metadata (about-us, services, portfolio, etc. all inherited the
+// homepage's title/description with no canonical, which is a duplicate
+// content problem). The homepage now sets its own metadata in app/page.tsx,
+// and every other page sets its own via src/lib/seo.ts's buildMetadata() —
+// this is purely the last-resort fallback for anything that somehow
+// doesn't, plus the values (metadataBase, default OG image) every page
+// inherits unless it overrides them.
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} | AI-Powered Digital Marketing Agency`,
+    template: `%s`,
+  },
+  description: "Expert digital marketing solutions in Dubai and globally.",
+  openGraph: {
+    siteName: SITE_NAME,
+    type: "website",
+    images: [{ url: DEFAULT_OG_IMAGE, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [DEFAULT_OG_IMAGE],
+  },
+};
 
 export default function RootLayout({
   children,

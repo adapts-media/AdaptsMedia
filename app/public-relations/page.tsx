@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import Hero from "@/ServicesPages/PublicRelations/Hero";
 import Intro from "@/ServicesPages/PublicRelations/Intro";
 import StrategicPrSection from "@/ServicesPages/PublicRelations/StrategicPrSection";
@@ -11,6 +13,13 @@ import SocialBar from "@/components/layout/SocialBar";
 import Footer from "@/components/layout/Footer";
 import PortfolioSection from "@/components/servicespage/PortfolioSection";
 import ClientsSection from "@/components/homepage/ClientsSection";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Public Relations & Activations | Adapts Media",
+  description:
+    "We manage your brand's public presence through strategic PR, media relationships, and real-world activations that build lasting credibility.",
+  path: "/public-relations",
+});
 
 const page = () => {
   return (

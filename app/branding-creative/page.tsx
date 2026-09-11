@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import Hero from "@/ServicesPages/BrandingCreative/Hero";
 import BrandingIntro from "@/ServicesPages/BrandingCreative/BrandingIntro";
 import IdentitySection from "@/ServicesPages/BrandingCreative/IdentitySection";
@@ -11,6 +13,13 @@ import ContactCTA from "@/components/homepage/ContactCTA";
 import Footer from "@/components/layout/Footer";
 import PortfolioSection from "@/components/servicespage/PortfolioSection";
 import ClientsSection from "@/components/homepage/ClientsSection";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Branding & Creative | Adapts Media",
+  description:
+    "We build identities, creative systems, and production assets that make your brand impossible to ignore or forget.",
+  path: "/branding-creative",
+});
 
 const page = () => {
   return (

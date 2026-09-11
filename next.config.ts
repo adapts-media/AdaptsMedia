@@ -1,5 +1,28 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async redirects() {
+    return [
+      // WordPress's live permalinks are /blog/{slug}/ (singular) — this
+      // Next.js app serves the same posts at /blogs/{slug} (plural). Once
+      // this app replaces WordPress on adaptsmedia.com, every one of the
+      // ~134 currently-indexed /blog/... URLs would 404 without this.
+      {
+        source: "/blog/:slug",
+        destination: "/blogs/:slug",
+        permanent: true,
+      },
+      {
+        source: "/blog/:slug/",
+        destination: "/blogs/:slug",
+        permanent: true,
+      },
+      {
+        source: "/blog",
+        destination: "/blogs",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     qualities: [70, 75, 80, 85, 90, 95, 100],
     remotePatterns: [

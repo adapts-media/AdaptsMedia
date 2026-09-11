@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import Hero from "@/ServicesPages/SearchEngineOptimization/Hero";
 import Intro from "@/ServicesPages/SearchEngineOptimization/Intro";
 import OnPageSeoSection from "@/ServicesPages/SearchEngineOptimization/OnPageSeoSection";
@@ -9,6 +11,13 @@ import ContactCTA from "@/components/homepage/ContactCTA";
 import Footer from "@/components/layout/Footer";
 import PortfolioSection from "@/components/servicespage/PortfolioSection";
 import ClientsSection from "@/components/homepage/ClientsSection";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Search Engine Optimization | Adapts Media",
+  description:
+    "We build organic search strategies that are measured, scalable, and accountable from keyword ranking to pipeline revenue.",
+  path: "/search-engine-optimization",
+});
 
 const page = () => {
   return (

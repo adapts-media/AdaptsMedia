@@ -1,6 +1,8 @@
 import { getSinglePost, getWordPressPosts, getResolvedAuthor } from "@/lib/getPosts";
 import { Metadata } from 'next';
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
+import { buildMetadata } from '@/lib/seo';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -12,40 +14,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await getSinglePost(slug);
 
-  if (!post) return { title: "Post Not Found" };
+  if (!post) return { title: "Post Not Found", robots: { index: false, follow: false } };
 
   const yoast = post.yoast_head_json;
 
-  return {
-    // 1. Titles & Descriptions
+  return buildMetadata({
     title: yoast?.title || post.title.rendered,
     description: yoast?.description || "Read more about this insight...",
-
-    // 2. Canonicals (The SEO Team's priority)
-    alternates: {
-      canonical: yoast?.canonical || `https://adaptsmedia.com/blog/${slug}`,
-    },
-
-    // 3. Social Media (Open Graph)
-    openGraph: {
-      title: yoast?.og_title || yoast?.title || post.title.rendered,
-      description: yoast?.og_description || yoast?.description,
-      url: yoast?.og_url || `https://adaptsmedia.com/blog/${slug}`,
-      siteName: yoast?.og_site_name || 'Adapts Media',
-      type: 'article',
-      images: [
-        {
-          url: yoast?.og_image?.[0]?.url || post._embedded?.['wp:featuredmedia']?.[0]?.source_url || "/default-og.jpg",
-        },
-      ],
-    },
-
-    // 4. Search Engine Instructions
-    robots: {
-      index: yoast?.robots?.index !== 'noindex',
-      follow: yoast?.robots?.follow !== 'nofollow',
-    }
-  };
+    // Always self-canonicalize to this app's own /blogs/[slug] route —
+    // deliberately ignoring yoast?.canonical, which is WordPress's own
+    // permalink (https://adaptsmedia.com/blog/{slug}/, singular). That URL
+    // now 301s here (see next.config.ts), so canonicalizing to it would
+    // point search engines at a redirect instead of the real page.
+    path: `/blogs/${slug}`,
+    image: yoast?.og_image?.[0]?.url || post._embedded?.['wp:featuredmedia']?.[0]?.source_url,
+    noindex: yoast?.robots?.index === 'noindex',
+    type: 'article',
+  });
 }
 
 import SingleBlogHero from "@/components/blog/SingleBlogHero";
@@ -61,16 +46,12 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   const recentPosts = await getWordPressPosts(4);
   const relatedPosts = recentPosts.filter((p: any) => p.slug !== resolvedParams.slug).slice(0, 3);
 
+  // Render a real 404 (not-found.tsx, HTTP 404) instead of a 200-status
+  // "not found" div — the previous version returned OK for a missing post,
+  // a "soft 404" that search engines penalize and that misreports the
+  // page's actual status to anything checking it.
   if (!post) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-white text-[#17313B] gap-4">
-        <h1 className="text-3xl font-bold">Post not found</h1>
-        <p className="text-gray-500">This article may have been moved or deleted.</p>
-        <a href="/blogs" className="mt-4 px-6 py-2 bg-[#064ED3] text-white rounded-full text-sm font-semibold hover:bg-[#0540a8] transition-colors">
-          ← Back to Blog
-        </a>
-      </div>
-    );
+    notFound();
   }
 
 

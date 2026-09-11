@@ -1,11 +1,5 @@
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Start a Project | Adapts Media",
-  description:
-    "Tell us about your vision. Let Adapts Media transform your idea into a premium digital experience.",
-};
-
+// Metadata for this route lives in page.tsx (page-level metadata takes
+// precedence anyway, so defining it here too was redundant).
 export default function StartProjectLayout({
   children,
 }: {
