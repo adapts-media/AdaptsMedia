@@ -47,13 +47,16 @@ const PortfolioSection = () => {
         */}
         <div className="flex overflow-x-auto gap-8 pb-8 snap-x snap-mandatory scrollbar-hide px-8 min-[1300px]:mx-0 min-[1300px]:px-0">
           {allCaseStudies.map((project, index: number) => {
-            const name = project.displayName || project.brand;
-            const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-            
+            // Only Hyundai Mobis has a real case study page today — link
+            // the rest to the listing instead of a slug that 404s (this
+            // used to derive a link from the brand name regardless of
+            // whether a page existed for it).
+            const href = project.detailSlug ? `/case-studies/${project.detailSlug}` : "/case-studies";
+
             return (
-              <Link 
-                key={project.id} 
-                href={`/portfolio/${slug}`} 
+              <Link
+                key={project.id}
+                href={href}
                 className="flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] snap-start"
               >
                 <Tailwind3DCard 

@@ -21,16 +21,32 @@ const ArrowDown = ({ isOpen }: { isOpen?: boolean }) => (
   </svg>
 );
 
-export default function PortfolioList() {
+const COPY = {
+  portfolio: {
+    allLabel: "All Work",
+    emptyState: "No projects match your active filters.",
+  },
+  "case-studies": {
+    allLabel: "All Case Studies",
+    emptyState: "No case studies match your active filters.",
+  },
+} as const;
+
+interface PortfolioListProps {
+  variant?: keyof typeof COPY;
+}
+
+export default function PortfolioList({ variant = "portfolio" }: PortfolioListProps) {
+  const copy = COPY[variant];
   const containerRef = useRef<HTMLDivElement>(null);
   const sharedGlowRef = useRef<HTMLDivElement>(null);
   const filterRowRef = useRef<HTMLDivElement>(null);
 
-  const [selectedIndustry, setSelectedIndustry] = useState("All Case Studies");
+  const [selectedIndustry, setSelectedIndustry] = useState<string>(copy.allLabel);
   const [selectedService, setSelectedService] = useState("All Services");
   const [selectedObjective, setSelectedObjective] = useState("All Objectives");
 
-  const [activeIndustry, setActiveIndustry] = useState("All Case Studies");
+  const [activeIndustry, setActiveIndustry] = useState<string>(copy.allLabel);
   const [activeService, setActiveService] = useState("All Services");
   const [activeObjective, setActiveObjective] = useState("All Objectives");
 
@@ -306,13 +322,13 @@ export default function PortfolioList() {
   };
 
   const filteredStudies = allCaseStudies.filter((study) => {
-    const matchIndustry = activeIndustry === "All Case Studies" || study.industry === activeIndustry;
+    const matchIndustry = activeIndustry === copy.allLabel || study.industry === activeIndustry;
     const matchService = activeService === "All Services" || study.service === activeService;
     const matchObjective = activeObjective === "All Objectives" || study.objective === activeObjective;
     return matchIndustry && matchService && matchObjective;
   });
 
-  const uniqueIndustries = ["All Case Studies", "Automotive", "F&B", "Wellness", "Finance"];
+  const uniqueIndustries = [copy.allLabel, "Automotive", "F&B", "Wellness", "Finance"];
   const uniqueServices = ["All Services", "Web Development", "Social Media", "UI/UX Design", "Branding"];
   const uniqueObjectives = ["All Objectives", "Performance", "Branding", "Marketing"];
 
@@ -341,17 +357,29 @@ export default function PortfolioList() {
       {/* ── INTRO SECTION ── */}
       <div className="w-full bg-white py-28 md:py-36 text-[#17313B]">
         <div className="max-w-[1350px] 2xl:max-w-[1600px] mx-auto px-8 md:px-16 lg:px-20">
-          <p className="portfolio-intro-text text-[clamp(24px,4.0vw,54px)] font-heading font-semibold leading-[1.38] tracking-tight max-w-[1050px] text-[#17313B] mx-auto text-center">
-            Every brand has different goals,<br className="hidden md:inline" />
-            challenges, and audiences.<br className="hidden md:inline" /><br className="hidden md:inline" />
-            Which is why we create tailored strategies<br className="hidden md:inline" />
-            built around <span className="highlight text-[#004dc3] font-bold">performance</span>,<br className="hidden md:inline" />
-            creativity, and real business impact.<br className="hidden md:inline" /><br className="hidden md:inline" />
-            From branding and content<br className="hidden md:inline" />
-            to <span className="highlight text-[#004dc3] font-bold">digital experiences</span><br className="hidden md:inline" />
-            and marketing campaigns.<br className="hidden md:inline" /><br className="hidden md:inline" />
-            We help brands stand out, connect, and <span className="highlight text-[#004dc3] font-bold">grow</span>.
-          </p>
+          {variant === "case-studies" ? (
+            <p className="portfolio-intro-text text-[clamp(24px,4.0vw,54px)] font-heading font-semibold leading-[1.38] tracking-tight max-w-[1050px] text-[#17313B] mx-auto text-center">
+              Every brand has different goals,<br className="hidden md:inline" />
+              challenges, and audiences.<br className="hidden md:inline" /><br className="hidden md:inline" />
+              Which is why we create tailored strategies<br className="hidden md:inline" />
+              built around <span className="highlight text-[#004dc3] font-bold">performance</span>,<br className="hidden md:inline" />
+              creativity, and real business impact.<br className="hidden md:inline" /><br className="hidden md:inline" />
+              From branding and content<br className="hidden md:inline" />
+              to <span className="highlight text-[#004dc3] font-bold">digital experiences</span><br className="hidden md:inline" />
+              and marketing campaigns.<br className="hidden md:inline" /><br className="hidden md:inline" />
+              We help brands stand out, connect, and <span className="highlight text-[#004dc3] font-bold">grow</span>.
+            </p>
+          ) : (
+            <p className="portfolio-intro-text text-[clamp(24px,4.0vw,54px)] font-heading font-semibold leading-[1.38] tracking-tight max-w-[1050px] text-[#17313B] mx-auto text-center">
+              Every project starts with<br className="hidden md:inline" />
+              a story worth telling.<br className="hidden md:inline" /><br className="hidden md:inline" />
+              Here&apos;s a look at the brands we&apos;ve built,<br className="hidden md:inline" />
+              the <span className="highlight text-[#004dc3] font-bold">campaigns</span> we&apos;ve launched,<br className="hidden md:inline" /><br className="hidden md:inline" />
+              and the <span className="highlight text-[#004dc3] font-bold">digital experiences</span><br className="hidden md:inline" />
+              we&apos;ve shaped along the way.<br className="hidden md:inline" /><br className="hidden md:inline" />
+              Browse the work and see the <span className="highlight text-[#004dc3] font-bold">craft</span> for yourself.
+            </p>
+          )}
         </div>
       </div>
 
@@ -545,7 +573,7 @@ export default function PortfolioList() {
         <PortfolioShowcase projects={filteredStudies} variant="list" />
       ) : (
         <div className="text-center py-20 text-white/50 text-lg">
-          No case studies match your active filters.
+          {copy.emptyState}
         </div>
       )}
     </div>

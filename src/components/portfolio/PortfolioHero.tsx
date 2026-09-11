@@ -8,8 +8,36 @@ import { ScrollTrigger, SplitText } from "gsap/all";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
-const PortfolioHero = () => {
+const COPY = {
+  portfolio: {
+    heading: (
+      <>
+        Work That <br />
+        Delivers Results
+      </>
+    ),
+    subheading:
+      "Explore the brands, campaigns, and digital experiences we've created to drive growth, engagement, and measurable impact.",
+  },
+  "case-studies": {
+    heading: (
+      <>
+        Real Brands. <br />
+        Real Results.
+      </>
+    ),
+    subheading:
+      "Deep dives into the challenges we solved, the strategies we built, and the measurable impact we delivered for our clients.",
+  },
+} as const;
+
+interface PortfolioHeroProps {
+  variant?: keyof typeof COPY;
+}
+
+const PortfolioHero = ({ variant = "portfolio" }: PortfolioHeroProps) => {
   const heroRef = useRef<HTMLDivElement>(null);
+  const copy = COPY[variant];
 
   useGSAP(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -95,11 +123,10 @@ const PortfolioHero = () => {
         {/* Left Side - Text */}
         <div className="flex flex-col justify-center text-left">
           <h1 className="hero-heading text-[clamp(38px,5.5vw,68px)] font-heading font-medium tracking-normal leading-[1.12] text-white font-sans max-w-xl">
-            Work That <br />
-            Delivers Results
+            {copy.heading}
           </h1>
           <p className="hero-subheading text-[clamp(16px,1.8vw,24px)] font-heading font-light leading-snug text-white/90 max-w-[520px] mt-6">
-            Explore the brands, campaigns, and digital experiences we've created to drive growth, engagement, and measurable impact.
+            {copy.subheading}
           </p>
         </div>
 

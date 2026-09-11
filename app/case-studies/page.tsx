@@ -16,8 +16,8 @@ export const metadata: Metadata = buildMetadata({
 const CaseStudiesPage = () => {
   return (
     <div>
-      <PortfolioHero />
-      <PortfolioList />
+      <PortfolioHero variant="case-studies" />
+      <PortfolioList variant="case-studies" />
       <PortfolioSection />
       <ContactCTA />
       <Footer />

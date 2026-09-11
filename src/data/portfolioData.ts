@@ -10,6 +10,14 @@ export interface Project {
   industry?: string;
   service?: string;
   objective?: string;
+  /**
+   * Slug of this project's full case study page at /case-studies/{slug},
+   * if one exists. Only Hyundai Mobis has one written today — leave this
+   * unset for the others rather than deriving a slug from `brand`/
+   * `displayName`, which used to generate a link to a page that doesn't
+   * exist (e.g. /case-studies/the-bliss, a 404).
+   */
+  detailSlug?: string;
 }
 
 export const allCaseStudies: Project[] = [
@@ -25,6 +33,7 @@ export const allCaseStudies: Project[] = [
     industry: "Automotive",
     service: "Web Development",
     objective: "Performance",
+    detailSlug: "hyundai-mobis",
   },
   {
     id: 2,

@@ -15,11 +15,6 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 export type Project = SharedProject;
 const projects: Project[] = allCaseStudies;
 
-const getSlug = (p: Project) => {
-  const name = p.displayName || p.brand;
-  return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-};
-
 const BookmarkIcon = () => (
   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
@@ -424,8 +419,8 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
               </h2>
             </div>
             <div className="flex items-center justify-start md:justify-end shrink-0 pointer-events-auto z-10">
-              <Link href={`/case-studies/${getSlug(p)}`} prefetch={false}>
-                <ArrowButton title="Read Case Study" />
+              <Link href={p.detailSlug ? `/case-studies/${p.detailSlug}` : "/case-studies"} prefetch={false}>
+                <ArrowButton title={p.detailSlug ? "Read Case Study" : "View Our Work"} />
               </Link>
             </div>
           </div>
@@ -591,13 +586,13 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
                   {/* Glassmorphic Call-to-action */}
                   <div className="parallax-cta mt-6 pointer-events-auto w-fit">
                     <Link
-                      href={`/case-studies/${getSlug(p)}`}
+                      href={p.detailSlug ? `/case-studies/${p.detailSlug}` : "/case-studies"}
                       prefetch={false}
                       onMouseEnter={handleCtaMouseEnter}
                       onMouseLeave={handleCtaMouseLeave}
                     >
                       <div className="group cursor-pointer relative z-10 flex items-center justify-center gap-3 overflow-hidden rounded-full border border-white/20 bg-white/5 backdrop-blur-[6px] px-6 py-3 font-sans text-xs uppercase tracking-wider text-white transition-all duration-500 hover:scale-[1.03] hover:bg-white/10 hover:border-white/40 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)]">
-                        <span className="relative z-10 font-medium">Read Case Study</span>
+                        <span className="relative z-10 font-medium">{p.detailSlug ? "Read Case Study" : "View Our Work"}</span>
                         <svg
                           className="w-4 h-4 transition-transform duration-500 ease-out group-hover:translate-x-1 relative z-10"
                           viewBox="0 0 16 19"

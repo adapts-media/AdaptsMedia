@@ -5,8 +5,8 @@ import { teamMembers } from "@/data/teamData";
 const WORDPRESS_URL = process.env.WORDPRESS_URL || "https://adaptsmedia.com";
 
 // Static marketing routes — everything under app/ that isn't dynamic,
-// admin-only, or (per src/lib/seo.ts) intentionally duplicate content
-// pointed elsewhere via canonical (e.g. /portfolio → /case-studies).
+// admin-only, or intentionally duplicate content pointed elsewhere via
+// canonical (e.g. /portfolio/hyundai-mobis → /case-studies/hyundai-mobis).
 const STATIC_ROUTES: Array<{ path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }> = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/about-us", changeFrequency: "monthly", priority: 0.8 },
@@ -21,6 +21,12 @@ const STATIC_ROUTES: Array<{ path: string; changeFrequency: MetadataRoute.Sitema
   { path: "/web-digital-experience", changeFrequency: "monthly", priority: 0.7 },
   { path: "/case-studies", changeFrequency: "weekly", priority: 0.7 },
   { path: "/case-studies/hyundai-mobis", changeFrequency: "yearly", priority: 0.6 },
+  // /portfolio now has its own copy (see PortfolioHero/PortfolioList's
+  // `variant` prop) rather than duplicating /case-studies, so it's back
+  // to self-canonical and belongs in the sitemap again. Its
+  // /portfolio/hyundai-mobis sub-page still mirrors /case-studies/
+  // hyundai-mobis exactly, though, so that one stays excluded.
+  { path: "/portfolio", changeFrequency: "weekly", priority: 0.7 },
   { path: "/team", changeFrequency: "monthly", priority: 0.6 },
   { path: "/blogs", changeFrequency: "daily", priority: 0.8 },
   { path: "/contact", changeFrequency: "yearly", priority: 0.6 },
