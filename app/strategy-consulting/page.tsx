@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import Hero from "@/ServicesPages/StrategyConsulting/Hero";
 import Intro from "@/ServicesPages/StrategyConsulting/Intro";
 import MarketResearchSection from "@/ServicesPages/StrategyConsulting/MarketResearchSection";
@@ -12,6 +14,13 @@ import SocialBar from "@/components/layout/SocialBar";
 import Footer from "@/components/layout/Footer";
 import PortfolioSection from "@/components/servicespage/PortfolioSection";
 import ClientsSection from "@/components/homepage/ClientsSection";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Strategy & Consulting | Adapts Media",
+  description:
+    "We help brands take strategic decisions with research, analysis and strategy that gives your marketing a real foundation.",
+  path: "/strategy-consulting",
+});
 
 const page = () => {
   return (

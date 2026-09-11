@@ -1,6 +1,7 @@
 import { getPostsByAuthor, getResolvedAuthor, getWordPressTeamMembers } from "@/lib/getPosts";
 import { Metadata } from "next";
 import AuthorPageClient from "@/components/author/AuthorPageClient";
+import { buildMetadata } from "@/lib/seo";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -23,10 +24,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
   }
 
-  return {
+  return buildMetadata({
     title: `${name} - Author at Adapts Media`,
     description: `Read articles and insights published by ${name} on Adapts Media's blog.`,
-  };
+    path: `/author/${slug}`,
+  });
 }
 
 export default async function AuthorBlogsPage({ params }: Props) {

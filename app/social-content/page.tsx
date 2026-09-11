@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import Hero from "@/ServicesPages/SocialContent/Hero";
 import Intro from "@/ServicesPages/SocialContent/Intro";
 import SocialMediaSection from "@/ServicesPages/SocialContent/SocialMediaSection";
@@ -13,6 +15,13 @@ import SocialBar from "@/components/layout/SocialBar";
 import Footer from "@/components/layout/Footer";
 import PortfolioSection from "@/components/servicespage/PortfolioSection";
 import ClientsSection from "@/components/homepage/ClientsSection";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Social & Content | Adapts Media",
+  description:
+    "We turn scrolling feeds into active sales channels and brand advocates through content that triggers action.",
+  path: "/social-content",
+});
 
 const page = () => {
   return (

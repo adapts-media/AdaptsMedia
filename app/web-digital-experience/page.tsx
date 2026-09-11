@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import Hero from "@/ServicesPages/WebDigitalExperience/Hero";
 import Intro from "@/ServicesPages/WebDigitalExperience/Intro";
 import UxUiSection from "@/ServicesPages/WebDigitalExperience/UxUiSection";
@@ -12,6 +14,13 @@ import ContactCTA from "@/components/homepage/ContactCTA";
 import Footer from "@/components/layout/Footer";
 import PortfolioSection from "@/components/servicespage/PortfolioSection";
 import ClientsSection from "@/components/homepage/ClientsSection";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Web & Digital Experience | Adapts Media",
+  description:
+    "Every pixel with purpose. We merge behavioral data with a sharp UI to guide visitors exactly where you want them to land.",
+  path: "/web-digital-experience",
+});
 
 const page = () => {
   return (

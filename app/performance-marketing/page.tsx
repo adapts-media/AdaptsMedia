@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo";
 import Hero from "@/ServicesPages/PerformanceMarketing/Hero";
 import Intro from "@/ServicesPages/PerformanceMarketing/Intro";
 import SeoServicesSection from "@/ServicesPages/PerformanceMarketing/SeoServicesSection";
@@ -16,6 +18,13 @@ import SocialBar from "@/components/layout/SocialBar";
 import Footer from "@/components/layout/Footer";
 import PortfolioSection from "@/components/servicespage/PortfolioSection";
 import ClientsSection from "@/components/homepage/ClientsSection";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Performance Marketing | Adapts Media",
+  description:
+    "We build campaigns that are measured, optimised and accountable from first click to closed deal.",
+  path: "/performance-marketing",
+});
 
 const page = () => {
   return (
@@ -36,7 +45,6 @@ const page = () => {
         <PortfolioSection/>
         <ClientsSection/>
         <ContactCTA/>
-       =
         <Footer/>
     </div>
   );
