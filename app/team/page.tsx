@@ -1,57 +1,50 @@
 import { Metadata } from 'next';
+import { cache } from 'react';
 import TeamSection from '@/components/aboutus/TeamSection';
 import Footer from '@/components/layout/Footer';
 import SocialBar from '@/components/layout/SocialBar';
 import ContactCTA from '@/components/homepage/ContactCTA';
 import { getWordPressTeamMembers } from '@/lib/getPosts';
+import { buildMetadata, SITE_URL } from '@/lib/seo';
 
-export async function generateMetadata(): Promise<Metadata> {
+// Shared per-request cache — generateMetadata() and the page body both
+// need this, and calling fetch() twice for the same URL from two places
+// is wasted latency (see the equivalent fix in app/page.tsx).
+const getTeamYoast = cache(async () => {
   try {
-    const res = await fetch('https://adaptsmedia.com/wp-json/yoast/v1/get_head?url=https://adaptsmedia.com/team/');
+    const res = await fetch(`${SITE_URL}/wp-json/yoast/v1/get_head?url=${SITE_URL}/team/`, {
+      next: { revalidate: 3600 },
+    });
     if (res.ok) {
       const data = await res.json();
-      const yoast = data?.json;
-      if (yoast) {
-        return {
-          title: yoast.title || 'Meet Our Expert Team | Adapts Media',
-          description: yoast.description || 'Explore the talented individuals behind Adapts Media. Our dedicated team brings passion, expertise, and creativity to every project.',
-          alternates: {
-            canonical: 'https://adaptsmedia.com/team/',
-          },
-          openGraph: {
-            title: yoast.og_title || 'Meet Our Expert Team | Adapts Media',
-            description: yoast.og_description,
-            images: yoast.og_image?.map((img: any) => img.url) || [],
-          },
-        };
-      }
+      return data?.json ?? null;
     }
   } catch (err) {
     console.error('Failed to fetch Yoast metadata for /team:', err);
   }
+  return null;
+});
 
-  return {
-    title: 'Meet Our Expert Team - Driving Innovation Together | Adapts Media',
-    description: 'Explore the talented individuals behind Adapts Media. Our dedicated team brings passion, expertise, and creativity to every project.',
-    alternates: {
-      canonical: 'https://adaptsmedia.com/team/',
-    },
-  };
+export async function generateMetadata(): Promise<Metadata> {
+  const yoast = await getTeamYoast();
+
+  return buildMetadata({
+    title: yoast?.title || 'Meet Our Expert Team - Driving Innovation Together | Adapts Media',
+    description:
+      yoast?.description ||
+      'Explore the talented individuals behind Adapts Media. Our dedicated team brings passion, expertise, and creativity to every project.',
+    // Next.js's default routing has no trailing slash on this route — the
+    // previous canonical here (".../team/") pointed at a URL that
+    // immediately redirects back to this one, which defeats the point.
+    path: '/team',
+    image: yoast?.og_image?.[0]?.url,
+  });
 }
 
 export default async function TeamPage() {
   const teamMembers = await getWordPressTeamMembers();
-
-  let schema: any = null;
-  try {
-    const res = await fetch('https://adaptsmedia.com/wp-json/yoast/v1/get_head?url=https://adaptsmedia.com/team/');
-    if (res.ok) {
-      const data = await res.json();
-      schema = data?.json?.schema;
-    }
-  } catch (err) {
-    console.error('Failed to fetch Schema for /team page:', err);
-  }
+  const yoast = await getTeamYoast();
+  const schema = yoast?.schema ?? null;
 
   return (
     <main className="min-h-screen bg-[#00224D]">
