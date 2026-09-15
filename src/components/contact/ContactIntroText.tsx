@@ -87,7 +87,7 @@ const ContactIntroText = () => {
   );
 
   return (
-    <section className="w-full bg-white py-20 md:py-32 flex justify-center font-sans overflow-hidden">
+    <section className="w-full bg-white py-16 md:py-24 lg:py-28 flex justify-center font-sans overflow-hidden">
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -104,24 +104,24 @@ const ContactIntroText = () => {
         ref={containerRef}
         className="max-w-[1350px] 2xl:max-w-[1600px] w-full px-8 md:px-16 lg:px-20 flex flex-col items-center"
       >
-        <div className="w-full max-w-[1100px] mx-auto">
-          <p className="reveal-text text-[clamp(24px,3.8vw,48px)] font-semibold text-[#1a1a2e] leading-[1.38] tracking-tight font-heading mx-auto text-left md:text-center">
+        <div className="w-full max-w-[960px] mx-auto">
+          <p className="reveal-text text-[clamp(20px,2.2vw,34px)] font-normal text-[#1a1a2e] leading-[1.5] tracking-[-0.01em] font-heading mx-auto text-left md:text-center">
             Thank you for your interest in partnering with{" "}
-            <span className="highlight text-[#2563eb] font-bold">
+            <span className="highlight text-[#2563eb] font-semibold">
               Adapts Media
             </span>{" "}
             for your Digital Marketing agency Dubai. We are ready to lead you in
             a{" "}
-            <span className="highlight text-[#2563eb] font-bold">
+            <span className="highlight text-[#2563eb] font-semibold">
               new era of digital marketing
             </span>
             . Please complete the below form, so we can provide quick service
             and quotation. Our{" "}
-            <span className="highlight text-[#2563eb] font-bold">
+            <span className="highlight text-[#2563eb] font-semibold">
               24/7 client service team
             </span>{" "}
             helps you to reach your upcoming goals and{" "}
-            <span className="highlight text-[#2563eb] font-bold">
+            <span className="highlight text-[#2563eb] font-semibold">
               make your revenue increase
             </span>
             .

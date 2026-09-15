@@ -20,6 +20,7 @@ const PredictiveAnalyticsSection = () => {
 
   return (
     <section
+      id="predictive-analytics"
       ref={containerRef}
       className="relative w-full py-24 md:py-32 flex justify-center overflow-hidden bg-[#f4f7fa] text-slate-900"
     >

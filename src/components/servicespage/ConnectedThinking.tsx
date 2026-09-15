@@ -4,6 +4,7 @@ import WebDigitalExperience from '../layout/WebDigitalExperience'
 import BrandingCreative from '../layout/BrandingCreative'
 import PublicRelations from '../layout/PublicRelations'
 import StrategyConsulting from '../layout/StrategyConsulting'
+import AiIntelligence from '../layout/AiIntelligence'
 
 const ConnectedThinking = () => {
   return (
@@ -59,6 +60,7 @@ const ConnectedThinking = () => {
         </div>
         <PublicRelations/>
         <StrategyConsulting/>
+        <AiIntelligence/>
         
     </div>
   )

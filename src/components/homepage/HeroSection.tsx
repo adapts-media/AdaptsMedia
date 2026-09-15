@@ -491,14 +491,10 @@ const HeroSection = () => {
         <section className="hero-section">
           {/* Fixed background loop video */}
           <div className="hero-bg-video">
-            <video autoPlay loop muted playsInline>
+            <video autoPlay loop muted playsInline preload="auto">
               <source
-                src="https://cdn.prod.website-files.com/6984f3310998e8295121e212/6984f3310998e8295121e1ec_Work%20-%20Social%20PAGE%202%204k_mp4.mp4"
+                src="/videos/!FINAL_1.mp4"
                 type="video/mp4"
-              />
-              <source
-                src="https://cdn.prod.website-files.com/6984f3310998e8295121e212/6984f3310998e8295121e1ec_Work%20-%20Social%20PAGE%202%204k_webm.webm"
-                type="video/webm"
               />
             </video>
           </div>

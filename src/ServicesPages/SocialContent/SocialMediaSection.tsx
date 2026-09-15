@@ -63,7 +63,7 @@ const SocialMediaSection = () => {
 
                 {/* Main Illustration */}
                 <img
-                  src="/images/BrandingCreative/LogoBlue.png"
+                  src="/images/social/image 35.png"
                   className="socialmedia-img-main service-img-main relative z-10 w-full h-full object-contain scale-[0.75]"
                   alt="Social Media Illustration"
                 />

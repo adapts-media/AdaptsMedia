@@ -5,7 +5,6 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger, SplitText } from "gsap/all";
-import FluidCursorTrail from "@/components/effects/FluidCursorTrail";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
@@ -105,8 +104,6 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Canvas-based particle fluid trail */}
-      <FluidCursorTrail />
     </section>
   );
 };

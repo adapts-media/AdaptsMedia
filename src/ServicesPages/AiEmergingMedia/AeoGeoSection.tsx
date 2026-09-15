@@ -20,6 +20,7 @@ const AeoGeoSection = () => {
 
   return (
     <section
+      id="aeo-geo"
       ref={containerRef}
       className="relative w-full py-24 md:py-32 flex justify-center overflow-hidden text-white"
       style={{

@@ -342,7 +342,7 @@ body::-webkit-scrollbar,
 /* ─── Text Reveal Animation ───────────────────────────── */
 .reveal-text .highlight {
   color: #2563eb !important;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .reveal-text .word {
