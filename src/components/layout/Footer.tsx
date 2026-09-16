@@ -177,24 +177,15 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* COLUMN 3: Meet The Team, Blog, Other Location (lg:col-span-2) */}
+            {/* COLUMN 3: Meet The Team & Blog (lg:col-span-2) */}
             <div className="lg:col-span-2 flex flex-col space-y-6">
-              <Link href="/about-us" className="text-sm font-semibold text-white hover:text-sky-400 transition-colors">
+              <Link href="/team" className="text-sm font-semibold text-white hover:text-sky-400 transition-colors">
                 Meet The Team
               </Link>
 
-              <div>
-                <Link href="/blogs" className="text-sm font-semibold text-white hover:text-sky-400 transition-colors block mb-3">
-                  Blog
-                </Link>
-                <h4 className="text-sm font-semibold text-white mb-3">Other Location</h4>
-                <ul className="space-y-1.5 text-xs text-white/70 font-light">
-                  <li><Link href="/contact" className="hover:text-white transition-colors">India</Link></li>
-                  <li><Link href="/contact" className="hover:text-white transition-colors">Philippines</Link></li>
-                  <li><Link href="/contact" className="hover:text-white transition-colors">London</Link></li>
-                  <li><Link href="/contact" className="hover:text-white transition-colors">United States</Link></li>
-                </ul>
-              </div>
+              <Link href="/blogs" className="text-sm font-semibold text-white hover:text-sky-400 transition-colors">
+                Blog
+              </Link>
             </div>
 
             {/* COLUMN 4: Contact Us & Locations (lg:col-span-1) */}
@@ -269,8 +260,8 @@ export default function Footer() {
               <p>© 2026 Adapts Media® | All Rights Reserved.</p>
             </div>
 
-            {/* Right: Privacy Policy & Terms */}
-            <div className="flex items-center gap-4">
+            {/* Right: Privacy Policy & Terms (commented out for now) */}
+            {/* <div className="flex items-center gap-4">
               <Link href="/privacy-policy" className="hover:text-white transition-colors">
                 Privacy Policy
               </Link>
@@ -278,7 +269,7 @@ export default function Footer() {
               <Link href="/terms-and-conditions" className="hover:text-white transition-colors">
                 Terms And Conditions
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
