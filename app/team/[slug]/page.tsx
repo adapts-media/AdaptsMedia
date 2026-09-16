@@ -1,22 +1,36 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { teamMembers } from "@/data/teamData";
-import { getWordPressPosts } from "@/lib/getPosts";
 import TeamMemberProfileClient from "@/components/team/TeamMemberProfileClient";
+import ContactCTA from "@/components/homepage/ContactCTA";
 import Footer from "@/components/layout/Footer";
 import SocialBar from "@/components/layout/SocialBar";
+import { isAuthor, getAuthorSlug } from "@/lib/authors";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  return teamMembers.map((member) => ({
-    slug: member.slug,
-  }));
+  // Authors do not have team profiles — exclude them from static generation
+  return teamMembers
+    .filter((member) => !isAuthor(member.slug))
+    .map((member) => ({
+      slug: member.slug,
+    }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
   const resolvedParams = await params;
+
+  // If author, no team profile exists
+  const authorSlug = getAuthorSlug(resolvedParams.slug);
+  if (authorSlug) {
+    return {
+      title: "Author Profile | Adapts Media",
+      robots: { index: false, follow: false },
+    };
+  }
+
   const member = teamMembers.find((m) => m.slug === resolvedParams.slug);
   if (!member) {
     return {
@@ -48,19 +62,25 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function TeamMemberPage({ params }: PageProps) {
   const resolvedParams = await params;
+
+  // Authors do not have a team profile — redirect immediately to their author profile
+  const authorSlug = getAuthorSlug(resolvedParams.slug);
+  if (authorSlug) {
+    redirect(`/author/${authorSlug}`);
+  }
+
   const member = teamMembers.find((m) => m.slug === resolvedParams.slug);
 
   if (!member) {
     notFound();
   }
 
-  // Fetch posts from WordPress to filter for team member's expertise
-  const allPosts = await getWordPressPosts(100);
-
   return (
     <>
-      <TeamMemberProfileClient member={member} allPosts={allPosts} />
-      
+      <TeamMemberProfileClient member={member} />
+      <div id="contact">
+        <ContactCTA />
+      </div>
       <Footer />
     </>
   );

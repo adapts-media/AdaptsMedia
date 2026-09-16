@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo";
 import Hero from "@/ServicesPages/PerformanceMarketing/Hero";
 import Intro from "@/ServicesPages/PerformanceMarketing/Intro";
-import SeoServicesSection from "@/ServicesPages/PerformanceMarketing/SeoServicesSection";
 import SemGoogleAdsSection from "@/ServicesPages/PerformanceMarketing/SemGoogleAdsSection";
 import ProgrammaticSection from "@/ServicesPages/PerformanceMarketing/ProgrammaticSection";
 import DisplayCampaignSection from "@/ServicesPages/PerformanceMarketing/DisplayCampaignSection";
@@ -20,9 +19,9 @@ import PortfolioSection from "@/components/servicespage/PortfolioSection";
 import ClientsSection from "@/components/homepage/ClientsSection";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Performance Marketing | Adapts Media",
+  title: "Performance Marketing Services & Solution | Adapts Media",
   description:
-    "We build campaigns that are measured, optimised and accountable from first click to closed deal.",
+    "We offer performance marketing services across paid search, social and programmatic. A performance marketing agency and consultant partner focused on results.",
   path: "/performance-marketing",
 });
 
@@ -31,17 +30,16 @@ const page = () => {
     <div>
         <Hero/>
         <Intro/>
-        <div id="seo-services"><SeoServicesSection/></div>
-        <div id="sem-google-ads"><SemGoogleAdsSection/></div>
-        <ProgrammaticSection/>
+        <div id="programmatic-advertising"><ProgrammaticSection/></div>
         <div id="display-campaigns"><DisplayCampaignSection/></div>
-        <PerformanceMarketingSection/>
+        <div id="performance-marketing"><PerformanceMarketingSection/></div>
         <div id="media-planning"><MediaPlanningSection/></div>
         <div id="adops-solutions"><AdOpsAgenciesSection/></div>
-        <AdOpsPublishersSection/>
+        <div id="adops-publishers"><AdOpsPublishersSection/></div>
         <div id="affiliate-marketing"><AffiliateMarketingSection/></div>
         <div id="retargeting"><RetargetingSection/></div>
         <div id="retail-media"><RetailMediaSection/></div>
+        <div id="sem-google-ads"><SemGoogleAdsSection/></div>
         <PortfolioSection/>
         <ClientsSection/>
         <ContactCTA/>

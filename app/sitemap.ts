@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
 import { teamMembers } from "@/data/teamData";
+import { isAuthor, WORDPRESS_AUTHORS } from "@/lib/authors";
 
 const WORDPRESS_URL = process.env.WORDPRESS_URL || "https://adaptsmedia.com";
 
@@ -74,12 +75,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  const teamEntries: MetadataRoute.Sitemap = teamMembers.map((member) => ({
-    url: `${SITE_URL}/team/${member.slug}`,
+  const teamEntries: MetadataRoute.Sitemap = teamMembers
+    .filter((member) => !isAuthor(member.slug))
+    .map((member) => ({
+      url: `${SITE_URL}/team/${member.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.4,
+    }));
+
+  const authorEntries: MetadataRoute.Sitemap = WORDPRESS_AUTHORS.map((author) => ({
+    url: `${SITE_URL}/author/${author.authorSlug}`,
     lastModified: new Date(),
-    changeFrequency: "yearly",
-    priority: 0.4,
+    changeFrequency: "monthly",
+    priority: 0.5,
   }));
 
-  return [...staticEntries, ...blogEntries, ...teamEntries];
+  return [...staticEntries, ...blogEntries, ...teamEntries, ...authorEntries];
 }

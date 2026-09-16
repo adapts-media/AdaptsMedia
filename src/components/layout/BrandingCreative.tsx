@@ -11,12 +11,30 @@ gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
 const services = [
   {
-    items: ["Brand Identity", "Design Systems", "Content Strategy"],
-    links: ["/branding-creative#identity", "/branding-creative#design-systems", "/branding-creative#content-strategy"],
+    items: [
+      "Brand Identity & Logo Design",
+      "Campaign Creative",
+      "Design Systems",
+      "Photography & Production",
+    ],
+    links: [
+      "/branding-creative#identity",
+      "/branding-creative#campaigns",
+      "/branding-creative#design-systems",
+      "/branding-creative#photography",
+    ],
   },
   {
-    items: ["Campaigns & Activations", "Leverage Influencers"],
-    links: ["/branding-creative#campaigns", "/branding-creative#influencers"],
+    items: [
+      "Brand Strategy",
+      "Visual Design & Artwork",
+      "Motion Graphics & Video",
+    ],
+    links: [
+      "/branding-creative#brand-strategy",
+      "/branding-creative#visual-design",
+      "/branding-creative#motion-graphics",
+    ],
   },
 ];
 
@@ -146,8 +164,7 @@ const BrandingCreative = () => {
                 Branding & <br /> Creative
               </h2>
               <p className="brand-desc text-lg md:text-3xl opacity-90 max-w-3xl font-light leading-relaxed mb-20">
-                Content that connects. We build stories and experiences that engage
-                your audience and keep your brand top of mind.
+                We create brands that are not only visually strong but strategically positioned to stand out and stay relevant.
               </p>
             </div>
 

@@ -236,6 +236,7 @@ export default function AuthorPageClient({ authorData, posts }: AuthorPageClient
                     image={p.image}
                     slug={p.slug}
                     author={p.author}
+                    authorSlug={p.authorSlug || authorData.slug}
                     date={p.date}
                     tags={p.categories}
                   />

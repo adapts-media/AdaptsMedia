@@ -59,33 +59,8 @@ const Hero = () => {
       delay: 0.5,
     });
 
-    // Cursor-tracking radial gradient background animation
-    const container = containerRef.current;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!container) return;
-      const rect = container.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-
-      gsap.to(container, {
-        "--mouse-x": x,
-        "--mouse-y": y,
-        duration: 1.4,
-        ease: "power3.out",
-        overwrite: "auto",
-      });
-    };
-
-    if (container) {
-      container.addEventListener("mousemove", handleMouseMove);
-    }
-
     return () => {
       splits.forEach((s) => s.revert());
-      if (container) {
-        container.removeEventListener("mousemove", handleMouseMove);
-      }
     };
   }, { scope: containerRef });
 
@@ -94,10 +69,8 @@ const Hero = () => {
       ref={containerRef}
       className="relative w-full min-h-screen overflow-hidden flex items-center justify-center pt-28 pb-16 text-white"
       style={{
-        "--mouse-x": 80,
-        "--mouse-y": 50,
-        background: "radial-gradient(circle 700px at calc(var(--mouse-x, 80) * 1%) calc(var(--mouse-y, 50) * 1%), #4f46e5 0%, #06b6d4 60%, #020617 100%)",
-      } as React.CSSProperties}
+        background: "radial-gradient(circle 850px at top left, #df382b 0%, #f08924 55%, transparent 100%), radial-gradient(circle 850px at bottom right, #df382b 0%, #f08924 55%, transparent 100%), #FAC02E",
+      }}
     >
       {/* Globe Watermark in Right Bottom of Page */}
       <div className="absolute right-30 bottom-0 w-[280px] h-[280px] md:w-[420px] md:h-[420px] opacity-55 pointer-events-none z-0">

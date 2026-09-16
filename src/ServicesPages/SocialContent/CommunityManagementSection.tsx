@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
 import { useServiceDetailAnimation } from "../../hooks/useServiceDetailAnimation";
@@ -23,7 +24,7 @@ const CommunityManagementSection = () => {
       ref={containerRef}
       className="relative w-full py-24 md:py-32 flex justify-center overflow-hidden text-white"
       style={{
-        background: "radial-gradient(circle 600px at top left, rgba(250, 192, 46, 0.75) 0%, transparent 100%), radial-gradient(circle 600px at bottom right, rgba(250, 192, 46, 0.75) 0%, transparent 100%), #C12126"
+        background: "radial-gradient(circle 600px at top left, rgba(255, 255, 255, 0.15) 0%, transparent 100%), radial-gradient(circle 600px at bottom right, rgba(255, 255, 255, 0.15) 0%, transparent 100%), #262626"
       }}
     >
       <div className="max-w-[1350px] 2xl:max-w-[1600px] w-full mx-auto px-8 md:px-16 flex flex-col gap-16 relative z-10">
@@ -44,7 +45,7 @@ const CommunityManagementSection = () => {
 
                 {/* Main Illustration */}
                 <img
-                  src="/images/BrandingCreative/DesignSystemLogo.png"
+                  src="/images/social/3D Content Marketing 1.png"
                   className="community-img-main service-img-main relative z-10 w-full h-full object-contain scale-[0.75]"
                   alt="Community Management Illustration"
                 />
@@ -53,9 +54,9 @@ const CommunityManagementSection = () => {
 
             {/* Button Centered Under Image */}
             <div className="mt-8">
-              <a href="#" className="service-cta inline-block">
+              <Link href="/portfolio" className="service-cta inline-block">
                 <ArrowButton title="View Work" variant="light" />
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -68,7 +69,7 @@ const CommunityManagementSection = () => {
               Active Social Listening. Real-time Response Strategy.
             </h2>
 
-            <div className="community-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-red-50/90">
+            <div className="community-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-gray-300">
               <p>
                 An audience is fine but a community is a moat. We turn passive followers into active advocates through real-time interaction, proactive engagement & brand monitoring. No automated, robotic replies or delayed responses.
               </p>

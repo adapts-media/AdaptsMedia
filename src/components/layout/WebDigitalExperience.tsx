@@ -11,12 +11,32 @@ gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
 const services = [
   {
-    items: ["UX/UI", "Front & Back End", "API Integration"],
-    links: ["/web-digital-experience#ux-ui", "/web-digital-experience#web-development", "/web-digital-experience#api-integration"],
+    items: [
+      "UX & UI Design",
+      "E-commerce Development",
+      "API & System Integration",
+      "Website Maintenance & Support",
+    ],
+    links: [
+      "/web-digital-experience#ux-ui",
+      "/web-digital-experience#ecommerce-development",
+      "/web-digital-experience#api-integration",
+      "/web-digital-experience#website-maintenance",
+    ],
   },
   {
-    items: ["UX/UI", "Front & Back End", "API Integration"],
-    links: ["/web-digital-experience#ux-ui", "/web-digital-experience#web-development", "/web-digital-experience#api-integration"],
+    items: [
+      "Web Development",
+      "CMS Implementation",
+      "Landing Page Design",
+      "Conversion Rate Optimisation",
+    ],
+    links: [
+      "/web-digital-experience#web-development",
+      "/web-digital-experience#cms-implementation",
+      "/web-digital-experience#landing-page-design",
+      "/web-digital-experience#conversion-rate-optimisation",
+    ],
   },
 ];
 
@@ -122,7 +142,7 @@ const WebDigitalExperience = () => {
                 Web & Digital  <br /> Experience
               </h2>
               <p className="web-desc text-lg md:text-3xl opacity-90 mb-20 font-light max-w-3xl">
-                End-to-end solutions built to help brands grow, connect, and perform across every touchpoint.
+                We design digital experiences that don’t just look good — they convert, perform, and support your growth goals.
               </p>
             </div>
 

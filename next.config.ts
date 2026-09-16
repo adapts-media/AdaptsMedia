@@ -21,6 +21,17 @@ const nextConfig = {
         destination: "/blogs",
         permanent: true,
       },
+      // WordPress permalink for SEO services is /seo-services/ — map it to Next.js route
+      {
+        source: "/seo-services",
+        destination: "/search-engine-optimization",
+        permanent: true,
+      },
+      {
+        source: "/seo-services/",
+        destination: "/search-engine-optimization",
+        permanent: true,
+      },
     ];
   },
   images: {

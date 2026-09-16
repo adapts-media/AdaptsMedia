@@ -15,9 +15,9 @@ import PortfolioSection from "@/components/servicespage/PortfolioSection";
 import ClientsSection from "@/components/homepage/ClientsSection";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Branding & Creative | Adapts Media",
+  title: "Branding and Creative Services & Agency | Adapts Media",
   description:
-    "We build identities, creative systems, and production assets that make your brand impossible to ignore or forget.",
+    "We offer creative branding services that turn ideas into identities. As a creative branding agency, we handle strategy, logo design, packaging, and guidelines.",
   path: "/branding-creative",
 });
 

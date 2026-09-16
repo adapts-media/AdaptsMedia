@@ -457,6 +457,7 @@ export default function BlogList({ posts }: { posts: any[] }) {
                   image={post.image} 
                   slug={post.slug}
                   author={post.author}
+                  authorSlug={post.authorSlug}
                   date={post.date}
                   tags={post.categories || ["SEO", "Content Marketing", "Digital Strategy"]}
                 />

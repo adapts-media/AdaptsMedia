@@ -11,12 +11,28 @@ gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
 const services = [
   {
-    items: ["Strategic PR", "Press Releases", "Events & Activation"],
-    links: ["/public-relations#strategic-pr", "/public-relations#press-releases", "/public-relations#events-activation"],
+    items: [
+      "Strategic PR",
+      "Press Releases & Media Outreach",
+      "Events and Activation",
+    ],
+    links: [
+      "/public-relations#strategic-pr",
+      "/public-relations#press-releases",
+      "/public-relations#events-activation",
+    ],
   },
   {
-    items: ["Crisis Communications", "Influencer Ambassador", "Sponsorship & Partnership"],
-    links: ["/public-relations#crisis-communications", "/public-relations#influencer-ambassador", "/public-relations#sponsorship-partnership"],
+    items: [
+      "Sponsorship & Partnerships",
+      "Influencer & Ambassador Programmes",
+      "Crisis Communications",
+    ],
+    links: [
+      "/public-relations#sponsorship-partnership",
+      "/public-relations#influencer-ambassador",
+      "/public-relations#crisis-communications",
+    ],
   },
 ];
 
@@ -132,7 +148,7 @@ const PublicRelations = () => {
                 Public Relations  <br/> & Activations
               </h2>
               <p className="pr-desc text-lg md:text-3xl opacity-90 mb-20 font-light max-w-3xl">
-                End-to-end solutions built to help brands grow, connect, and perform across every touchpoint.
+                Build visibility beyond digital. We create impactful moments that connect your brand with the right audience, online and offline.
               </p>
             </div>
             

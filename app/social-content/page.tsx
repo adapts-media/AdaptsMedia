@@ -17,9 +17,9 @@ import PortfolioSection from "@/components/servicespage/PortfolioSection";
 import ClientsSection from "@/components/homepage/ClientsSection";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Social & Content | Adapts Media",
+  title: "Social Media Marketing Services & Solution | Adapts Media",
   description:
-    "We turn scrolling feeds into active sales channels and brand advocates through content that triggers action.",
+    "We offer the best social media marketing services for brands that want reach with returns. A social media marketing agency and consultant under one roof.",
   path: "/social-content",
 });
 
@@ -28,14 +28,14 @@ const page = () => {
     <div>
         <Hero/>
         <Intro/>
-        <SocialMediaSection/>
+        <div id="social-media-management"><SocialMediaSection/></div>
         <div id="paid-social"><PaidSocialAdvertisingSection/></div>
         <div id="influencer-marketing"><InfluencerMarketingSection/></div>
         <div id="content-strategy"><ContentStrategySection/></div>
-        <ContentCreationSection/>
-        <CommunityManagementSection/>
-        <EmailMarketingSection/>
-        <SmsMarketingSection/>
+        <div id="content-creation"><ContentCreationSection/></div>
+        <div id="community-management"><CommunityManagementSection/></div>
+        <div id="email-marketing"><EmailMarketingSection/></div>
+        <div id="sms-marketing"><SmsMarketingSection/></div>
         <PortfolioSection/>
         <ClientsSection/>
         <ContactCTA/>

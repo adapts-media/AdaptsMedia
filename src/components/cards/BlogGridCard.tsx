@@ -1,11 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface BlogGridCardProps {
   title: string;
   image: string;
   slug: string;
   author: string;
+  authorSlug?: string;
   date: string;
   tags: string[];
 }
@@ -15,11 +19,30 @@ export default function BlogGridCard({
   image,
   slug,
   author,
+  authorSlug,
   date,
   tags,
 }: BlogGridCardProps) {
+  const router = useRouter();
+
+  const resolvedAuthorSlug =
+    authorSlug ||
+    author
+      ?.toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "") ||
+    "shruti-goswami";
+
+  const handleCardClick = () => {
+    router.push(`/blogs/${slug}`);
+  };
+
   return (
-    <Link href={`/blogs/${slug}`} className="group flex flex-col w-full block">
+    <div
+      onClick={handleCardClick}
+      className="group flex flex-col w-full cursor-pointer"
+    >
       {/* Image Container */}
       <div className="relative w-full aspect-[16/10] overflow-hidden rounded-xl bg-gray-100">
         <Image
@@ -35,14 +58,26 @@ export default function BlogGridCard({
       <div className="flex flex-col mt-5 flex-grow">
         {/* Title */}
         <h3 className="text-lg md:text-xl font-sans font-bold text-[#07476B] leading-snug line-clamp-2 mb-3 transition-colors group-hover:text-[#004dc3]">
-          {title}
+          <Link
+            href={`/blogs/${slug}`}
+            onClick={(e) => e.stopPropagation()}
+            className="hover:underline"
+          >
+            {title}
+          </Link>
         </h3>
 
         {/* Meta (Author & Date) */}
         <div className="flex items-center justify-between text-xs font-sans mt-auto mb-4">
           <div className="flex items-center text-gray-500">
             <span>By</span>
-            <span className="ml-1 text-[#004dc3] font-medium">{author}</span>
+            <Link
+              href={`/author/${resolvedAuthorSlug}`}
+              onClick={(e) => e.stopPropagation()}
+              className="ml-1 text-[#004dc3] font-medium hover:underline hover:text-[#063b96] transition-colors relative z-10"
+            >
+              {author}
+            </Link>
           </div>
           <span className="text-gray-400">{date}</span>
         </div>
@@ -59,6 +94,6 @@ export default function BlogGridCard({
           ))}
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

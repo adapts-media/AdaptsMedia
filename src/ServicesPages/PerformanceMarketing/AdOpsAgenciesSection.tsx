@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
 import { useServiceDetailAnimation } from "../../hooks/useServiceDetailAnimation";
@@ -23,7 +24,7 @@ const AdOpsAgenciesSection = () => {
       ref={containerRef}
       className="relative w-full py-24 md:py-32 flex justify-center overflow-hidden text-white"
       style={{
-        background: "radial-gradient(circle 600px at top left, rgba(7, 71, 107, 0.75) 0%, transparent 100%), radial-gradient(circle 600px at bottom right, rgba(7, 71, 107, 0.75) 0%, transparent 100%), #064ED3"
+        background: "radial-gradient(circle 600px at top left, rgba(6, 78, 211, 0.3) 0%, transparent 100%), radial-gradient(circle 600px at bottom right, rgba(6, 78, 211, 0.3) 0%, transparent 100%), #092b5e"
       }}
     >
       <div className="max-w-[1350px] 2xl:max-w-[1600px] w-full mx-auto px-8 md:px-16 flex flex-col gap-16 relative z-10">
@@ -55,7 +56,7 @@ const AdOpsAgenciesSection = () => {
               <div className="w-full h-full relative">
                 {/* Background Grid */}
                 <img
-                  src="/images/BrandingCreative/LogoBgBlue.png"
+                  src="/images/BrandingCreative/DarkBlueLogoBg.png"
                   className="adops-agency-img-bg service-img-bg absolute inset-0 w-full h-full object-contain scale-110 z-0 opacity-40 pointer-events-none"
                   style={{ filter: 'brightness(0)' }}
                   alt="Agency Ad Ops Background Grid"
@@ -63,7 +64,7 @@ const AdOpsAgenciesSection = () => {
 
                 {/* Main Illustration */}
                 <img
-                  src="/images/BrandingCreative/LogoBlue.png"
+                  src="/images/Performance Marketing Icons/image 43.png"
                   className="adops-agency-img-main service-img-main relative z-10 w-full h-full object-contain scale-[0.75]"
                   alt="Agency Ad Ops Illustration"
                 />
@@ -72,9 +73,9 @@ const AdOpsAgenciesSection = () => {
 
             {/* Button Centered Under Image */}
             <div className="mt-8">
-              <a href="#" className="service-cta inline-block">
+              <Link href="/portfolio" className="service-cta inline-block">
                 <ArrowButton title="View Work" variant="light" />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

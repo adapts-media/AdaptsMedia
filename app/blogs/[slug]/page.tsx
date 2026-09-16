@@ -80,19 +80,20 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         <SingleBlogHero 
           title={decodedTitle}
           author={authorName}
+          authorSlug={authorData.slug}
           date={parsedDate}
           categories={cats}
         />
 
         {/* Featured Image Overlap */}
-        {post._embedded?.['wp:featuredmedia']?.[0]?.source_url && (
+        {(post._embedded?.['wp:featuredmedia']?.[0]?.source_url || post.yoast_head_json?.og_image?.[0]?.url) && (
           <div
             className="blog-featured-image relative z-20 max-w-5xl mx-auto px-6 -mt-32 md:-mt-40 mb-12"
             style={{ opacity: 0 }}
           >
             <div className="relative w-full overflow-hidden shadow-2xl bg-gray-100 rounded-xl aspect-[16/9]">
               <Image 
-                src={post._embedded?.['wp:featuredmedia']?.[0]?.source_url} 
+                src={post._embedded?.['wp:featuredmedia']?.[0]?.source_url || post.yoast_head_json?.og_image?.[0]?.url} 
                 alt="Featured Image"
                 fill
                 priority
@@ -213,6 +214,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                       image={rp.image}
                       slug={rp.slug}
                       author={rp.author}
+                      authorSlug={rp.authorSlug}
                       date={rp.date}
                       tags={rp.categories}
                     />

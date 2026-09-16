@@ -5,9 +5,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { teamMembers as initialMembers, TeamMember } from '@/data/teamData';
 
+import ArrowButton from '@/components/buttons/ArrowButton';
+import { getMemberProfileUrl } from '@/lib/authors';
+
 interface TeamSectionProps {
   members?: TeamMember[];
   title?: string;
+  limit?: number;
+  showViewAll?: boolean;
+  viewAllText?: string;
+  viewAllHref?: string;
+  className?: string;
 }
 
 const TeamCard = ({ member, index }: { member: TeamMember; index: number }) => {
@@ -17,8 +25,10 @@ const TeamCard = ({ member, index }: { member: TeamMember; index: number }) => {
     setImgSrc(member.image);
   }, [member.image]);
 
+  const profileUrl = getMemberProfileUrl(member);
+
   return (
-    <Link href={`/team/${member.slug}`} className="block group">
+    <Link href={profileUrl} className="block group">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -57,7 +67,7 @@ const TeamCard = ({ member, index }: { member: TeamMember; index: number }) => {
                 setImgSrc('/images/Team/AshishGupta.png');
               }
             }}
-            className="object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+            className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500"
           />
         </div>
 
@@ -75,30 +85,54 @@ const TeamCard = ({ member, index }: { member: TeamMember; index: number }) => {
   );
 };
 
-const TeamSection = ({ members: propMembers, title = "The Minds Behind" }: TeamSectionProps) => {
-  const [members, setMembers] = useState<TeamMember[]>(propMembers || initialMembers);
+const TeamSection = ({
+  members: propMembers,
+  title = "The Minds Behind",
+  limit,
+  showViewAll = false,
+  viewAllText = "View Team",
+  viewAllHref = "/team",
+  className = "",
+}: TeamSectionProps) => {
+  const [members, setMembers] = useState<TeamMember[]>(() => {
+    const base = propMembers && propMembers.length > 0 ? propMembers : initialMembers;
+    return limit ? base.slice(0, limit) : base;
+  });
 
   useEffect(() => {
-    if (propMembers && propMembers.length > 0) {
-      setMembers(propMembers);
-    }
-  }, [propMembers]);
+    const base = propMembers && propMembers.length > 0 ? propMembers : initialMembers;
+    setMembers(limit ? base.slice(0, limit) : base);
+  }, [propMembers, limit]);
 
   return (
-    <section className="w-full bg-[#00224D] py-24 px-8 md:px-16 min-h-screen">
+    <section className={`w-full bg-[#00224D] py-24 px-8 md:px-16 min-h-screen ${className}`}>
       <div className="max-w-[1350px] 2xl:max-w-[1600px] mx-auto">
         
         {/* Header */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <h2 className="text-5xl font-opensans md:text-7xl font-light text-white leading-tight">
-            {title}
-          </h2>
-        </motion.div>
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-5xl font-opensans md:text-7xl font-light text-white leading-tight">
+              {title}
+            </h2>
+          </motion.div>
+
+          {showViewAll && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="flex justify-start sm:justify-end shrink-0"
+            >
+              <Link href={viewAllHref}>
+                <ArrowButton title={viewAllText} />
+              </Link>
+            </motion.div>
+          )}
+        </div>
 
         {/* Unified Grid Container */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
 import { useServiceDetailAnimation } from "../../hooks/useServiceDetailAnimation";
@@ -23,7 +24,7 @@ const ProgrammaticSection = () => {
       ref={containerRef}
       className="relative w-full py-24 md:py-32 flex justify-center overflow-hidden text-white"
       style={{
-        background: "radial-gradient(circle 600px at top left, rgba(250, 192, 46, 0.75) 0%, transparent 100%), radial-gradient(circle 600px at bottom right, rgba(250, 192, 46, 0.75) 0%, transparent 100%), #C12126"
+        background: "radial-gradient(circle 600px at top left, rgba(7, 71, 107, 0.75) 0%, transparent 100%), radial-gradient(circle 600px at bottom right, rgba(7, 71, 107, 0.75) 0%, transparent 100%), #064ED3"
       }}
     >
       <div className="max-w-[1350px] 2xl:max-w-[1600px] w-full mx-auto px-8 md:px-16 flex flex-col gap-16 relative z-10">
@@ -38,7 +39,7 @@ const ProgrammaticSection = () => {
               Precision Targeting at Scale. Automated. Always On.
             </h2>
 
-            <div className="programmatic-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-red-50/90">
+            <div className="programmatic-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-blue-50/90">
               <p>
                 Programmatic buys the right impression, for the right person, at the right price. Real-time bidding removes guesswork from media buying and puts your ads in front of audiences that match your exact customer profile, across premium publisher inventory worldwide.
               </p>
@@ -55,7 +56,7 @@ const ProgrammaticSection = () => {
               <div className="w-full h-full relative">
                 {/* Background Grid */}
                 <img
-                  src="/images/BrandingCreative/DesignSystemLogoBg.png"
+                  src="/images/BrandingCreative/LogoBgBlue.png"
                   className="programmatic-img-bg service-img-bg absolute inset-0 w-full h-full object-contain scale-110 z-0 opacity-40 pointer-events-none"
                   style={{ filter: 'brightness(0)' }}
                   alt="Programmatic Background Grid"
@@ -63,7 +64,7 @@ const ProgrammaticSection = () => {
 
                 {/* Main Illustration */}
                 <img
-                  src="/images/BrandingCreative/DesignSystemLogo.png"
+                  src="/images/Performance Marketing Icons/image 40.png"
                   className="programmatic-img-main service-img-main relative z-10 w-full h-full object-contain scale-[0.75]"
                   alt="Programmatic Illustration"
                 />
@@ -72,9 +73,9 @@ const ProgrammaticSection = () => {
 
             {/* Button Centered Under Image */}
             <div className="mt-8">
-              <a href="#" className="service-cta inline-block">
+              <Link href="/portfolio" className="service-cta inline-block">
                 <ArrowButton title="View Work" variant="light" />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

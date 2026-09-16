@@ -12,6 +12,8 @@ import Footer from '@/components/layout/Footer'
 import PerformSection from '@/components/servicespage/PerformSection'
 import { buildMetadata } from '@/lib/seo'
 
+import { getWordPressTeamMembers } from '@/lib/getPosts'
+
 export const metadata: Metadata = buildMetadata({
   title: 'About Us | Adapts Media',
   description:
@@ -19,16 +21,24 @@ export const metadata: Metadata = buildMetadata({
   path: '/about-us',
 })
 
-const page = () => {
+const page = async () => {
+  const teamMembers = await getWordPressTeamMembers();
+
   return (
     <div>
     <AboutHero/>
-    <DubaiSection/>
+    {/* <DubaiSection/> */}
     <AboutOrangeSection/>
     <BlueSection/>
     <PerformSection/>
     <ImpactSection/>
-    <TeamSection/>
+    <TeamSection
+      members={teamMembers}
+      limit={4}
+      showViewAll={true}
+      viewAllText="View Team"
+      viewAllHref="/team"
+    />
     <ClientsSection/>
     {/* <Recognized/> */}
     <ContactCTA/>

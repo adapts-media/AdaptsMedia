@@ -32,7 +32,7 @@ const ArrowButton = ({ title, width = 'auto', onClick, variant = 'light' }: Arro
         ${widthMap[width]}
         group cursor-pointer relative z-10 flex items-center justify-center gap-3 overflow-hidden rounded-full border ${borderClass}
         px-5 py-2.5 md:px-6 md:py-3 
-        font-['DM_Sans'] text-[16px] md:text-[18px] font-normal tracking-[0.02em] ${textClass} isolation-auto backdrop-blur-md transition-all duration-700 
+        font-['DM_Sans'] text-[16px] md:text-[18px] font-normal tracking-[0.02em] ${textClass} transition-all duration-700 
         whitespace-nowrap
         before:absolute before:-left-full before:-z-10 before:aspect-square before:w-full before:rounded-full ${beforeBgClass} before:transition-all before:duration-700 
         before:hover:left-0 before:hover:w-full before:hover:scale-150 before:hover:duration-700

@@ -16,9 +16,9 @@ const navLinks = [
 ];
 
 const socials = [
-  { name: "Instagram", href: "#" },
-  { name: "LinkedIn", href: "#" },
-  { name: "Twitter", href: "#" },
+  { name: "Instagram", href: "https://www.instagram.com/adaptsmedia/?hl=en" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/company/adaptsmedia/?original_referer=https%3A%2F%2Fwww%2Egoogle%2Ecom%2F&originalSubdomain=ae" },
+  { name: "Twitter", href: "https://x.com/adaptsmedia" },
   { name: "Behance", href: "#" },
 ];
 
@@ -177,9 +177,14 @@ export default function FullscreenMenu({ isOpen, onClose }: { isOpen: boolean; o
 
                 <div className="space-y-4">
                   <h4 className="text-sm font-semibold tracking-[0.2em] uppercase text-[#FAC02D]">Get in touch</h4>
-                  <a href="mailto:info@adaptsmedia.com" className="text-xl md:text-2xl font-light text-white hover:text-[#FAC02D] transition-colors duration-300 block">
-                    info@adaptsmedia.com
-                  </a>
+                  <div className="space-y-1.5">
+                    <a href="mailto:info@adaptsmedia.com" className="text-xl md:text-2xl font-light text-white hover:text-[#FAC02D] transition-colors duration-300 block">
+                      info@adaptsmedia.com
+                    </a>
+                    <a href="tel:+971585601701" className="text-xl md:text-2xl font-light text-white hover:text-[#FAC02D] transition-colors duration-300 block">
+                      +971-58-560-1701
+                    </a>
+                  </div>
                   <p className="text-sm text-white/50 font-light max-w-[250px]">
                     702, Warsan Tower, Tecom, Barsha Heights, Dubai, UAE
                   </p>

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
 import { useServiceDetailAnimation } from "../../hooks/useServiceDetailAnimation";
@@ -23,7 +24,7 @@ const DisplayCampaignSection = () => {
       ref={containerRef}
       className="relative w-full py-24 md:py-32 flex justify-center overflow-hidden text-white"
       style={{
-        background: "radial-gradient(circle 600px at top left, rgba(6, 78, 211, 0.3) 0%, transparent 100%), radial-gradient(circle 600px at bottom right, rgba(6, 78, 211, 0.3) 0%, transparent 100%), #092b5e"
+        background: "radial-gradient(circle 600px at top left, rgba(255, 255, 255, 0.15) 0%, transparent 100%), radial-gradient(circle 600px at bottom right, rgba(255, 255, 255, 0.15) 0%, transparent 100%), #262626"
       }}
     >
       <div className="max-w-[1350px] 2xl:max-w-[1600px] w-full mx-auto px-8 md:px-16 flex flex-col gap-16 relative z-10">
@@ -36,7 +37,7 @@ const DisplayCampaignSection = () => {
               <div className="w-full h-full relative">
                 {/* Background Grid */}
                 <img
-                  src="/images/BrandingCreative/DarkBlueLogoBg.png"
+                  src="/images/BrandingCreative/DigitalMarketingLogoBg.png"
                   className="display-img-bg service-img-bg absolute inset-0 w-full h-full object-contain scale-110 z-0 opacity-40 pointer-events-none"
                   style={{ filter: 'brightness(0)' }}
                   alt="Display Background Grid"
@@ -44,7 +45,7 @@ const DisplayCampaignSection = () => {
 
                 {/* Main Illustration */}
                 <img
-                  src="/images/BrandingCreative/DarkBlueLogo.png"
+                  src="/images/Performance Marketing Icons/image 41.png"
                   className="display-img-main service-img-main relative z-10 w-full h-full object-contain scale-[0.75]"
                   alt="Display Illustration"
                 />
@@ -53,9 +54,9 @@ const DisplayCampaignSection = () => {
 
             {/* Button Centered Under Image */}
             <div className="mt-8">
-              <a href="#" className="service-cta inline-block">
+              <Link href="/portfolio" className="service-cta inline-block">
                 <ArrowButton title="View Work" variant="light" />
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -68,7 +69,7 @@ const DisplayCampaignSection = () => {
               Built to Get Noticed. Designed to Drive Action.
             </h2>
 
-            <div className="display-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-blue-50/90">
+            <div className="display-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-gray-300">
               <p>
                 Banner blindness is real. Generic display ads get scrolled past in seconds. We design and manage display campaigns that cut through, using sharp creative, precise audience layers and placement targeting across the Google Display Network and premium publisher sites.
               </p>

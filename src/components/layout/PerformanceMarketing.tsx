@@ -11,12 +11,38 @@ gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
 const services = [
   {
-    items: ["SEM & Google Ads", "SEO Services", "Affiliate Marketing", "Display Campaigns"],
-    links: ["/performance-marketing#sem-google-ads", "/performance-marketing#seo-services", "/performance-marketing#affiliate-marketing", "/performance-marketing#display-campaigns"],
+    items: [
+      "SEO Services",
+      "SEM / Google Ads",
+      "Programmatic Advertising",
+      "Ad Operations for Advertising Agencies",
+      "Retargeting & Remarketing",
+      "Retail Media & Marketplace Advertising",
+    ],
+    links: [
+      "/search-engine-optimization",
+      "/performance-marketing#sem-google-ads",
+      "/performance-marketing#programmatic-advertising",
+      "/performance-marketing#adops-solutions",
+      "/performance-marketing#retargeting",
+      "/performance-marketing#retail-media",
+    ],
   },
   {
-    items: ["Media Planning", "Retail Media", "Retargeting", "AdOps Solutions"],
-    links: ["/performance-marketing#media-planning", "/performance-marketing#retail-media", "/performance-marketing#retargeting", "/performance-marketing#adops-solutions"],
+    items: [
+      "Display Campaign Management",
+      "Performance Marketing",
+      "Media Planning & Buying",
+      "Ad Operations for Publishers",
+      "Affiliate Marketing",
+    ],
+    links: [
+      "/performance-marketing#display-campaigns",
+      "/performance-marketing#performance-marketing",
+      "/performance-marketing#media-planning",
+      "/performance-marketing#adops-publishers",
+      "/performance-marketing#affiliate-marketing",
+    ],
   },
 ];
 
@@ -167,8 +193,8 @@ const PerformanceMarketing = () => {
             <h2 className="perf-title text-4xl md:text-7xl font-light mb-8 leading-tight">
               Performance <br/> Marketing
             </h2>
-            <p className="perf-desc text-lg md:text-3xl opacity-90 mb-20 font-light">
-              End-to-end solutions built to help brands grow...
+            <p className="perf-desc text-lg md:text-3xl opacity-90 mb-20 font-light max-w-3xl">
+              Turn marketing into measurable growth. We design and manage campaigns focused on driving leads, conversions, and ROI.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 w-full">

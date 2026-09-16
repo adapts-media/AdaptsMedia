@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
 import { useServiceDetailAnimation } from "../../hooks/useServiceDetailAnimation";
@@ -63,18 +64,18 @@ const InfluencerAmbassadorSection = () => {
 
                 {/* Main Illustration */}
                 <img
-                  src="/images/BrandingCreative/WhiteLogo.png"
+                  src="/images/PublicRelationsIcons/image 56.png"
                   className="influencer-img-main service-img-main relative z-10 w-full h-full object-contain scale-[0.75]"
-                  alt="Influencer Illustration"
+                  alt="Influencer & Ambassador Programmes Illustration"
                 />
               </div>
             </div>
 
             {/* Button Centered Under Image */}
             <div className="mt-8">
-              <a href="#" className="service-cta inline-block">
+              <Link href="/portfolio" className="service-cta inline-block">
                 <ArrowButton title="View Work" variant="light" />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

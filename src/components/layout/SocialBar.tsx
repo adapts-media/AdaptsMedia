@@ -9,11 +9,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const socialLinks = [
-  { id: 1, iconPath: "/images/SocialIcons/Fb.png", url: "#", alt: "Facebook" },
-  { id: 2, iconPath: "/images/SocialIcons/X.png", url: "#", alt: "Twitter/X" },
-  { id: 3, iconPath: "/images/SocialIcons/Insta.png", url: "#", alt: "Instagram" },
-  { id: 4, iconPath: "/images/SocialIcons/LinkedIN.png", url: "#", alt: "LinkedIn" },
-  { id: 5, iconPath: "/images/SocialIcons/YT.png", url: "#", alt: "YouTube" },
+  { id: 1, iconPath: "/images/SocialIcons/Fb.png", url: "https://www.facebook.com/adaptsmedia/", alt: "Facebook" },
+  { id: 2, iconPath: "/images/SocialIcons/X.png", url: "https://x.com/adaptsmedia", alt: "Twitter/X" },
+  { id: 3, iconPath: "/images/SocialIcons/Insta.png", url: "https://www.instagram.com/adaptsmedia/?hl=en", alt: "Instagram" },
+  { id: 4, iconPath: "/images/SocialIcons/LinkedIN.png", url: "https://www.linkedin.com/company/adaptsmedia/?original_referer=https%3A%2F%2Fwww%2Egoogle%2Ecom%2F&originalSubdomain=ae", alt: "LinkedIn" },
+  { id: 5, iconPath: "/images/SocialIcons/YT.png", url: "https://www.youtube.com/@AdaptsMedia", alt: "YouTube" },
 ];
 
 interface SocialBarProps {
@@ -38,15 +38,15 @@ const SocialBar = ({ className = "bg-transparent" }: SocialBarProps) => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: barRef.current,
-        start: "top 85%",
-        end: "bottom 20%",
-        scrub: 1, // Scrubbed animation directly tied to scroll progress
+        start: "top 90%",
+        toggleActions: "play none none reverse",
       }
     });
 
     tl.to(heading, {
       opacity: 1,
       y: 0,
+      duration: 0.5,
       ease: "power2.out"
     })
     .to(icons, {
@@ -54,18 +54,19 @@ const SocialBar = ({ className = "bg-transparent" }: SocialBarProps) => {
       scale: 1,
       y: 0,
       rotate: 0,
-      stagger: 0.25, // Icons reveal one by one as user scrolls
+      duration: 0.5,
+      stagger: 0.08,
       ease: "back.out(1.7)"
-    });
+    }, "-=0.2");
   }, { scope: barRef });
 
   return (
-    <section ref={barRef} className={`social-bar-container w-full py-12 flex items-center justify-center ${className}`}>
-      <div className="flex flex-col md:flex-row items-center gap-8 md:gap-26">
-        <h3 className="social-heading text-white text-3xl md:text-5xl font-heading font-thin tracking-wide">
+    <section ref={barRef} className={`social-bar-container w-full py-2 sm:py-3 md:py-4 flex items-center justify-center ${className}`}>
+      <div className="flex flex-col md:flex-row items-center gap-4 sm:gap-6 md:gap-10 lg:gap-14">
+        <h3 className="social-heading text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-heading font-thin tracking-wide">
           Follow us @
         </h3>
-        <div className="flex items-center gap-4 md:gap-12">
+        <div className="flex items-center gap-3 sm:gap-4 md:gap-6 lg:gap-8">
           {socialLinks.map((social) => (
             <motion.a
               key={social.id}
@@ -74,11 +75,11 @@ const SocialBar = ({ className = "bg-transparent" }: SocialBarProps) => {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.1, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
               whileTap={{ scale: 0.9 }}
-              className="social-icon-btn w-12 h-12 md:w-20 md:h-20 flex items-center justify-center 
+              className="social-icon-btn w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 flex items-center justify-center 
                          rounded-full border border-white text-white
                          transition-colors duration-300 hover:border-white will-change-[transform,opacity]"
             >
-              <div className={`relative ${social.id === 1 ? 'w-[20px] h-[20px] md:w-[34px] md:h-[34px]' : 'w-5 h-5 md:w-8 md:h-8'}`}>
+              <div className="relative w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7">
                 <Image
                   src={social.iconPath}
                   alt={social.alt}

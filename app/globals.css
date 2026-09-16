@@ -3,6 +3,15 @@
 @source "../src/**/*.{js,ts,jsx,tsx}";
 @plugin "@tailwindcss/typography";
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+[id] {
+  scroll-margin-top: 90px;
+}
+
 /* ─── Custom cursor ─────────────────────────────────────── */
 .custom-cursor-active,
 .custom-cursor-active * {
@@ -392,4 +401,34 @@ body::-webkit-scrollbar,
 .hero-desc,
 .hero-desc div {
   text-align: left !important;
+}
+
+/* Service Detail Sections - Layout Alignment & Icon Sizing */
+.service-img-container {
+  max-width: 270px !important;
+}
+
+.service-img-bg {
+  transform: scale(1.25) !important;
+}
+
+@media (min-width: 1024px) {
+  section .grid:has(.service-img-container),
+  section .grid:has(.service-content-wrapper) {
+    align-items: start !important;
+  }
+  .service-img-container {
+    margin-top: 2.25rem !important;
+  }
+}
+
+.service-cta,
+.service-cta:hover,
+.service-cta:focus,
+.service-cta:active {
+  border-radius: 9999px !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }

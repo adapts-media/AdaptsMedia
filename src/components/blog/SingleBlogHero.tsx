@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -11,11 +12,12 @@ gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 interface SingleBlogHeroProps {
   title: string;
   author: string;
+  authorSlug?: string;
   date: string;
   categories: string[];
 }
 
-const SingleBlogHero = ({ title, author, date, categories }: SingleBlogHeroProps) => {
+const SingleBlogHero = ({ title, author, authorSlug, date, categories }: SingleBlogHeroProps) => {
   const containerRef = useRef<HTMLElement>(null);
 
   // ── Animate elements (they are pre-hidden via inline styles in JSX below) ─
@@ -141,7 +143,13 @@ const SingleBlogHero = ({ title, author, date, categories }: SingleBlogHeroProps
         >
           {author && (
             <p className="text-sm md:text-base font-sans text-white/80">
-              By <span className="text-[#6a9bd6]">{author}</span>
+              By{" "}
+              <Link
+                href={`/author/${authorSlug || author.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`}
+                className="text-[#6a9bd6] hover:underline hover:text-[#9bc2f5] transition-colors"
+              >
+                {author}
+              </Link>
             </p>
           )}
           <p className="text-xs md:text-sm font-sans text-white/60">

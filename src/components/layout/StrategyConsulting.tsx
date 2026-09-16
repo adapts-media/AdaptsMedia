@@ -11,12 +11,30 @@ gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
 const services = [
   {
-    items: ["Industry & Competitor Analysis", "Market Research", "Audience Insights", "Digital Audit"],
-    links: ["/strategy-consulting#industry-analysis", "/strategy-consulting#market-research", "/strategy-consulting#audience-insights", "/strategy-consulting#digital-audit"],
+    items: [
+      "Market Research",
+      "Industry & Competitor Analysis",
+      "Audience & Consumer Insights",
+      "Data & Analytics Consulting",
+    ],
+    links: [
+      "/strategy-consulting#market-research",
+      "/strategy-consulting#industry-analysis",
+      "/strategy-consulting#audience-insights",
+      "/strategy-consulting#data-analytics",
+    ],
   },
   {
-    items: ["Growth Strategies", "Data & Analytics", "Targeted Campaigns"],
-    links: ["/strategy-consulting#growth-strategies", "/strategy-consulting#data-analytics", "/strategy-consulting#targeted-campaigns"],
+    items: [
+      "Tailor-made Growth Strategies",
+      "Digital Audit",
+      "Campaign Planning & Measurement",
+    ],
+    links: [
+      "/strategy-consulting#growth-strategies",
+      "/strategy-consulting#digital-audit",
+      "/strategy-consulting#targeted-campaigns",
+    ],
   },
 ];
 
@@ -146,8 +164,7 @@ const StrategyConsulting = () => {
                 Strategy & <br /> Consulting
               </h2>
               <p className="strategy-desc text-lg md:text-3xl opacity-90 max-w-3xl font-light leading-relaxed mb-20">
-                Content that connects. We build stories and experiences that engage
-                your audience and keep your brand top of mind.
+                Clarity before execution. We start by understanding your market, audience, and competition to build a strategy that’s focused, actionable, and built to win.
               </p>
             </div>
 

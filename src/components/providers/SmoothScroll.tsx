@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactLenis } from 'lenis/react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -18,14 +18,93 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     }
   }, []);
 
+  const scrollToAnchor = useCallback((targetElementOrId: string | HTMLElement) => {
+    const target = typeof targetElementOrId === 'string'
+      ? (document.getElementById(targetElementOrId.replace(/^#/, '')) || document.querySelector(targetElementOrId))
+      : targetElementOrId;
+
+    if (!target) return false;
+
+    const lenis = lenisRef.current?.lenis;
+    if (lenis) {
+      lenis.resize();
+      lenis.scrollTo(target, { offset: -90, duration: 1.2 });
+    } else {
+      (target as HTMLElement).scrollIntoView({ behavior: 'smooth' });
+    }
+    return true;
+  }, []);
+
   useEffect(() => {
-    // Reset scroll to top on route change
-    if (lenisRef.current?.lenis) {
-      lenisRef.current.lenis.scrollTo(0, { immediate: true });
-    } else if (typeof window !== "undefined") {
-      window.scrollTo(0, 0);
+    const hash = typeof window !== 'undefined' ? window.location.hash : '';
+    if (hash) {
+      let attempts = 0;
+      const maxAttempts = 25; // 25 * 60ms = 1.5s
+      const tryScroll = () => {
+        const id = hash.replace(/^#/, '');
+        const target = document.getElementById(id) || document.querySelector(hash);
+        const lenis = lenisRef.current?.lenis;
+        if (target && lenis) {
+          lenis.resize();
+          lenis.scrollTo(target, { offset: -90, duration: 1.2 });
+        } else if (attempts < maxAttempts) {
+          attempts++;
+          setTimeout(tryScroll, 60);
+        } else if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      };
+      setTimeout(tryScroll, 100);
+    } else {
+      // Reset scroll to top on route change when no hash is present
+      if (lenisRef.current?.lenis) {
+        lenisRef.current.lenis.scrollTo(0, { immediate: true });
+      } else if (typeof window !== 'undefined') {
+        window.scrollTo(0, 0);
+      }
     }
   }, [pathname]);
+
+  // Handle same-page hash changes and anchor clicks
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        scrollToAnchor(hash);
+      }
+    };
+
+    const handleAnchorClick = (e: MouseEvent) => {
+      const anchor = (e.target as HTMLElement).closest('a');
+      if (!anchor) return;
+      const href = anchor.getAttribute('href');
+      if (!href || !href.includes('#')) return;
+
+      try {
+        const url = new URL(href, window.location.href);
+        // If clicking a hash link for the current page
+        if (url.pathname === window.location.pathname && url.hash) {
+          const id = url.hash.replace(/^#/, '');
+          const target = document.getElementById(id) || document.querySelector(url.hash);
+          if (target) {
+            e.preventDefault();
+            window.history.pushState(null, '', href);
+            scrollToAnchor(target as HTMLElement);
+          }
+        }
+      } catch {
+        // Ignore invalid URLs
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    document.addEventListener('click', handleAnchorClick, true);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+      document.removeEventListener('click', handleAnchorClick, true);
+    };
+  }, [scrollToAnchor]);
 
   useEffect(() => {
     if (isMobile) return;

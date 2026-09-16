@@ -1,7 +1,6 @@
 import Image from "next/image";
 import ArrowButton from "../buttons/ArrowButton";
 import BlogCardWrapper from "../cards/BlogCardWrapper";
-import BlogCursor from "../cards/BlogCursor";
 import { getWordPressPosts } from "@/lib/getPosts";
 import Link from "next/link";
 
@@ -9,6 +8,9 @@ interface Insight {
   title: string;
   image: string;
   slug?: string;
+  date?: string;
+  categories?: string[];
+  author?: string;
 }
 
 const InsightsSection = async () => {
@@ -63,10 +65,12 @@ const InsightsSection = async () => {
             <div className="flex overflow-x-auto gap-8 pb-8 snap-x snap-mandatory scrollbar-hide px-8 min-[1300px]:mx-0 min-[1300px]:px-0">
               {insights.map((item: Insight, index: number) => (
                 <BlogCardWrapper
-                  key={index}
+                  key={item.slug || index}
                   slug={item.slug || ""}
                   title={item.title}
                   image={item.image}
+                  date={item.date}
+                  category={item.categories?.[0]}
                 />
               ))}
             </div>

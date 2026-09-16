@@ -11,12 +11,32 @@ gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
 const services = [
   {
-    items: ["Content Strategy", "Leverage Influencers", "Paid Social"],
-    links: ["/social-content#content-strategy", "/social-content#influencer-marketing", "/social-content#paid-social"],
+    items: [
+      "Social Media Management",
+      "Influencer Marketing",
+      "Content Creation",
+      "Email Marketing",
+    ],
+    links: [
+      "/social-content#social-media-management",
+      "/social-content#influencer-marketing",
+      "/social-content#content-creation",
+      "/social-content#email-marketing",
+    ],
   },
   {
-    items: ["Content Strategy", "Leverage Influencers"],
-    links: ["/social-content#content-strategy", "/social-content#influencer-marketing"],
+    items: [
+      "Paid Social Advertising",
+      "Content Strategy",
+      "Community Management",
+      "SMS Marketing",
+    ],
+    links: [
+      "/social-content#paid-social",
+      "/social-content#content-strategy",
+      "/social-content#community-management",
+      "/social-content#sms-marketing",
+    ],
   },
 ];
 

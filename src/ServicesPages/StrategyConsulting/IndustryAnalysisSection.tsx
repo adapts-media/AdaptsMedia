@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
 import { useServiceDetailAnimation } from "../../hooks/useServiceDetailAnimation";
@@ -44,18 +45,18 @@ const IndustryAnalysisSection = () => {
 
                 {/* Main Illustration */}
                 <img
-                  src="/images/BrandingCreative/DigitalMarketingLogo.png"
+                  src="/images/StrategyAndConsultingIcons/image 59.png"
                   className="analysis-img-main service-img-main relative z-10 w-full h-full object-contain scale-[0.75]"
-                  alt="Competitor Analysis Illustration"
+                  alt="Industry & Competitor Analysis Illustration"
                 />
               </div>
             </div>
 
             {/* Button Centered Under Image */}
             <div className="mt-8">
-              <a href="#" className="service-cta inline-block">
+              <Link href="/portfolio" className="service-cta inline-block">
                 <ArrowButton title="View Work" variant="light" />
-              </a>
+              </Link>
             </div>
           </div>
 

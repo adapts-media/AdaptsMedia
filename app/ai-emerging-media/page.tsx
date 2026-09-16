@@ -14,9 +14,9 @@ import PortfolioSection from "@/components/servicespage/PortfolioSection";
 import ClientsSection from "@/components/homepage/ClientsSection";
 
 export const metadata: Metadata = buildMetadata({
-  title: "AI & Emerging Media | Adapts Media",
+  title: "AI Consulting Services & AI Solutions | Adapts Media",
   description:
-    "We help brands get found, get recommended and move faster using AI — before the competition works out how.",
+    "Grow your business with AI that does real work. Adapts Media provides the best artificial intelligence (AI) services and solutions built around your workflow.",
   path: "/ai-emerging-media",
 });
 

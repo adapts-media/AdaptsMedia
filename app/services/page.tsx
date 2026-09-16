@@ -10,16 +10,16 @@ import ServicesHero from "@/components/servicespage/ServicesHero"
 import { buildMetadata } from "@/lib/seo"
 
 export const metadata: Metadata = buildMetadata({
-  title: "Services | Adapts Media",
+  title: "Brand Building Services and Solution | Adapts Media",
   description:
-    "From strategy to execution, we create integrated solutions that help brands connect, perform, and scale.",
+    "Your brand deserves better than guesswork. One team for strategy, design, media and web, and results you can check. Get your plan and price today.",
   path: "/services",
 })
 
 const page = () => {
   return (
     <div>
-      <ServicesHero/>
+    <ServicesHero/>
     <ConnectedThinkingServices/>
     <PortfolioSection/>
     <ClientsSection/>

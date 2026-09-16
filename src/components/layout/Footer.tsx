@@ -4,8 +4,6 @@ import React, { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   FaLinkedinIn,
   FaInstagram,
@@ -18,183 +16,15 @@ import {
   FaPhone,
   FaPaperPlane,
 } from "react-icons/fa6";
-import ArrowButton from "@/components/buttons/ArrowButton";
 import SocialBar from "@/components/layout/SocialBar";
 import { useLenis } from 'lenis/react';
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function Footer() {
   const lenis = useLenis();
   const footerRef = useRef<HTMLDivElement>(null);
-  const ctaSectionRef = useRef<HTMLDivElement>(null);
-  const paragraphRef = useRef<HTMLParagraphElement>(null);
-  const buttonWrapperRef = useRef<HTMLDivElement>(null);
-  const socialBarRef = useRef<HTMLDivElement>(null);
-  const gridSectionRef = useRef<HTMLDivElement>(null);
   const backToTopRef = useRef<HTMLButtonElement>(null);
 
   const [isCopied, setIsCopied] = useState(false);
-
-  // Helper to render split words cleanly without layout shifts or FOUC
-  const renderSplitWords = (text: string, className: string) => {
-    return text.split(" ").map((word, idx) => (
-      <span
-        key={idx}
-        className="inline-block overflow-hidden py-[0.1em] mr-[0.25em] select-none"
-      >
-        <span
-          className={`${className} inline-block origin-bottom-left will-change-[transform,filter,opacity]`}
-        >
-          {word}
-        </span>
-      </span>
-    ));
-  };
-
-  useGSAP(
-    () => {
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-
-      if (prefersReducedMotion) {
-        gsap.set(".footer-cta-word", { yPercent: 0, opacity: 1, filter: "none" });
-        gsap.set([paragraphRef.current, buttonWrapperRef.current, socialBarRef.current, gridSectionRef.current], {
-          opacity: 1,
-          y: 0,
-        });
-        return;
-      }
-
-      // Initial states matching BlueSection / ServicesSection
-      const ctaWords = gsap.utils.toArray<HTMLElement>(".footer-cta-word");
-      gsap.set(ctaWords, {
-        yPercent: 105,
-        filter: "blur(6px)",
-        rotate: 1.5,
-        opacity: 0,
-      });
-
-      gsap.set(paragraphRef.current, { opacity: 0, y: 24 });
-      gsap.set(buttonWrapperRef.current, { opacity: 0, y: 30 });
-      gsap.set(socialBarRef.current, { opacity: 0, y: 36 });
-      gsap.set(gridSectionRef.current, { opacity: 0, y: 40 });
-
-      // 1. Entrance Timeline on Scroll into view
-      const entranceTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ctaSectionRef.current,
-          start: "top 75%",
-          end: "bottom 20%",
-          toggleActions: "play none none reverse",
-        },
-      });
-
-      entranceTl
-        .to(ctaWords, {
-          yPercent: 0,
-          filter: "blur(0px)",
-          rotate: 0,
-          opacity: 1,
-          duration: 1.1,
-          ease: "power4.out",
-          stagger: 0.05,
-        })
-        .to(
-          paragraphRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power3.out",
-          },
-          "-=0.5"
-        )
-        .to(
-          buttonWrapperRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power3.out",
-          },
-          "-=0.5"
-        )
-        .to(
-          socialBarRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power3.out",
-          },
-          "-=0.4"
-        );
-
-      // 2. Smooth Scroll Pinning & Transition into Footer Grid
-      const pinTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ctaSectionRef.current,
-          start: "top top",
-          end: "+=120%",
-          pin: true,
-          scrub: 1.2,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      pinTl
-        .to(
-          ".footer-cta-heading",
-          {
-            y: -20,
-            scale: 0.98,
-            opacity: 0.9,
-            ease: "none",
-          },
-          0
-        )
-        .to(
-          paragraphRef.current,
-          {
-            y: -15,
-            opacity: 0.8,
-            ease: "none",
-          },
-          0
-        )
-        .to(
-          buttonWrapperRef.current,
-          {
-            y: -15,
-            opacity: 0.8,
-            ease: "none",
-          },
-          0
-        )
-        .to(
-          socialBarRef.current,
-          {
-            y: -15,
-            opacity: 0.8,
-            ease: "none",
-          },
-          0
-        )
-        .to(
-          gridSectionRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "none",
-          },
-          0.4
-        );
-    },
-    { scope: footerRef }
-  );
 
   // Smooth Back to Top Scroll
   const handleBackToTop = () => {
@@ -236,61 +66,23 @@ export default function Footer() {
           className="absolute pointer-events-none object-cover opacity-50 mix-blend-overlay"
         />
         {/* Soft Ambient Light Glows */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-[#0052FF]/25 rounded-full blur-[160px]" />
-        <div className="absolute bottom-1/4 right-10 w-[500px] h-[400px] bg-sky-400/15 rounded-full blur-[140px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-[#0052FF]/25 rounded-full blur-[140px]" />
       </div>
 
       {/* ========================================================================= */}
-      {/* SECTION 1 — FINAL CTA (100vh) */}
+      {/* SOCIAL BAR SECTION (Compact Height) */}
       {/* ========================================================================= */}
-      <section
-        ref={ctaSectionRef}
-        className="relative min-h-screen w-full flex flex-col items-center justify-center py-20 z-20"
-      >
-        <div className="max-w-[1350px] 2xl:max-w-[1600px] w-full mx-auto px-8 md:px-16 text-center flex flex-col items-center justify-center">
-          {/* Main Editorial Headline with Bolder OpenSans */}
-          <h2 className="footer-cta-heading text-4xl sm:text-6xl md:text-7xl lg:text-[90px] font-heading font-normal tracking-tight leading-[1.1] text-white mb-8 max-w-5xl">
-            {renderSplitWords(
-              "Let's Build Something Extraordinary Together.",
-              "footer-cta-word"
-            )}
-          </h2>
-
-          {/* Subtitle Paragraph */}
-          <p
-            ref={paragraphRef}
-            className="text-white/80 text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-light mb-12 will-change-[transform,opacity]"
-          >
-            Whether you&apos;re launching a brand, scaling globally, or building the next
-            digital experience, we&apos;re ready to create something unforgettable.
-          </p>
-
-          {/* Standard Adapts Media Arrow Button */}
-          <div
-            ref={buttonWrapperRef}
-            className="will-change-[transform,opacity] mb-10 md:mb-12"
-          >
-            <Link href="/contact" className="inline-block">
-              <ArrowButton title="Start Your Project" width="lg" variant="light" />
-            </Link>
-          </div>
-
-          {/* Integrated Social Bar with GSAP scroll entrance animation */}
-          <div
-            ref={socialBarRef}
-            className="w-full will-change-[transform,opacity]"
-          >
-            <SocialBar />
-          </div>
+      <section className="relative z-20 py-8 sm:py-10 md:py-12 w-full flex items-center justify-center">
+        <div className="max-w-[1350px] 2xl:max-w-[1600px] w-full mx-auto px-6 sm:px-8 md:px-16 flex items-center justify-center">
+          <SocialBar />
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 2 & 3 — FOOTER GRID LAYOUT WITH AWARDS */}
+      {/* FOOTER GRID LAYOUT WITH AWARDS */}
       {/* ========================================================================= */}
       <section
-        ref={gridSectionRef}
-        className="relative w-full pt-12 pb-10 bg-[#16171b] border-t border-white/10 text-white z-20 will-change-[transform,opacity]"
+        className="relative w-full pt-12 pb-10 bg-[#16171b] border-t border-white/10 text-white z-20"
       >
         <div className="max-w-[1350px] 2xl:max-w-[1600px] w-full px-8 md:px-16 mx-auto">
           {/* Top Row: Logo & Social Icons */}
@@ -312,11 +104,11 @@ export default function Footer() {
             {/* Top Right Social Icons */}
             <div className="flex items-center gap-3">
               {[
-                { name: "Facebook", icon: <FaFacebookF className="w-3.5 h-3.5" />, href: "https://facebook.com" },
-                { name: "Twitter / X", icon: <FaXTwitter className="w-3.5 h-3.5" />, href: "https://x.com" },
-                { name: "Instagram", icon: <FaInstagram className="w-3.5 h-3.5" />, href: "https://instagram.com" },
-                { name: "LinkedIn", icon: <FaLinkedinIn className="w-3.5 h-3.5" />, href: "https://linkedin.com" },
-                { name: "YouTube", icon: <FaYoutube className="w-3.5 h-3.5" />, href: "https://youtube.com" },
+                { name: "Facebook", icon: <FaFacebookF className="w-3.5 h-3.5" />, href: "https://www.facebook.com/adaptsmedia/" },
+                { name: "Twitter / X", icon: <FaXTwitter className="w-3.5 h-3.5" />, href: "https://x.com/adaptsmedia" },
+                { name: "Instagram", icon: <FaInstagram className="w-3.5 h-3.5" />, href: "https://www.instagram.com/adaptsmedia/?hl=en" },
+                { name: "LinkedIn", icon: <FaLinkedinIn className="w-3.5 h-3.5" />, href: "https://www.linkedin.com/company/adaptsmedia/?original_referer=https%3A%2F%2Fwww%2Egoogle%2Ecom%2F&originalSubdomain=ae" },
+                { name: "YouTube", icon: <FaYoutube className="w-3.5 h-3.5" />, href: "https://www.youtube.com/@AdaptsMedia" },
               ].map((social) => (
                 <a
                   key={social.name}
@@ -344,16 +136,16 @@ export default function Footer() {
               <div>
                 <h4 className="text-sm font-semibold text-white mb-3">Services</h4>
                 <ul className="space-y-2 text-xs text-white/70 font-light">
-                  <li><Link href="/services" className="hover:text-white transition-colors">SEM Agency</Link></li>
-                  <li><Link href="/services" className="hover:text-white transition-colors">Best Data Analytics Services</Link></li>
-                  <li><Link href="/branding-creative" className="hover:text-white transition-colors">Creative Designing</Link></li>
-                  <li><Link href="/services" className="hover:text-white transition-colors">SEO Services</Link></li>
-                  <li><Link href="/services" className="hover:text-white transition-colors">SMS Campaign</Link></li>
-                  <li><Link href="/social-content" className="hover:text-white transition-colors">Social Media Marketing</Link></li>
-                  <li><Link href="/web-digital-experience" className="hover:text-white transition-colors">Web Development</Link></li>
-                  <li><Link href="/performance-marketing" className="hover:text-white transition-colors">Display Campaign Management</Link></li>
-                  <li><Link href="/performance-marketing" className="hover:text-white transition-colors">Programmatic Advertising</Link></li>
-                  <li><Link href="/services" className="hover:text-white transition-colors">Ad Operations for Advertising Agencies</Link></li>
+                  <li><Link href="/performance-marketing#sem-google-ads" className="hover:text-white transition-colors">SEM Agency</Link></li>
+                  <li><Link href="/strategy-consulting#data-analytics" className="hover:text-white transition-colors">Best Data Analytics Services</Link></li>
+                  <li><Link href="/branding-creative#visual-design" className="hover:text-white transition-colors">Creative Designing</Link></li>
+                  <li><Link href="/search-engine-optimization" className="hover:text-white transition-colors">SEO Services</Link></li>
+                  <li><Link href="/social-content#sms-marketing" className="hover:text-white transition-colors">SMS Campaign</Link></li>
+                  <li><Link href="/social-content#social-media-management" className="hover:text-white transition-colors">Social Media Marketing</Link></li>
+                  <li><Link href="/web-digital-experience#web-development" className="hover:text-white transition-colors">Web Development</Link></li>
+                  <li><Link href="/performance-marketing#display-campaigns" className="hover:text-white transition-colors">Display Campaign Management</Link></li>
+                  <li><Link href="/performance-marketing#programmatic-advertising" className="hover:text-white transition-colors">Programmatic Advertising</Link></li>
+                  <li><Link href="/performance-marketing#adops-solutions" className="hover:text-white transition-colors">Ad Operations for Advertising Agencies</Link></li>
                 </ul>
               </div>
             </div>
@@ -397,10 +189,10 @@ export default function Footer() {
                 </Link>
                 <h4 className="text-sm font-semibold text-white mb-3">Other Location</h4>
                 <ul className="space-y-1.5 text-xs text-white/70 font-light">
-                  <li>India</li>
-                  <li>Philippines</li>
-                  <li>London</li>
-                  <li>United States</li>
+                  <li><Link href="/contact" className="hover:text-white transition-colors">India</Link></li>
+                  <li><Link href="/contact" className="hover:text-white transition-colors">Philippines</Link></li>
+                  <li><Link href="/contact" className="hover:text-white transition-colors">London</Link></li>
+                  <li><Link href="/contact" className="hover:text-white transition-colors">United States</Link></li>
                 </ul>
               </div>
             </div>
@@ -411,29 +203,39 @@ export default function Footer() {
                 Contact Us
               </Link>
 
-              <Link href="/services" className="text-sm font-semibold text-white hover:text-sky-400 transition-colors">
-                Locations
-              </Link>
+              <div>
+                <h4 className="text-sm font-semibold text-white mb-3">Locations</h4>
+                <ul className="space-y-1.5 text-xs text-white/70 font-light whitespace-nowrap">
+                  <li><Link href="/contact" className="hover:text-white transition-colors">Dubai</Link></li>
+                  <li><Link href="/contact" className="hover:text-white transition-colors">India</Link></li>
+                  <li><Link href="/contact" className="hover:text-white transition-colors">Philippines</Link></li>
+                  <li><Link href="/contact" className="hover:text-white transition-colors">London</Link></li>
+                  <li><Link href="/contact" className="hover:text-white transition-colors">United States</Link></li>
+                </ul>
+              </div>
             </div>
 
             {/* COLUMN 5: Awards Section (lg:col-span-3) */}
-            <div className="lg:col-span-3 flex flex-col items-start space-y-4">
+            <div className="w-full md:col-span-2 lg:col-span-3 flex flex-col items-start space-y-4">
               <h4 className="text-sm font-semibold text-white">Awards</h4>
 
               {/* Awards Box */}
-              <div className="w-full bg-white/[0.03] border border-white/15 rounded-xl p-3 sm:p-4 flex items-center justify-between gap-2 shadow-lg backdrop-blur-md">
+              <div className="w-full bg-white/[0.03] border border-white/15 rounded-xl p-2.5 sm:p-3 xl:p-4 grid grid-cols-4 items-center gap-1.5 sm:gap-2 shadow-lg backdrop-blur-md overflow-hidden">
                 {[
                   { name: "TechBehemoths 2025 Winner", src: "/images/techbehemoths.png" },
                   { name: "Clutch Top Digital Marketing", src: "/images/digitalmarketing.png" },
                   { name: "Clutch Top Web Developers", src: "/images/webdevelopment.png" },
                   { name: "Clutch Top Technical SEO", src: "/images/technicalseo.png" },
                 ].map((award, i) => (
-                  <div key={i} className="relative w-14 h-16 sm:w-16 sm:h-20 shrink-0 hover:scale-105 transition-transform duration-300">
+                  <div
+                    key={i}
+                    className="relative w-full aspect-[4/5] max-w-[56px] sm:max-w-[64px] mx-auto hover:scale-105 transition-transform duration-300"
+                  >
                     <Image
                       src={award.src}
                       alt={award.name}
                       fill
-                      sizes="80px"
+                      sizes="(max-width: 640px) 20vw, 80px"
                       className="object-contain"
                     />
                   </div>

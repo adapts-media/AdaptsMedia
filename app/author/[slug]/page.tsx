@@ -1,14 +1,30 @@
 import { getPostsByAuthor, getResolvedAuthor, getWordPressTeamMembers } from "@/lib/getPosts";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 import AuthorPageClient from "@/components/author/AuthorPageClient";
 import { buildMetadata } from "@/lib/seo";
+import { WORDPRESS_AUTHORS } from "@/lib/authors";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
+export async function generateStaticParams() {
+  return WORDPRESS_AUTHORS.map((author) => ({
+    slug: author.authorSlug,
+  }));
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+
+  if (slug === "jailee-dela-cruz") {
+    return buildMetadata({
+      title: "Jailee Cruz - Author at Adapts Media",
+      description: "Read articles and insights published by Jailee Cruz on Adapts Media's blog.",
+      path: "/author/jailee-cruz",
+    });
+  }
   
   const posts = await getPostsByAuthor(slug);
   let name = slug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
@@ -18,7 +34,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     name = authorData.name;
   } else {
     const team = await getWordPressTeamMembers();
-    const matchingMember = team.find((m: any) => m.slug === slug);
+    const matchingMember = team.find((m: any) => 
+      m.slug === slug || 
+      (slug === "jailee-cruz" && (m.slug === "jailee-dela-cruz" || m.name.toLowerCase().includes("jailee")))
+    );
     if (matchingMember) {
       name = matchingMember.name;
     }
@@ -33,6 +52,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function AuthorBlogsPage({ params }: Props) {
   const { slug } = await params;
+
+  if (slug === "jailee-dela-cruz") {
+    redirect("/author/jailee-cruz");
+  }
   
   const posts = await getPostsByAuthor(slug);
   
@@ -41,7 +64,10 @@ export default async function AuthorBlogsPage({ params }: Props) {
     authorData = await getResolvedAuthor(posts[0]);
   } else {
     const team = await getWordPressTeamMembers();
-    const matchingMember = team.find((m: any) => m.slug === slug);
+    const matchingMember = team.find((m: any) => 
+      m.slug === slug || 
+      (slug === "jailee-cruz" && (m.slug === "jailee-dela-cruz" || m.name.toLowerCase().includes("jailee")))
+    );
     if (matchingMember) {
       authorData = {
         name: matchingMember.name,
@@ -58,7 +84,7 @@ export default async function AuthorBlogsPage({ params }: Props) {
         name,
         slug,
         description: "Digital Marketing Specialist and author at Adapts Media.",
-        avatar: "/images/team/shruti.jpg",
+        avatar: "/images/Team/AshishGupta.png",
         role: "Author",
         linkedin: "https://linkedin.com/company/adaptsmedia",
         email: "info@adaptsmedia.com",
@@ -68,3 +94,4 @@ export default async function AuthorBlogsPage({ params }: Props) {
 
   return <AuthorPageClient authorData={authorData} posts={posts} />;
 }
+

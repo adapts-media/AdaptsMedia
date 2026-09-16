@@ -13,15 +13,15 @@ import PortfolioSection from "@/components/servicespage/PortfolioSection";
 import ClientsSection from "@/components/homepage/ClientsSection";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Search Engine Optimization | Adapts Media",
+  title: "Search Engine Optimisation Services & Solution | Adapts Media",
   description:
-    "We build organic search strategies that are measured, scalable, and accountable from keyword ranking to pipeline revenue.",
+    "Ready to rank? Get organic SEO services for business that bring you buyers, not just traffic. SEO agency services and consulting for long term growth. Ask now.",
   path: "/search-engine-optimization",
 });
 
 const page = () => {
   return (
-    <div>
+    <div id="seo-services">
       <Hero />
       <Intro />
       <div id="on-page-seo"><OnPageSeoSection /></div>

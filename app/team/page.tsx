@@ -54,7 +54,11 @@ export default async function TeamPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       )}
-      <TeamSection members={teamMembers} title="Meet Our Expert Team" />
+      <TeamSection
+        members={teamMembers}
+        title="The Minds Behind"
+        className="pt-36 md:pt-44"
+      />
       <ContactCTA />
       <Footer />
     </main>

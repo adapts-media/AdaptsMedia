@@ -16,9 +16,9 @@ import PortfolioSection from "@/components/servicespage/PortfolioSection";
 import ClientsSection from "@/components/homepage/ClientsSection";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Strategy & Consulting | Adapts Media",
+  title: "Strategy Consulting Services for Brands | Adapts Media",
   description:
-    "We help brands take strategic decisions with research, analysis and strategy that gives your marketing a real foundation.",
+    "Does your business need a clear strategy to grow? Connect with us for business and brand strategy consulting services built around where you want to be next.",
   path: "/strategy-consulting",
 });
 

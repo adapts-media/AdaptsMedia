@@ -15,9 +15,9 @@ import PortfolioSection from "@/components/servicespage/PortfolioSection";
 import ClientsSection from "@/components/homepage/ClientsSection";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Public Relations & Activations | Adapts Media",
+  title: "Public Relation Services & Consultancy | Adapts Media",
   description:
-    "We manage your brand's public presence through strategic PR, media relationships, and real-world activations that build lasting credibility.",
+    "Get your brand into the conversations that matter. Public relation consultancy services that win you real coverage, credibility and trust that ads cannot buy.",
   path: "/public-relations",
 });
 

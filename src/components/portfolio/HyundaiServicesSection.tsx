@@ -74,7 +74,7 @@ export default function HyundaiServicesSection() {
           {/* Social Links */}
           <div className="flex gap-16 items-center">
             <a
-              href="https://facebook.com"
+              href="https://www.facebook.com/adaptsmedia/"
               target="_blank"
               rel="noopener noreferrer"
               className="service-cta w-16 h-16 rounded-full border border-white flex items-center justify-center text-white hover:border-white hover:bg-white/10 transition-all duration-300"
@@ -90,7 +90,7 @@ export default function HyundaiServicesSection() {
               />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/company/adaptsmedia/?original_referer=https%3A%2F%2Fwww%2Egoogle%2Ecom%2F&originalSubdomain=ae"
               target="_blank"
               rel="noopener noreferrer"
               className="service-cta w-16 h-16 rounded-full border border-white flex items-center justify-center text-white hover:border-white hover:bg-white/10 transition-all duration-300"
@@ -106,7 +106,7 @@ export default function HyundaiServicesSection() {
               />
             </a>
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/adaptsmedia/?hl=en"
               target="_blank"
               rel="noopener noreferrer"
               className="service-cta w-16 h-16 rounded-full border border-white flex items-center justify-center text-white hover:border-white hover:bg-white/10 transition-all duration-300"

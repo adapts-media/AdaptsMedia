@@ -53,12 +53,20 @@ export const useServiceDetailAnimation = (containerRef: RefObject<HTMLElement | 
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease !important;
-          will-change: transform, box-shadow;
+          border-radius: 9999px !important;
+          background: transparent !important;
+          border: none !important;
+          outline: none !important;
+          box-shadow: none !important;
+          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+          will-change: transform;
         }
         .service-cta:hover {
           transform: translateY(-3px) scale(1.02);
-          box-shadow: 0 0 25px rgba(255, 255, 255, 0.18);
+          background: transparent !important;
+          border: none !important;
+          outline: none !important;
+          box-shadow: none !important;
         }
         .service-cta span.arrow {
           display: inline-flex;
@@ -68,6 +76,21 @@ export const useServiceDetailAnimation = (containerRef: RefObject<HTMLElement | 
         }
         .service-cta:hover span.arrow {
           transform: translate(2px, -2px);
+        }
+        .service-img-container {
+          max-width: 270px !important;
+        }
+        .service-img-bg {
+          transform: scale(1.25) !important;
+        }
+        @media (min-width: 1024px) {
+          section .grid:has(.service-img-container),
+          section .grid:has(.service-content-wrapper) {
+            align-items: start !important;
+          }
+          .service-img-container {
+            margin-top: 2.25rem !important;
+          }
         }
       `;
       document.head.appendChild(style);
@@ -150,18 +173,10 @@ export const useServiceDetailAnimation = (containerRef: RefObject<HTMLElement | 
     if (imgMainEl) {
       gsap.set(imgMainEl, {
         opacity: 0,
-        scale: 0.9,
+        scale: 0.75,
         filter: "blur(10px)",
         rotate: 5,
         transformOrigin: "center center",
-      });
-    }
-
-    const imgBgEl = container.querySelector(".service-img-bg");
-    if (imgBgEl) {
-      gsap.set(imgBgEl, {
-        opacity: 0,
-        clipPath: "circle(0% at 50% 50%)",
       });
     }
 
@@ -243,21 +258,11 @@ export const useServiceDetailAnimation = (containerRef: RefObject<HTMLElement | 
       }, "-=0.55");
     }
 
-    // Dotted Grid Ripple Reveal
-    if (imgBgEl) {
-      entranceTl.to(imgBgEl, {
-        opacity: 0.45,
-        clipPath: "circle(100% at 50% 50%)",
-        duration: 1.1,
-        ease: "power2.out",
-      }, "-=0.65");
-    }
-
     // Illustration entrance
     if (imgMainEl) {
       entranceTl.to(imgMainEl, {
         opacity: 1,
-        scale: 1,
+        scale: 0.9,
         filter: "blur(0px)",
         rotate: 0,
         duration: 0.95,
@@ -347,17 +352,6 @@ export const useServiceDetailAnimation = (containerRef: RefObject<HTMLElement | 
         y: 6,
         rotate: 1,
         duration: 8.5,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
-    }
-
-    // Dotted Grid slow breathing
-    if (imgBgEl) {
-      gsap.to(imgBgEl, {
-        opacity: 0.25,
-        duration: 3.5,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
