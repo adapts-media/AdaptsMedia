@@ -139,7 +139,7 @@ export default function Footer() {
                   <li><Link href="/performance-marketing#sem-google-ads" className="hover:text-white transition-colors">SEM Agency</Link></li>
                   <li><Link href="/strategy-consulting#data-analytics" className="hover:text-white transition-colors">Best Data Analytics Services</Link></li>
                   <li><Link href="/branding-creative#visual-design" className="hover:text-white transition-colors">Creative Designing</Link></li>
-                  <li><Link href="/search-engine-optimization" className="hover:text-white transition-colors">SEO Services</Link></li>
+                  <li><Link href="/ai-search-optimization" className="hover:text-white transition-colors">AI Search Optimization</Link></li>
                   <li><Link href="/social-content#sms-marketing" className="hover:text-white transition-colors">SMS Campaign</Link></li>
                   <li><Link href="/social-content#social-media-management" className="hover:text-white transition-colors">Social Media Marketing</Link></li>
                   <li><Link href="/web-digital-experience#web-development" className="hover:text-white transition-colors">Web Development</Link></li>

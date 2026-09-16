@@ -100,14 +100,14 @@ export default function PortfolioList({ variant = "portfolio" }: PortfolioListPr
           currentDelay += 0.03;
         }
 
-        htmlWord.dataset.finalColor = isHighlight ? "#004dc3" : "#17313B";
+        htmlWord.dataset.finalColor = isHighlight ? "#004dc3" : "#1a1a2e";
         return currentDelay;
       });
 
       // Create the reveal animation scrubbed with scroll
       gsap.to(splitIntro.words, {
         opacity: 1,
-        color: (i, target) => (target as HTMLElement).dataset.finalColor || "#17313B",
+        color: (i, target) => (target as HTMLElement).dataset.finalColor || "#1a1a2e",
         scale: 1,
         stagger: (i) => delays[i],
         ease: "none",
@@ -351,33 +351,42 @@ export default function PortfolioList({ variant = "portfolio" }: PortfolioListPr
             pointer-events: none;
             will-change: background;
           }
+          .portfolio-intro-text .word {
+            display: inline-block;
+            margin: 0 0.12em;
+            will-change: transform, opacity, color;
+          }
         `
       }} />
 
       {/* ── INTRO SECTION ── */}
-      <div className="w-full bg-white py-28 md:py-36 text-[#17313B]">
-        <div className="max-w-[1350px] 2xl:max-w-[1600px] mx-auto px-8 md:px-16 lg:px-20">
+      <div className="w-full bg-white py-12 md:py-16 lg:py-20 text-[#1a1a2e]">
+        <div className="max-w-[960px] mx-auto px-8 md:px-16">
           {variant === "case-studies" ? (
-            <p className="portfolio-intro-text text-[clamp(24px,4.0vw,54px)] font-heading font-semibold leading-[1.38] tracking-tight max-w-[1050px] text-[#17313B] mx-auto text-center">
-              Every brand has different goals,<br className="hidden md:inline" />
-              challenges, and audiences.<br className="hidden md:inline" /><br className="hidden md:inline" />
-              Which is why we create tailored strategies<br className="hidden md:inline" />
-              built around <span className="highlight text-[#004dc3] font-bold">performance</span>,<br className="hidden md:inline" />
-              creativity, and real business impact.<br className="hidden md:inline" /><br className="hidden md:inline" />
-              From branding and content<br className="hidden md:inline" />
-              to <span className="highlight text-[#004dc3] font-bold">digital experiences</span><br className="hidden md:inline" />
-              and marketing campaigns.<br className="hidden md:inline" /><br className="hidden md:inline" />
-              We help brands stand out, connect, and <span className="highlight text-[#004dc3] font-bold">grow</span>.
+            <p className="portfolio-intro-text text-[clamp(20px,2.2vw,34px)] font-normal text-[#1a1a2e] leading-[1.5] tracking-[-0.01em] font-heading mx-auto text-center">
+              Every brand has different goals, challenges, and audiences.
+              <span className="block h-3 md:h-5" />
+              Which is why we create tailored strategies built around{" "}
+              <span className="highlight text-[#004dc3] font-semibold">performance</span>,{" "}
+              creativity, and real business impact.
+              <span className="block h-3 md:h-5" />
+              From branding and content to{" "}
+              <span className="highlight text-[#004dc3] font-semibold">digital experiences</span>{" "}
+              and marketing campaigns.
+              <span className="block h-3 md:h-5" />
+              We help brands stand out, connect, and{" "}
+              <span className="highlight text-[#004dc3] font-semibold">grow</span>.
             </p>
           ) : (
-            <p className="portfolio-intro-text text-[clamp(24px,4.0vw,54px)] font-heading font-semibold leading-[1.38] tracking-tight max-w-[1050px] text-[#17313B] mx-auto text-center">
-              Every project starts with<br className="hidden md:inline" />
-              a story worth telling.<br className="hidden md:inline" /><br className="hidden md:inline" />
-              Here&apos;s a look at the brands we&apos;ve built,<br className="hidden md:inline" />
-              the <span className="highlight text-[#004dc3] font-bold">campaigns</span> we&apos;ve launched,<br className="hidden md:inline" /><br className="hidden md:inline" />
-              and the <span className="highlight text-[#004dc3] font-bold">digital experiences</span><br className="hidden md:inline" />
-              we&apos;ve shaped along the way.<br className="hidden md:inline" /><br className="hidden md:inline" />
-              Browse the work and see the <span className="highlight text-[#004dc3] font-bold">craft</span> for yourself.
+            <p className="portfolio-intro-text text-[clamp(20px,2.2vw,34px)] font-normal text-[#1a1a2e] leading-[1.5] tracking-[-0.01em] font-heading mx-auto text-center">
+              Every project starts with a story worth telling.
+              <span className="block h-3 md:h-5" />
+              Here&apos;s a look at the brands we&apos;ve built, the{" "}
+              <span className="highlight text-[#004dc3] font-semibold">campaigns</span> we&apos;ve launched, and the{" "}
+              <span className="highlight text-[#004dc3] font-semibold">digital experiences</span> we&apos;ve shaped along the way.
+              <span className="block h-3 md:h-5" />
+              Browse the work and see the{" "}
+              <span className="highlight text-[#004dc3] font-semibold">craft</span> for yourself.
             </p>
           )}
         </div>

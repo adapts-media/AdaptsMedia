@@ -493,7 +493,7 @@ const HeroSection = () => {
           <div className="hero-bg-video">
             <video autoPlay loop muted playsInline preload="auto">
               <source
-                src="/videos/!FINAL_1.mp4"
+                src="/videos/AdaptsMedia_Banner_Video.mp4"
                 type="video/mp4"
               />
             </video>

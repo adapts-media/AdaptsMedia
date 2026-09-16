@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 const services = [
   {
     items: [
-      "SEO Services",
+      "AI Search Optimization",
       "SEM / Google Ads",
       "Programmatic Advertising",
       "Ad Operations for Advertising Agencies",
@@ -20,7 +20,7 @@ const services = [
       "Retail Media & Marketplace Advertising",
     ],
     links: [
-      "/search-engine-optimization",
+      "/ai-search-optimization",
       "/performance-marketing#sem-google-ads",
       "/performance-marketing#programmatic-advertising",
       "/performance-marketing#adops-solutions",

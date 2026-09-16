@@ -24,12 +24,34 @@ const nextConfig = {
       // WordPress permalink for SEO services is /seo-services/ — map it to Next.js route
       {
         source: "/seo-services",
-        destination: "/search-engine-optimization",
+        destination: "/ai-search-optimization",
         permanent: true,
       },
       {
         source: "/seo-services/",
-        destination: "/search-engine-optimization",
+        destination: "/ai-search-optimization",
+        permanent: true,
+      },
+      // Redirect previous /search-engine-optimization route to /ai-search-optimization
+      {
+        source: "/search-engine-optimization",
+        destination: "/ai-search-optimization",
+        permanent: true,
+      },
+      {
+        source: "/search-engine-optimization/",
+        destination: "/ai-search-optimization",
+        permanent: true,
+      },
+      // Redirect /case-studies index to /portfolio (specific /case-studies/:slug pages remain active)
+      {
+        source: "/case-studies",
+        destination: "/portfolio",
+        permanent: true,
+      },
+      {
+        source: "/case-studies/",
+        destination: "/portfolio",
         permanent: true,
       },
     ];

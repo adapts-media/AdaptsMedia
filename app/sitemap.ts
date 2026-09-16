@@ -16,11 +16,10 @@ const STATIC_ROUTES: Array<{ path: string; changeFrequency: MetadataRoute.Sitema
   { path: "/branding-creative", changeFrequency: "monthly", priority: 0.7 },
   { path: "/performance-marketing", changeFrequency: "monthly", priority: 0.7 },
   { path: "/public-relations", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/search-engine-optimization", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/ai-search-optimization", changeFrequency: "monthly", priority: 0.7 },
   { path: "/social-content", changeFrequency: "monthly", priority: 0.7 },
   { path: "/strategy-consulting", changeFrequency: "monthly", priority: 0.7 },
   { path: "/web-digital-experience", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/case-studies", changeFrequency: "weekly", priority: 0.7 },
   { path: "/case-studies/hyundai-mobis", changeFrequency: "yearly", priority: 0.6 },
   // /portfolio now has its own copy (see PortfolioHero/PortfolioList's
   // `variant` prop) rather than duplicating /case-studies, so it's back

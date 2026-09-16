@@ -419,7 +419,7 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
               </h2>
             </div>
             <div className="flex items-center justify-start md:justify-end shrink-0 pointer-events-auto z-10">
-              <Link href={p.detailSlug ? `/case-studies/${p.detailSlug}` : "/case-studies"} prefetch={false}>
+              <Link href={p.detailSlug ? `/case-studies/${p.detailSlug}` : "/portfolio"} prefetch={false}>
                 <ArrowButton title={p.detailSlug ? "Read Case Study" : "View Our Work"} />
               </Link>
             </div>
@@ -586,7 +586,7 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
                   {/* Glassmorphic Call-to-action */}
                   <div className="parallax-cta mt-6 pointer-events-auto w-fit">
                     <Link
-                      href={p.detailSlug ? `/case-studies/${p.detailSlug}` : "/case-studies"}
+                      href={p.detailSlug ? `/case-studies/${p.detailSlug}` : "/portfolio"}
                       prefetch={false}
                       onMouseEnter={handleCtaMouseEnter}
                       onMouseLeave={handleCtaMouseLeave}

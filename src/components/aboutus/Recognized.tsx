@@ -2,7 +2,6 @@
 
 
 import Image from 'next/image';
-import ArrowButton from '../buttons/ArrowButton';
 import AwardCard from '../cards/AwardCard';
 import { useRef } from 'react';
 import { gsap } from 'gsap';
@@ -125,7 +124,7 @@ export default function Recognized() {
       
       <div className="relative z-10 max-w-[1350px] 2xl:max-w-[1600px] px-8 md:px-16 w-full">
         {/* Header Section */}
-        <div className="flex flex-col min-[1300px]:flex-row min-[1300px]:items-end min-[1300px]:justify-between gap-4 mb-20">
+        <div className="mb-20">
           <div className="flex flex-col items-start">
             <div className="flex items-center gap-1 mb-5">
               <span className="text-[10px] text-[#FAC02E] font-bold tracking-[0.2em] uppercase opacity-90">
@@ -136,9 +135,6 @@ export default function Recognized() {
             <h2 className="text-4xl md:text-7xl min-[1300px]:text-7xl font-heading font-medium leading-[1.05] -tracking-wide max-w-2xl">
               Recognized for <br/> Excellence
             </h2>
-          </div>
-          <div className="flex justify-start">
-            <ArrowButton title='Explore More'/>
           </div>
         </div>
 

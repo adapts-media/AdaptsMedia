@@ -30,7 +30,7 @@ const ContactAddresses = () => {
     },
     {
       city: "India Address",
-      address: "Gurugram: Plot no 23, Sector 18, Gurugram Haryana, India 122015",
+      address: "Gurugram: 3rd Floor, Woxa IT Park Tower, Plot No. 463, Phase V, Udyog Vihar, Sector 19, Gurugram, Haryana 122016",
       contacts: [
         { icon: <FiMail className="w-4 h-4" />, text: "Info@adaptsmedia.com" },
         { icon: <FiSmartphone className="w-4 h-4" />, text: "+91 9818706696" },

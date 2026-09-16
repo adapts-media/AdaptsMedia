@@ -78,15 +78,30 @@ export default function HyundaiProjectOverview() {
         },
       });
 
-      return () => {
-        split.revert();
-      };
-    },
-    { scope: containerRef }
-  );
+    // Pills fade-up
+    gsap.fromTo(
+      ".overview-pill",
+      { opacity: 0, y: 15 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+
+    return () => {
+      split.revert();
+    };
+  }, { scope: containerRef });
 
   return (
-    <section className="w-full bg-white py-24 md:py-36 flex justify-center font-sans overflow-hidden">
+    <section className="w-full bg-white py-12 md:py-16 lg:py-20 flex justify-center font-sans overflow-hidden">
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -104,23 +119,23 @@ export default function HyundaiProjectOverview() {
         className="max-w-[1350px] 2xl:max-w-[1600px] w-full px-8 md:px-16 flex flex-col items-center"
       >
         {/* Label Tag */}
-        <div className="mb-8 self-start md:self-center">
-          <span className="inline-block text-base md:text-xl font-heading font-semibold text-[#d61e1b] tracking-wider uppercase bg-[#fdf2f2] border border-[#f8d7d7] px-6 py-2 rounded-full">
+        <div className="mb-6 md:mb-8 flex justify-center w-full">
+          <span className="overview-pill inline-flex items-center justify-center rounded-full border border-[#f8d7d7] bg-[#fdf2f2] px-6 py-2.5 md:px-7 md:py-3 text-center text-sm md:text-[15px] font-medium text-[#d61e1b] shadow-xs transition-all duration-300">
             Project Overview
           </span>
         </div>
 
         {/* Main Text Content */}
-        <div className="w-full max-w-[1100px] mx-auto">
-          <p className="intro-paragraph reveal-text text-[clamp(24px,3.8vw,52px)] font-semibold text-[#1a1a2e] leading-[1.38] tracking-tight font-heading text-left md:text-center">
+        <div className="w-full max-w-[960px] mx-auto">
+          <p className="intro-paragraph reveal-text text-[clamp(20px,2.2vw,34px)] font-normal text-[#1a1a2e] leading-[1.5] tracking-[-0.01em] font-heading mx-auto text-center">
             Hyundai Mobis is one of the world&apos;s leading automotive parts manufacturers, providing{" "}
-            <span className="highlight text-[#d61e1b] font-bold">
+            <span className="highlight text-[#d61e1b] font-semibold">
               genuine components
             </span>{" "}
             designed to ensure vehicle safety, reliability, and performance.
-            <br className="hidden md:inline" /><br className="hidden md:inline" />
+            <span className="block h-4 md:h-6" />
             The challenge was to strengthen awareness of genuine Hyundai Mobis parts while educating customers about the risks of counterfeit alternatives. The brand needed a digital strategy that would{" "}
-            <span className="highlight text-[#d61e1b] font-bold">
+            <span className="highlight text-[#d61e1b] font-semibold">
               build trust
             </span>{" "}
             among vehicle owners, service centers, and automotive enthusiasts.

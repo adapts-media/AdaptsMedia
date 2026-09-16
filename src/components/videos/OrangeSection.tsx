@@ -8,6 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import StatsCard from "../cards/StatCard";
 import ArrowButton from "../buttons/ArrowButton";
 import YellowButton from "../buttons/YellowButton";
+import Link from "next/link";
 
 // Register GSAP ScrollTrigger
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -551,7 +552,7 @@ const OrangeSection = () => {
               {/* Interactive CTA Buttons */}
               <div ref={buttonsContainerRef} className="orange-cta flex flex-wrap justify-center min-[1200px]:justify-start gap-4 sm:gap-6 items-center">
                 <div className="magnetic-button p-4 -m-4">
-                  <ArrowButton title="Read More" width="md" />
+                  <ArrowButton title="Read More" width="md" href="/about-us" />
                 </div>
                 <div className="magnetic-button p-4 -m-4">
                   <YellowButton title="Start a Project" variant="red" width="md" href="/start-project" />

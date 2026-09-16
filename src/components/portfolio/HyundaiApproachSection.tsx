@@ -23,46 +23,51 @@ export default function HyundaiApproachSection() {
       {/* Content Container */}
       <div className="relative z-10 max-w-[1350px] 2xl:max-w-[1600px] w-full mx-auto px-8 md:px-16 lg:px-16 grid grid-cols-1 lg:grid-cols-12 items-center">
         {/* Left Column: Phones Illustration with Branding Creative GSAP Animations */}
-        <div className="lg:col-span-7 flex items-center justify-center relative w-full h-[500px] md:h-[650px] order-2 lg:order-1">
-          <div className="service-img-container relative w-full max-w-[480px] h-full flex items-center justify-center">
+        <div className="lg:col-span-7 flex items-center justify-center relative w-full h-[520px] md:h-[650px] order-2 lg:order-1">
+          <div className="relative w-full max-w-[560px] h-full flex items-center justify-center">
             <div className="w-full h-full relative">
-              {/* 1a. UPPER-LEFT BACKGROUND GRID */}
-              <img
-                src="/images/BrandingCreative/DigitalMarketingLogoBg.png"
-                className="service-img-bg absolute -left-[5%] -top-[2%] w-[300px] h-[300px] z-0 opacity-80 pointer-events-none object-contain"
-                alt="Background Grid Top Left"
-              />
+              {/* 1. RED SPARKLE STAR MATRIX BACKGROUND (EXACT AS SCREENSHOT) */}
+              <div className="service-img-bg absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[460px] h-[460px] sm:w-[540px] sm:h-[540px] md:w-[620px] md:h-[620px] z-0 pointer-events-none">
+                <Image
+                  src="/images/portfolio/Hyundai/group all red.png"
+                  alt="Hyundai Red Star Pattern"
+                  fill
+                  sizes="(max-width: 768px) 460px, 620px"
+                  className="object-contain opacity-90"
+                  priority
+                />
+              </div>
 
               {/* 2. LEFT PHONE */}
-              <div className="absolute left-[2%] md:left-[5%] top-[15%] w-[180px] md:w-[230px] h-[360px] md:h-[460px] z-10">
+              <div className="absolute left-[2%] md:left-[6%] top-[15%] w-[180px] md:w-[220px] h-[360px] md:h-[450px] z-10">
                 <Image
                   src="/images/portfolio/Hyundai/Mask group (2).png"
                   alt="Hyundai Mobis Cricket Campaign"
                   fill
-                  sizes="(max-width: 768px) 180px, 230px"
-                  className="object-contain drop-shadow-lg"
+                  sizes="(max-width: 768px) 180px, 220px"
+                  className="object-contain drop-shadow-xl"
                 />
               </div>
 
               {/* 3. RIGHT PHONE */}
-              <div className="absolute right-[2%] md:right-[5%] top-[15%] w-[180px] md:w-[230px] h-[360px] md:h-[460px] z-10">
+              <div className="absolute right-[2%] md:right-[6%] top-[15%] w-[180px] md:w-[220px] h-[360px] md:h-[450px] z-10">
                 <Image
                   src="/images/portfolio/Hyundai/Mask group (1).png"
                   alt="Hyundai Mobis Door Visors Campaign"
                   fill
-                  sizes="(max-width: 768px) 180px, 230px"
-                  className="object-contain drop-shadow-lg"
+                  sizes="(max-width: 768px) 180px, 220px"
+                  className="object-contain drop-shadow-xl"
                 />
               </div>
 
               {/* 4. MIDDLE PHONE (Main floating element) */}
-              <div className="service-img-main absolute left-1/2 -translate-x-1/2 top-[5%] w-[200px] md:w-[250px] h-[400px] md:h-[500px] z-20">
+              <div className="service-img-main absolute left-1/2 -translate-x-1/2 top-[6%] w-[200px] md:w-[245px] h-[400px] md:h-[490px] z-20">
                 <Image
                   src="/images/portfolio/Hyundai/Mask group.png"
                   alt="Hyundai Mobis Red Ignite Campaign"
                   fill
-                  sizes="(max-width: 768px) 200px, 250px"
-                  className="object-contain drop-shadow-[0_20px_20px_rgba(0,0,0,0.5)]"
+                  sizes="(max-width: 768px) 200px, 245px"
+                  className="object-contain drop-shadow-[0_25px_30px_rgba(0,0,0,0.6)]"
                 />
               </div>
             </div>
@@ -107,7 +112,11 @@ export default function HyundaiApproachSection() {
               }
             ].map((pillar, idx) => (
               <div key={idx} className="service-deliverable-item flex items-start gap-4">
-                <span className="service-deliverable-icon text-[#d61e1b] text-base mt-1.5 shrink-0">✦</span>
+                <span className="service-deliverable-icon text-[#d61e1b] mt-1.5 shrink-0 flex items-center justify-center">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 0C12 6.627 6.627 12 0 12C6.627 12 12 17.373 12 24C12 17.373 17.373 12 24 12C17.373 12 12 6.627 12 0Z" />
+                  </svg>
+                </span>
                 <div className="service-deliverable-text flex flex-col gap-1">
                   <h4 className="text-lg md:text-xl font-heading font-semibold text-white">
                     {pillar.title}

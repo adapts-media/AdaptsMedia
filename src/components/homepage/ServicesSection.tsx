@@ -13,13 +13,79 @@ gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP)
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const services = [
-  { number: "01", title: "Performance<br />Marketing", items: ["Affiliate Channels", "Cost Per Action", "ROI Model"], href: "/performance-marketing" },
-  { number: "02", title: "Social &<br />Content", items: ["Content Strategy", "Leverage Influencers", "Paid Social"], href: "/social-content" },
-  { number: "03", title: "Web & Digital<br />Experience", items: ["UX/UI", "Front & Back End", "API Integration"], href: "/web-digital-experience" },
-  { number: "04", title: "Branding &<br />Creative", items: ["Identity", "Campaigns", "Design Systems"], href: "/branding-creative" },
-  { number: "05", title: "Public Relations<br />& Activations", items: ["Strategic PR", "Press Releases", "Events and Activation"], href: "/public-relations" },
-  { number: "06", title: "Strategy &<br />Consulting", items: ["Industry and Competitor Analysis", "Tailor-made Growth Strategies", "Targeted Ads and Email Campaigns"], href: "/strategy-consulting" },
+interface ServiceItem {
+  name: string
+  href: string
+}
+
+interface ServiceCategory {
+  number: string
+  title: string
+  href: string
+  items: ServiceItem[]
+}
+
+const services: ServiceCategory[] = [
+  {
+    number: "01",
+    title: "Performance<br />Marketing",
+    href: "/performance-marketing",
+    items: [
+      { name: "Affiliate Channels", href: "/performance-marketing#affiliate-marketing" },
+      { name: "Cost Per Action", href: "/performance-marketing#performance-marketing" },
+      { name: "ROI Model", href: "/performance-marketing#media-planning" },
+    ],
+  },
+  {
+    number: "02",
+    title: "Social &<br />Content",
+    href: "/social-content",
+    items: [
+      { name: "Content Strategy", href: "/social-content#content-strategy" },
+      { name: "Leverage Influencers", href: "/social-content#influencer-marketing" },
+      { name: "Paid Social", href: "/social-content#paid-social" },
+    ],
+  },
+  {
+    number: "03",
+    title: "Web & Digital<br />Experience",
+    href: "/web-digital-experience",
+    items: [
+      { name: "UX/UI", href: "/web-digital-experience#ux-ui" },
+      { name: "Front & Back End", href: "/web-digital-experience#web-development" },
+      { name: "API Integration", href: "/web-digital-experience#api-integration" },
+    ],
+  },
+  {
+    number: "04",
+    title: "Branding &<br />Creative",
+    href: "/branding-creative",
+    items: [
+      { name: "Identity", href: "/branding-creative#identity" },
+      { name: "Campaigns", href: "/branding-creative#campaigns" },
+      { name: "Design Systems", href: "/branding-creative#design-systems" },
+    ],
+  },
+  {
+    number: "05",
+    title: "Public Relations<br />& Activations",
+    href: "/public-relations",
+    items: [
+      { name: "Strategic PR", href: "/public-relations#strategic-pr" },
+      { name: "Press Releases", href: "/public-relations#press-releases" },
+      { name: "Events and Activation", href: "/public-relations#events-activation" },
+    ],
+  },
+  {
+    number: "06",
+    title: "Strategy &<br />Consulting",
+    href: "/strategy-consulting",
+    items: [
+      { name: "Industry and Competitor Analysis", href: "/strategy-consulting#industry-analysis" },
+      { name: "Tailor-made Growth Strategies", href: "/strategy-consulting#growth-strategies" },
+      { name: "Targeted Ads and Email Campaigns", href: "/strategy-consulting#targeted-campaigns" },
+    ],
+  },
 ]
 
 // ─── Arrow SVG ────────────────────────────────────────────────────────────────
@@ -303,14 +369,15 @@ const ServicesSection = () => {
         <div className="services-grid grid grid-cols-1 min-[1300px]:grid-cols-3 gap-x-12 gap-y-6 md:gap-y-16">
           {services.map((service, index) => (
             <div key={index} style={{ perspective: "900px" }}>
-              <Link href={service.href} className="no-underline text-white block">
-                <div
-                  className="service-card flex flex-col"
-                  style={{ transformStyle: "preserve-3d", willChange: "transform", cursor: "pointer" }}
-                >
+              <div
+                className="service-card flex flex-col text-white"
+                style={{ transformStyle: "preserve-3d", willChange: "transform" }}
+              >
+                {/* Number & Title link to service page */}
+                <Link href={service.href} className="no-underline text-white block group cursor-pointer">
                   {/* Number */}
                   <span
-                    className="service-number text-7xl font-heading font-normal opacity-50 mb-[-12px] leading-none text-white blur-[2px] inline-block"
+                    className="service-number text-7xl font-heading font-normal opacity-50 mb-[-12px] leading-none text-white blur-[2px] inline-block transition-opacity duration-300 group-hover:opacity-80"
                     style={{ marginLeft: "-32px" }}
                   >
                     {service.number}
@@ -318,32 +385,33 @@ const ServicesSection = () => {
 
                   {/* Title */}
                   <h3
-                    className="service-card-title text-3xl md:text-[46px] font-heading font-light mb-8 leading-tight min-h-[6.5rem] md:min-h-[7.2rem] w-full"
+                    className="service-card-title text-3xl md:text-[46px] font-heading font-light mb-8 leading-tight min-h-[6.5rem] md:min-h-[7.2rem] w-full transition-opacity duration-300 group-hover:opacity-90"
                     dangerouslySetInnerHTML={{ __html: service.title }}
                   />
+                </Link>
 
-                  {/* Sub-items list */}
-                  <div className="service-items-list flex flex-col">
-                    {service.items.map((item, i) => (
-                      <div key={i}>
-                        <div className="service-divider border-t border-white/60" />
-                        <div
-                          className="service-item-row flex items-center justify-between py-3 px-2"
-                          style={{ borderRadius: "6px" }}
-                        >
-                          <span className="service-item-text text-[clamp(0.85rem,1.1vw,1.05rem)] font-heading font-light tracking-wide opacity-90">
-                            {item}
-                          </span>
-                          <span className="service-item-arrow flex items-center justify-center">
-                            <ArrowSVG className="w-5 h-5 md:w-6 md:h-6 rotate-45 rounded-full border border-white/40 p-1 md:p-1.5 text-white relative z-10" />
-                          </span>
-                        </div>
-                      </div>
-                    ))}
-                    <div className="service-divider border-t border-white/60 mb-20" />
-                  </div>
+                {/* Sub-items list linked to specific section anchors */}
+                <div className="service-items-list flex flex-col">
+                  {service.items.map((item, i) => (
+                    <div key={i}>
+                      <div className="service-divider border-t border-white/60" />
+                      <Link
+                        href={item.href}
+                        className="service-item-row flex items-center justify-between py-3 px-2 no-underline text-white transition-colors block cursor-pointer"
+                        style={{ borderRadius: "6px" }}
+                      >
+                        <span className="service-item-text text-[clamp(0.85rem,1.1vw,1.05rem)] font-heading font-light tracking-wide opacity-90">
+                          {item.name}
+                        </span>
+                        <span className="service-item-arrow flex items-center justify-center">
+                          <ArrowSVG className="w-5 h-5 md:w-6 md:h-6 rotate-45 rounded-full border border-white/40 p-1 md:p-1.5 text-white relative z-10" />
+                        </span>
+                      </Link>
+                    </div>
+                  ))}
+                  <div className="service-divider border-t border-white/60 mb-20" />
                 </div>
-              </Link>
+              </div>
             </div>
           ))}
         </div>
@@ -352,7 +420,7 @@ const ServicesSection = () => {
       {/* CTA Buttons */}
       <div className="services-cta-buttons flex flex-wrap justify-center gap-6 z-50">
         <div>
-          <ArrowButton title="Explore All Services" />
+          <ArrowButton title="Explore All Services" href="/services" />
         </div>
         <div className="btn-start-project p-6 -m-6">
           <YellowButton title="Start a Project" variant="blue" href="/start-project" />

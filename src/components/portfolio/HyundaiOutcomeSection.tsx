@@ -41,29 +41,64 @@ export default function HyundaiOutcomeSection() {
 
       // ── 1. Top Section Text Reveal (SplitText word-by-word) ──
       const el = textSectionRef.current?.querySelector(".reveal-text") as HTMLElement;
+      let split: SplitText | null = null;
       if (el) {
-        const split = new SplitText(el, { type: "words", wordsClass: "word" });
-        gsap.set(split.words, { opacity: 0.2, color: "#9ca3af" });
+        split = new SplitText(el, { type: "words", wordsClass: "word" });
+        gsap.set(split.words, {
+          opacity: 0.25,
+          color: "#9ca3af",
+          scale: (i, target) => ((target as HTMLElement).closest(".highlight") ? 0.96 : 1),
+          transformOrigin: "center center",
+        });
 
+        let currentDelay = 0;
         const delays = split.words.map((word, i) => {
-          const isHighlight = (word as HTMLElement).closest(".highlight") !== null;
-          (word as HTMLElement).dataset.finalColor = isHighlight ? "#d61e1b" : "#1a1a2e";
-          return i * 0.03;
+          const htmlWord = word as HTMLElement;
+          const isHighlight = htmlWord.closest(".highlight") !== null;
+          const prevIsHighlight =
+            i > 0 && (split!.words[i - 1] as HTMLElement).closest(".highlight") !== null;
+
+          if (isHighlight && !prevIsHighlight) {
+            currentDelay += 0.07;
+          } else {
+            currentDelay += 0.03;
+          }
+
+          htmlWord.dataset.finalColor = isHighlight ? "#d61e1b" : "#1a1a2e";
+          return currentDelay;
         });
 
         gsap.to(split.words, {
           opacity: 1,
           color: (i, target) => (target as HTMLElement).dataset.finalColor || "#1a1a2e",
+          scale: 1,
           stagger: (i) => delays[i],
           ease: "none",
           scrollTrigger: {
             trigger: el,
             start: "top 80%",
-            end: "bottom 55%",
+            end: "bottom 60%",
             scrub: 1,
           },
         });
       }
+
+      // Pill fade-up
+      gsap.fromTo(
+        ".outcome-pill",
+        { opacity: 0, y: 15 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: textSectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
 
       // ── 2. Metrics Grid Entrance & Count Up ──
       if (statsGridRef.current) {
@@ -134,34 +169,50 @@ export default function HyundaiOutcomeSection() {
         yoyo: true,
         ease: "sine.inOut",
       });
+
+      return () => {
+        split?.revert();
+      };
     },
     { scope: rootRef }
   );
 
   return (
     <div ref={rootRef} className="w-full bg-white text-left overflow-hidden">
-      {/* ── 1. TOP HERO TEXT SECTION (BrandingIntro Typography & SplitText) ── */}
-      <div ref={textSectionRef} className="max-w-[1350px] 2xl:max-w-[1600px] w-full mx-auto px-8 md:px-16 lg:px-20 py-24 md:py-32 flex flex-col items-center">
-        <div className="mb-8 self-start md:self-center">
-          <span className="inline-block text-base md:text-xl font-heading font-semibold text-[#d61e1b] tracking-wider uppercase bg-[#fdf2f2] border border-[#f8d7d7] px-6 py-2 rounded-full">
+      {/* ── 1. TOP HERO TEXT SECTION (Standardized Typography & SplitText) ── */}
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+          .reveal-text .word {
+            display: inline-block;
+            margin: 0 0.12em;
+            will-change: transform, opacity, color;
+          }
+        `,
+        }}
+      />
+
+      <div ref={textSectionRef} className="max-w-[1350px] 2xl:max-w-[1600px] w-full mx-auto px-8 md:px-16 lg:px-20 py-12 md:py-16 lg:py-20 flex flex-col items-center">
+        <div className="mb-6 md:mb-8 flex justify-center w-full">
+          <span className="outcome-pill inline-flex items-center justify-center rounded-full border border-[#f8d7d7] bg-[#fdf2f2] px-6 py-2.5 md:px-7 md:py-3 text-center text-sm md:text-[15px] font-medium text-[#d61e1b] shadow-xs transition-all duration-300">
             The Outcome
           </span>
         </div>
 
-        <div className="w-full max-w-[1100px] mx-auto mb-12">
-          <p className="intro-paragraph reveal-text text-[clamp(24px,3.8vw,52px)] font-medium text-[#1a1a2e] leading-[1.38] tracking-tight font-heading text-left md:text-center">
+        <div className="w-full max-w-[960px] mx-auto mb-8 md:mb-10">
+          <p className="intro-paragraph reveal-text text-[clamp(20px,2.2vw,34px)] font-normal text-[#1a1a2e] leading-[1.5] tracking-[-0.01em] font-heading mx-auto text-center">
             The campaign established a{" "}
-            <span className="highlight text-[#d61e1b] font-medium">
+            <span className="highlight text-[#d61e1b] font-semibold">
               stronger and more consistent social presence
             </span>{" "}
             while increasing audience awareness around the importance of{" "}
-            <span className="highlight text-[#d61e1b] font-medium">
+            <span className="highlight text-[#d61e1b] font-semibold">
               genuine automotive parts.
             </span>
           </p>
         </div>
 
-        <p className="text-[#d61e1b] font-heading font-medium text-lg md:text-xl tracking-wide uppercase self-start md:self-center">
+        <p className="text-[#d61e1b] font-heading font-semibold text-xs md:text-sm tracking-[0.15em] uppercase text-center">
           Numbers that speak louder than promises:
         </p>
       </div>

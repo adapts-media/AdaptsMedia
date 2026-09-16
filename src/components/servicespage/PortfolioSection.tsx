@@ -51,7 +51,7 @@ const PortfolioSection = () => {
             // the rest to the listing instead of a slug that 404s (this
             // used to derive a link from the brand name regardless of
             // whether a page existed for it).
-            const href = project.detailSlug ? `/case-studies/${project.detailSlug}` : "/case-studies";
+            const href = project.detailSlug ? `/case-studies/${project.detailSlug}` : "/portfolio";
 
             return (
               <Link

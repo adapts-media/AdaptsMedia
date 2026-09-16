@@ -25,7 +25,7 @@ const locations = [
     city: "India",
     id: "india-1",
     sub: "Office 01",
-    address: "Gurugram: Plot no 23, Sector 18 Gurugram, Haryana 122015",
+    address: "Gurugram: 3rd Floor, Woxa IT Park Tower, Plot No. 463, Phase V, Udyog Vihar, Sector 19, Gurugram, Haryana 122016",
     contact: "Contact Number: +91 9818706696\nEmail: Info@adaptsmedia.com"
   },
   {
