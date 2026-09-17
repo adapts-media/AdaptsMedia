@@ -1,10 +1,15 @@
 import { z } from "zod";
 
+// All 8 real service categories on the site, matching app/<slug>/page.tsx.
 export const CONTACT_SUBJECTS = [
-  { id: "seo", label: "SEO Services" },
-  { id: "web", label: "Web Development" },
-  { id: "branding", label: "Branding & Creative" },
-  { id: "marketing", label: "Performance Marketing" },
+  { id: "performance-marketing", label: "Performance Marketing" },
+  { id: "social-content", label: "Social & Content" },
+  { id: "web-digital-experience", label: "Web & Digital Experience" },
+  { id: "branding-creative", label: "Branding & Creative" },
+  { id: "public-relations", label: "Public Relations & Activations" },
+  { id: "strategy-consulting", label: "Strategy & Consulting" },
+  { id: "ai-emerging-media", label: "AI & Emerging Media" },
+  { id: "ai-search-optimization", label: "AI Search Optimization" },
   { id: "other", label: "Other" },
 ];
 
