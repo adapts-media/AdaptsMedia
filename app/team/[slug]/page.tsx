@@ -1,10 +1,10 @@
 import { notFound, redirect } from "next/navigation";
 import { teamMembers as fallbackTeamMembers } from "@/data/teamData";
 import { getWordPressTeamMembers, getWordPressTeamMemberBySlug } from "@/lib/getPosts";
-import TeamMemberProfileClient from "@/components/team/TeamMemberProfileClient";
+import PersonProfileClient from "@/components/profile/PersonProfileClient";
 import ContactCTA from "@/components/homepage/ContactCTA";
 import Footer from "@/components/layout/Footer";
-import { isAuthor, getAuthorSlug } from "@/lib/authors";
+import { isAuthor, getAuthorSlug, getMemberProfileUrl } from "@/lib/authors";
 
 export const revalidate = 60;
 
@@ -81,11 +81,33 @@ export default async function TeamMemberPage({ params }: PageProps) {
     notFound();
   }
 
+  const otherPeople = allMembers
+    .filter((m: any) => m.slug !== member.slug)
+    .map((m: any) => ({
+      slug: m.slug,
+      name: m.name,
+      image: m.image,
+      href: getMemberProfileUrl(m),
+    }));
+
   return (
     <>
-      <TeamMemberProfileClient
-        member={member}
-        otherMembers={allMembers.filter((m: any) => m.slug !== member.slug)}
+      <PersonProfileClient
+        kicker="Team Member"
+        person={{
+          name: member.name,
+          slug: member.slug,
+          role: member.role,
+          image: member.image,
+          bio: member.bio,
+          aboutLong: member.aboutLong,
+          location: member.location,
+          badges: member.badges,
+          expertise: member.expertise,
+          email: member.socials?.email,
+          linkedin: member.socials?.linkedin,
+        }}
+        otherPeople={otherPeople}
       />
       <div id="contact">
         <ContactCTA />

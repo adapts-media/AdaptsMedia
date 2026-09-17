@@ -1,9 +1,11 @@
 import { getPostsByAuthor, getResolvedAuthor, getWordPressTeamMembers, sanitizeCategoriesList } from "@/lib/getPosts";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
-import AuthorPageClient from "@/components/author/AuthorPageClient";
+import PersonProfileClient from "@/components/profile/PersonProfileClient";
+import ContactCTA from "@/components/homepage/ContactCTA";
+import Footer from "@/components/layout/Footer";
 import { buildMetadata } from "@/lib/seo";
-import { WORDPRESS_AUTHORS } from "@/lib/authors";
+import { WORDPRESS_AUTHORS, getMemberProfileUrl } from "@/lib/authors";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -108,6 +110,49 @@ export default async function AuthorBlogsPage({ params }: Props) {
     }
   }
 
-  return <AuthorPageClient authorData={authorData} posts={posts} />;
+  // "More voices" — same team-directory nudge as /team/[slug], so the
+  // author page's slug doesn't need its own separate "other authors" list.
+  const team = await getWordPressTeamMembers();
+  const otherPeople = team
+    .filter((m: any) => m.slug !== authorData!.slug)
+    .map((m: any) => ({
+      slug: m.slug,
+      name: m.name,
+      image: m.image,
+      href: getMemberProfileUrl(m),
+    }));
+
+  return (
+    <>
+      <PersonProfileClient
+        kicker="Author"
+        person={{
+          name: authorData!.name,
+          slug: authorData!.slug,
+          role: authorData!.role,
+          image: authorData!.avatar,
+          bio: authorData!.description,
+          aboutLong: authorData!.description,
+          expertise: authorData!.expertise,
+          email: authorData!.email,
+          linkedin: authorData!.linkedin,
+        }}
+        posts={posts.map((p: any) => ({
+          slug: p.slug,
+          title: p.title,
+          image: p.image,
+          author: p.author,
+          authorSlug: p.authorSlug || slug,
+          date: p.date,
+          categories: p.categories,
+        }))}
+        otherPeople={otherPeople}
+      />
+      <div id="contact">
+        <ContactCTA />
+      </div>
+      <Footer />
+    </>
+  );
 }
 
