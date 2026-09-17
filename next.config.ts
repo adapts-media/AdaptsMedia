@@ -57,10 +57,16 @@ const nextConfig = {
     ];
   },
   images: {
+    unoptimized: true,
     qualities: [70, 75, 80, 85, 90, 95, 100],
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'cms.adaptsmedia.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'http',
         hostname: 'cms.adaptsmedia.com',
         pathname: '/**',
       },
@@ -70,7 +76,17 @@ const nextConfig = {
         pathname: '/**',
       },
       {
+        protocol: 'http',
+        hostname: 'adaptsmedia.com', 
+        pathname: '/**',
+      },
+      {
         protocol: 'https',
+        hostname: '**.adaptsmedia.com', 
+        pathname: '/**',
+      },
+      {
+        protocol: 'http',
         hostname: '**.adaptsmedia.com', 
         pathname: '/**',
       },

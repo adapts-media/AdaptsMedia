@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -24,6 +25,11 @@ export default function BlogGridCard({
   tags,
 }: BlogGridCardProps) {
   const router = useRouter();
+  const [imgSrc, setImgSrc] = useState(image || "/fallback.jpg");
+
+  useEffect(() => {
+    setImgSrc(image || "/fallback.jpg");
+  }, [image]);
 
   const resolvedAuthorSlug =
     authorSlug ||
@@ -38,6 +44,11 @@ export default function BlogGridCard({
     router.push(`/blogs/${slug}`);
   };
 
+  const cleanTags = Array.isArray(tags)
+    ? tags.map((t) => (typeof t === "number" || !isNaN(Number(t)) ? "SEO" : t)).filter(Boolean)
+    : [];
+  const displayTags = Array.from(new Set(cleanTags.length > 0 ? cleanTags : ["SEO"]));
+
   return (
     <div
       onClick={handleCardClick}
@@ -46,10 +57,12 @@ export default function BlogGridCard({
       {/* Image Container */}
       <div className="relative w-full aspect-[16/10] overflow-hidden rounded-xl bg-gray-100">
         <Image
-          src={image}
+          src={imgSrc}
           alt={title}
           fill
+          unoptimized
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          onError={() => setImgSrc("/fallback.jpg")}
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         />
       </div>
@@ -84,7 +97,7 @@ export default function BlogGridCard({
 
         {/* Tags */}
         <div className="flex flex-wrap gap-2">
-          {tags.map((tag, index) => (
+          {displayTags.map((tag, index) => (
             <span
               key={index}
               className="bg-[#fac02d] text-[#17313B] text-[10px] md:text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap"
@@ -97,3 +110,4 @@ export default function BlogGridCard({
     </div>
   );
 }
+

@@ -52,6 +52,7 @@ const TeamCard = ({ member, index }: { member: TeamMember; index: number }) => {
             src={imgSrc}
             alt={member.name}
             fill
+            unoptimized
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             onError={() => {
               // Fallback to local image or initials avatar on broken URL

@@ -42,6 +42,7 @@ export default function TeamMemberProfileClient({
                 src={member.image}
                 alt={member.name}
                 fill
+                unoptimized
                 className="object-cover object-top transition-transform duration-300"
                 sizes="128px"
                 priority
@@ -230,6 +231,7 @@ export default function TeamMemberProfileClient({
                     src={other.image}
                     alt={other.name}
                     fill
+                    unoptimized
                     className="object-cover object-top"
                     sizes="64px"
                   />

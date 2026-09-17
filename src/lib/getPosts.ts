@@ -2,14 +2,64 @@ import { teamMembers } from "@/data/teamData";
 
 const BASE_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://cms.adaptsmedia.com";
 
+export const WP_CATEGORY_MAP: Record<number, string> = {
+  1: "Online Marketing",
+  2: "Browser",
+  3: "Cryptocurrency",
+  4: "Digital Marketing",
+  5: "SEO",
+  6: "Social Media",
+  35: "Meme Marketing",
+  37: "Marketing",
+  39: "Google Ads",
+  48: "Media Planning",
+  49: "Services",
+  50: "PPC",
+  63: "Metaverse",
+  80: "Video Marketing",
+  94: "Voice Search",
+  99: "E-Commerce Marketing",
+  131: "Search Engine Marketing",
+  140: "Graphic Design",
+  152: "KPIs for Digital Marketing",
+  154: "Case Study",
+  168: "Artificial Intelligence",
+  174: "Web Development",
+  182: "Email Marketing",
+  217: "Ad Operations",
+};
+
+export function cleanCategoryOrExpertise(item: any): string | null {
+  if (item === null || item === undefined) return null;
+  const num = typeof item === 'number' ? item : (!isNaN(Number(item)) && String(item).trim() !== '' ? Number(item) : null);
+  if (num !== null) {
+    return WP_CATEGORY_MAP[num] || null;
+  }
+  const str = String(item).trim();
+  // Filter out any pure numeric string or strings that are too short
+  if (!str || !isNaN(Number(str)) || str.length < 2) return null;
+  return decodeHtmlEntities(str);
+}
+
+export function sanitizeCategoriesList(items: any[]): string[] {
+  if (!Array.isArray(items)) return [];
+  const cleaned = items
+    .map(cleanCategoryOrExpertise)
+    .filter((cat): cat is string => Boolean(cat));
+  return Array.from(new Set(cleaned));
+}
+
 export function normalizeImageUrl(url?: string): string {
   if (!url) return "/fallback.jpg";
-  const trimmed = url.trim();
-  if (trimmed.startsWith("//")) return `https:${trimmed}`;
-  if (trimmed.startsWith("http://") || trimmed.startsWith("https://") || trimmed.startsWith("/")) {
-    return trimmed;
+  let trimmed = url.trim();
+  if (trimmed.startsWith("//")) {
+    trimmed = `https:${trimmed}`;
+  } else if (trimmed.startsWith("http://")) {
+    trimmed = trimmed.replace(/^http:\/\//i, "https://");
+  } else if (!trimmed.startsWith("https://") && !trimmed.startsWith("/")) {
+    trimmed = `https://${trimmed}`;
   }
-  return `https://${trimmed}`;
+  return trimmed;
 }
 
 export function decodeHtmlEntities(str: string): string {
@@ -55,8 +105,12 @@ function formatWpPost(post: any) {
   
   const parsedDate = post.date ? new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : "June 30, 2026";
   
-  let cats = post._embedded?.['wp:term']?.[0]?.filter((t: any) => t.taxonomy === 'category').map((c: any) => c.name) || [];
-  if (cats.length === 0) cats = ["SEO", "Content Marketing", "Digital Strategy"];
+  let rawCats = post._embedded?.['wp:term']?.[0]?.filter((t: any) => t.taxonomy === 'category').map((c: any) => c.name) || [];
+  if (rawCats.length === 0 && Array.isArray(post.categories)) {
+    rawCats = post.categories;
+  }
+  let cats = sanitizeCategoriesList(rawCats);
+  if (cats.length === 0) cats = ["SEO", "Digital Marketing", "Social Media"];
 
   const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
   const rawImageUrl = 
@@ -177,12 +231,14 @@ export async function getResolvedAuthor(post: any) {
     email = matchingMember.socials.email;
   }
 
-  const postCategories: string[] = post?.categories || post?._embedded?.['wp:term']?.[0]?.filter((t: any) => t.taxonomy === 'category').map((c: any) => c.name) || [];
+  const embeddedTerms = post?._embedded?.['wp:term']?.[0]?.filter((t: any) => t.taxonomy === 'category').map((c: any) => c.name) || [];
+  const rawPostCategories: any[] = embeddedTerms.length > 0 ? embeddedTerms : (post?.categories || []);
+  const postCategories = sanitizeCategoriesList(rawPostCategories);
 
-  const expertise = Array.from(new Set([
+  const expertise = sanitizeCategoriesList([
     ...(matchingMember?.expertise || []),
     ...postCategories,
-  ])).filter(Boolean);
+  ]);
 
   return {
     name: matchingMember?.name || authorName,

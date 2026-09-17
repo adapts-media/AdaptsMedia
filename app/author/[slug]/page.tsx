@@ -1,4 +1,4 @@
-import { getPostsByAuthor, getResolvedAuthor, getWordPressTeamMembers } from "@/lib/getPosts";
+import { getPostsByAuthor, getResolvedAuthor, getWordPressTeamMembers, sanitizeCategoriesList } from "@/lib/getPosts";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import AuthorPageClient from "@/components/author/AuthorPageClient";
@@ -60,19 +60,18 @@ export default async function AuthorBlogsPage({ params }: Props) {
   const posts = await getPostsByAuthor(slug);
   
   // Collect all unique categories from all posts by this author from WordPress
-  const wpPostCategories = Array.from(
-    new Set(
-      posts.flatMap((p: any) => (Array.isArray(p.categories) ? p.categories : []))
-    )
-  ).filter(Boolean);
+  const wpPostCategories = sanitizeCategoriesList(
+    posts.flatMap((p: any) => (Array.isArray(p.categories) ? p.categories : []))
+  );
 
   let authorData = null;
   if (posts.length > 0) {
     authorData = await getResolvedAuthor(posts[0]);
     // Merge team expertise with all unique post categories from WordPress
-    const mergedExpertise = Array.from(
-      new Set([...(authorData.expertise || []), ...wpPostCategories])
-    ).filter(Boolean);
+    const mergedExpertise = sanitizeCategoriesList([
+      ...(authorData.expertise || []),
+      ...wpPostCategories,
+    ]);
     authorData = {
       ...authorData,
       expertise: mergedExpertise.length > 0 ? mergedExpertise : ["Digital Marketing", "Strategy"],

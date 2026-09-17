@@ -1,4 +1,4 @@
-import { getSinglePost, getWordPressPosts, getResolvedAuthor, normalizeImageUrl } from "@/lib/getPosts";
+import { getSinglePost, getWordPressPosts, getResolvedAuthor, normalizeImageUrl, sanitizeCategoriesList } from "@/lib/getPosts";
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -60,8 +60,12 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   
   const parsedDate = post.date ? new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : "June 30, 2026";
   
-  let cats = post._embedded?.['wp:term']?.[0]?.filter((t: any) => t.taxonomy === 'category').map((c: any) => c.name) || [];
-  if (cats.length === 0) cats = ["SEO", "Content Marketing", "Digital Strategy"];
+  let rawCats = post._embedded?.['wp:term']?.[0]?.filter((t: any) => t.taxonomy === 'category').map((c: any) => c.name) || [];
+  if (rawCats.length === 0 && Array.isArray(post.categories)) {
+    rawCats = post.categories;
+  }
+  let cats = sanitizeCategoriesList(rawCats);
+  if (cats.length === 0) cats = ["SEO", "Digital Marketing", "Social Media"];
 
   const decodedTitle = post.title.rendered.replace(/&#(\d+);/g, (match: string, dec: number) => String.fromCharCode(dec));
 
@@ -97,6 +101,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 alt="Featured Image"
                 fill
                 priority
+                unoptimized
                 sizes="(max-width: 1200px) 100vw, 1200px"
                 className="w-full h-full object-cover block" 
               />

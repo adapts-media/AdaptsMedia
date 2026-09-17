@@ -163,6 +163,7 @@ export default function AuthorPageClient({ authorData, posts }: AuthorPageClient
                 alt={authorData.name}
                 fill
                 priority
+                unoptimized
                 className="object-cover transition-transform duration-700 group-hover/card:scale-105"
               />
             </motion.div>
@@ -218,7 +219,11 @@ export default function AuthorPageClient({ authorData, posts }: AuthorPageClient
                     Areas of Expertise
                   </span>
                   <div className="flex flex-wrap justify-center md:justify-start gap-2">
-                    {authorData.expertise.map((exp: string, idx: number) => (
+                    {authorData.expertise
+                      .map((exp: string) => (typeof exp === "number" || !isNaN(Number(exp)) ? "SEO" : exp))
+                      .filter(Boolean)
+                      .filter((v: string, i: number, a: string[]) => a.indexOf(v) === i)
+                      .map((exp: string, idx: number) => (
                       <span
                         key={idx}
                         className="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs md:text-sm rounded-full font-medium backdrop-blur-sm transition-all duration-300 shadow-sm"

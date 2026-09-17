@@ -35,6 +35,7 @@ const AuthorSection = ({ author }: AuthorSectionProps) => {
             src={authorAvatar}
             alt={authorName}
             fill
+            unoptimized
             className="object-cover"
           />
         </div>
@@ -48,7 +49,7 @@ const AuthorSection = ({ author }: AuthorSectionProps) => {
             </div>
             
             {/* Social Icons */}
-            <div className="flex items-center gap-4">
+            <div className="flex gap-4">
               <a href={email} className="w-12 h-12 rounded-full border border-white/50 flex items-center justify-center hover:bg-white hover:text-[#083c8a] transition-all group">
                 <FaEnvelope className="w-5 h-5 text-white group-hover:text-[#083c8a]" />
               </a>
@@ -64,7 +65,11 @@ const AuthorSection = ({ author }: AuthorSectionProps) => {
 
           {author.expertise && author.expertise.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-6">
-              {author.expertise.map((exp, idx) => (
+              {author.expertise
+                .map((exp) => (typeof exp === "number" || !isNaN(Number(exp)) ? "SEO" : exp))
+                .filter(Boolean)
+                .filter((v, i, a) => a.indexOf(v) === i)
+                .map((exp, idx) => (
                 <span
                   key={idx}
                   className="px-3 py-1 bg-white/10 border border-white/20 text-white text-xs rounded-full font-medium backdrop-blur-sm"
