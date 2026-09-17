@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const ContactCTA = () => {
   return (
@@ -39,8 +40,11 @@ const ContactCTA = () => {
           <h2 className="text-3xl md:text-7xl font-heading font-normal text-white leading-[1.3] tracking-tight">
             Ready to start your next project or still exploring ideas?{' '}
 
-            {/* INLINE BUTTON REPLACEMENT */}
-            <button className="relative inline-flex items-center justify-center md:px-6 lg:px-6 py-2 md:skew-x-[-12deg] overflow-hidden transition-all bg-transparent group align-middle duration-500 cursor-pointer">
+            {/* INLINE BUTTON REPLACEMENT -> LINK TO CONTACT US */}
+            <Link
+              href="/contact"
+              className="relative inline-flex items-center justify-center md:px-6 lg:px-6 py-2 md:skew-x-[-12deg] overflow-hidden transition-all bg-transparent group align-middle duration-500 cursor-pointer"
+            >
               <span className="flex items-center gap-3 text-3xl md:text-7xl font-heading font-thin italic border-b md:skew-x-[12deg] border-white/70 text-white group-hover:text-[#c42a27] transition-colors duration-500">
                 Let's connect
                 {/* REPLACED SEARCH WITH ARROW */}
@@ -61,7 +65,7 @@ const ContactCTA = () => {
 
               {/* The "fill" animation background */}
               <span className="absolute inset-0 bg-white -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out -z-10" />
-            </button>
+            </Link>
           </h2>
 
         </div>

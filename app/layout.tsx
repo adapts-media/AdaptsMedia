@@ -73,7 +73,7 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} | AI-Powered Digital Marketing Agency`,
+    default: "Adapts Media | AI-Powered Marketing Agency and Solutions",
     template: `%s`,
   },
   description: "Expert digital marketing solutions in Dubai and globally.",

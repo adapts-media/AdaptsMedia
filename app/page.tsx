@@ -43,7 +43,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const yoast = await getHomepageYoast();
 
   return buildMetadata({
-    title: yoast?.title || "Adapts Media | AI-Powered Digital Marketing Agency in Dubai",
+    title: "Adapts Media | AI-Powered Marketing Agency and Solutions",
     // Hardcoded rather than sourced from Yoast — WordPress's current value
     // is close but not this exact wording, and the live site was actually
     // showing the fallback string below anyway (the Yoast fetch here has

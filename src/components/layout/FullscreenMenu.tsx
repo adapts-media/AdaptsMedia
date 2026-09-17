@@ -19,7 +19,7 @@ const socials = [
   { name: "Instagram", href: "https://www.instagram.com/adaptsmedia/?hl=en" },
   { name: "LinkedIn", href: "https://www.linkedin.com/company/adaptsmedia/?original_referer=https%3A%2F%2Fwww%2Egoogle%2Ecom%2F&originalSubdomain=ae" },
   { name: "Twitter", href: "https://x.com/adaptsmedia" },
-  { name: "Behance", href: "#" },
+  { name: "YouTube", href: "https://www.youtube.com/@AdaptsMedia" },
 ];
 
 function MenuLink({ 
@@ -195,7 +195,12 @@ export default function FullscreenMenu({ isOpen, onClose }: { isOpen: boolean; o
                   <ul className="flex gap-6">
                     {socials.map((social) => (
                       <li key={social.name}>
-                        <a href={social.href} className="text-base text-white/70 hover:text-[#FAC02D] transition-colors duration-300 relative group overflow-hidden inline-block">
+                        <a
+                          href={social.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-base text-white/70 hover:text-[#FAC02D] transition-colors duration-300 relative group overflow-hidden inline-block"
+                        >
                           <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">{social.name}</span>
                           <span className="absolute left-0 top-full inline-block transition-transform duration-300 group-hover:-translate-y-full text-[#FAC02D]">{social.name}</span>
                         </a>

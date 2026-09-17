@@ -76,6 +76,17 @@ const nextConfig = {
         destination: "/portfolio",
         permanent: true,
       },
+      // Redirect /contact-us alias to /contact
+      {
+        source: "/contact-us",
+        destination: "/contact",
+        permanent: true,
+      },
+      {
+        source: "/contact-us/",
+        destination: "/contact",
+        permanent: true,
+      },
     ];
   },
   images: {
