@@ -102,6 +102,9 @@ const nextConfig = {
       { source: "/sms-campaign/", destination: "/social-content", permanent: true },
       { source: "/e-mail-marketing-services", destination: "/social-content", permanent: true },
       { source: "/e-mail-marketing-services/", destination: "/social-content", permanent: true },
+      // /digital-marketing-agency-in-uae/ and any sub-path (abu-dhabi, dubai, sharjah, etc.)
+      { source: "/digital-marketing-agency-in-uae", destination: "/", permanent: true },
+      { source: "/digital-marketing-agency-in-uae/:path*", destination: "/", permanent: true },
     ];
   },
   images: {
