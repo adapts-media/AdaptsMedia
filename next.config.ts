@@ -98,6 +98,10 @@ const nextConfig = {
         destination: "/contact",
         permanent: true,
       },
+      { source: "/sms-campaign", destination: "/social-content", permanent: true },
+      { source: "/sms-campaign/", destination: "/social-content", permanent: true },
+      { source: "/e-mail-marketing-services", destination: "/social-content", permanent: true },
+      { source: "/e-mail-marketing-services/", destination: "/social-content", permanent: true },
     ];
   },
   images: {
