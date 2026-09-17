@@ -1,5 +1,27 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async rewrites() {
+    return [
+      // Safety net for the WordPress domain migration to cms.adaptsmedia.com:
+      // WordPress writes media/attachment URLs (and inline <img> tags in
+      // post content) once, at creation time, and never rewrites them when
+      // the site URL changes later — so a lot of existing content still
+      // has hardcoded adaptsmedia.com/wp-content/... URLs baked in, even
+      // though WordPress itself now correctly lives at cms.adaptsmedia.com.
+      // Today that's invisible because adaptsmedia.com still runs
+      // WordPress directly. Once this app takes over adaptsmedia.com,
+      // those stale URLs would 404 with nothing else running there — this
+      // transparently proxies any /wp-content/* request that lands here
+      // through to the real location instead. The durable fix is a
+      // WordPress-side database search-and-replace (adaptsmedia.com ->
+      // cms.adaptsmedia.com) — this is a safety net for whatever that
+      // doesn't catch, not a replacement for it.
+      {
+        source: "/wp-content/:path*",
+        destination: "https://cms.adaptsmedia.com/wp-content/:path*",
+      },
+    ];
+  },
   async redirects() {
     return [
       // WordPress's live permalinks are /blog/{slug}/ (singular) — this
