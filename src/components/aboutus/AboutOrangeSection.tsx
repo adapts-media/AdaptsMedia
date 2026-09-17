@@ -484,21 +484,6 @@ const AboutOrangeSection = () => {
                 ref={compassFloatRef}
                 className="relative w-full h-full flex items-center justify-center will-change-transform"
               >
-                {/* SVG Filter to remove black background (Chroma Key) with smooth edge blending */}
-                <svg width="0" height="0" className="absolute">
-                  <defs>
-                    <filter id="remove-black" colorInterpolationFilters="sRGB">
-                      <feColorMatrix
-                        type="matrix"
-                        values="1 0 0 0 0
-                                0 1 0 0 0
-                                0 0 1 0 0
-                                1.5 1.5 1.5 0 -0.1"
-                      />
-                    </filter>
-                  </defs>
-                </svg>
-
                 {/* Warm ambient glow behind the compass */}
                 <div
                   className="absolute inset-0 rounded-full pointer-events-none"
@@ -517,10 +502,7 @@ const AboutOrangeSection = () => {
                   loop
                   playsInline
                   suppressHydrationWarning
-                  className="w-full h-full object-contain scale-140 md:scale-180 pointer-events-none"
-                  style={{
-                    filter: "url(#remove-black)",
-                  }}
+                  className="w-full h-full object-contain scale-140 md:scale-180 pointer-events-none mix-blend-screen"
                 />
               </div>
             </div>
