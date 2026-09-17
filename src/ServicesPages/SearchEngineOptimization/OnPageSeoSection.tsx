@@ -24,7 +24,7 @@ const OnPageSeoSection = () => {
       ref={containerRef}
       className="relative w-full py-24 md:py-32 flex justify-center overflow-hidden text-white"
       style={{
-        background: "radial-gradient(circle 600px at top left, rgba(7, 71, 107, 0.75) 0%, transparent 100%), radial-gradient(circle 600px at bottom right, rgba(7, 71, 107, 0.75) 0%, transparent 100%), #064ED3"
+        background: "radial-gradient(circle 600px at top left, rgba(255, 255, 255, 0.15) 0%, transparent 100%), radial-gradient(circle 600px at bottom right, rgba(255, 255, 255, 0.15) 0%, transparent 100%), #262626"
       }}
     >
       <div className="max-w-[1350px] 2xl:max-w-[1600px] w-full mx-auto px-8 md:px-16 flex flex-col gap-16 relative z-10">
@@ -39,7 +39,7 @@ const OnPageSeoSection = () => {
               Match Search Intent. Convert Every Visit into Value.
             </h2>
 
-            <div className="onpage-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-blue-50/90">
+            <div className="onpage-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-gray-300">
               <p>
                 Search intent is the cornerstone of organic growth. We optimize your website’s structure, content, and metadata so search engines understand your authority and users find exactly what they are looking for. No keyword stuffing, no thin content, no outdated tactics that fail to convert.
               </p>
@@ -56,7 +56,7 @@ const OnPageSeoSection = () => {
               <div className="w-full h-full relative">
                 {/* Background Grid */}
                 <img
-                  src="/images/BrandingCreative/LogoBgBlue.png"
+                  src="/images/BrandingCreative/DigitalMarketingLogoBg.png"
                   className="onpage-img-bg service-img-bg absolute inset-0 w-full h-full object-contain scale-110 z-0 opacity-40 pointer-events-none"
                   style={{ filter: 'brightness(0)' }}
                   alt="On-Page SEO Background Grid"
@@ -64,7 +64,7 @@ const OnPageSeoSection = () => {
 
                 {/* Main Illustration */}
                 <img
-                  src="/images/BrandingCreative/LogoBlue.png"
+                  src="/images/SEO Icons/Seo 1.png"
                   className="onpage-img-main service-img-main relative z-10 w-full h-full object-contain scale-[0.75]"
                   alt="On-Page SEO Illustration"
                 />

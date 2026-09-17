@@ -5,6 +5,7 @@ import BrandingCreative from '../layout/BrandingCreative'
 import PublicRelations from '../layout/PublicRelations'
 import StrategyConsulting from '../layout/StrategyConsulting'
 import AiIntelligence from '../layout/AiIntelligence'
+import SearchEngineOptimization from '../layout/SearchEngineOptimization'
 
 const ConnectedThinking = () => {
   return (
@@ -20,6 +21,7 @@ const ConnectedThinking = () => {
                 loop
                 muted
                 playsInline
+                suppressHydrationWarning
                 style={{
                     maskImage: 'radial-gradient(circle, black 40%, transparent 90%)',
                     WebkitMaskImage: 'radial-gradient(circle, black 40%, transparent 90%)',
@@ -43,6 +45,7 @@ const ConnectedThinking = () => {
                 loop
                 muted
                 playsInline
+                suppressHydrationWarning
                 style={{
                     maskImage: 'radial-gradient(circle, black 50%, transparent 95%)',
                     WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 95%)',
@@ -61,6 +64,7 @@ const ConnectedThinking = () => {
         <PublicRelations/>
         <StrategyConsulting/>
         <AiIntelligence/>
+        <SearchEngineOptimization/>
         
     </div>
   )

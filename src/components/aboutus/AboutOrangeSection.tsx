@@ -358,6 +358,7 @@ const AboutOrangeSection = () => {
           loop
           muted
           playsInline
+          suppressHydrationWarning
           className="absolute z-10 top-1/2 -translate-y-1/2 right-0 w-[50%] h-[70%] object-cover opacity-25 mix-blend-multiply pointer-events-none"
           style={{
             maskImage: "radial-gradient(circle, black 30%, transparent 80%)",
@@ -515,6 +516,7 @@ const AboutOrangeSection = () => {
                   muted
                   loop
                   playsInline
+                  suppressHydrationWarning
                   className="w-full h-full object-contain scale-140 md:scale-180 pointer-events-none"
                   style={{
                     filter: "url(#remove-black)",

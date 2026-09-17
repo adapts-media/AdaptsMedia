@@ -5,11 +5,19 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 90px;
+  scroll-padding-top: 0px;
 }
 
 [id] {
-  scroll-margin-top: 90px;
+  scroll-margin-top: 0px;
+}
+
+section:has(.service-content-wrapper) {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* ─── Custom cursor ─────────────────────────────────────── */

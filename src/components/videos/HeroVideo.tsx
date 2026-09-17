@@ -7,6 +7,7 @@ const HeroVideo = () => {
         loop
         playsInline
         preload="auto"
+        suppressHydrationWarning
         className="hero-video absolute top-0 left-0 w-full h-full object-cover"
       >
         <source src="/videos/AdaptsMedia_Banner_Video.mp4" type="video/mp4" />

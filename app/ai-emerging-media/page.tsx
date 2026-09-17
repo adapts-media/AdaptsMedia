@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo";
 import Hero from "@/ServicesPages/AiEmergingMedia/Hero";
 import Intro from "@/ServicesPages/AiEmergingMedia/Intro";
-import AeoGeoSection from "@/ServicesPages/AiEmergingMedia/AeoGeoSection";
 import AiContentSection from "@/ServicesPages/AiEmergingMedia/AiContentSection";
 import MarketingAutomationSection from "@/ServicesPages/AiEmergingMedia/MarketingAutomationSection";
 import ConversationalAiSection from "@/ServicesPages/AiEmergingMedia/ConversationalAiSection";
@@ -25,11 +24,10 @@ const page = () => {
     <div>
         <Hero/>
         <Intro/>
-        <AeoGeoSection/>
-        <AiContentSection/>
-        <MarketingAutomationSection/>
-        <ConversationalAiSection/>
-        <PredictiveAnalyticsSection/>
+        <div id="ai-content"><AiContentSection/></div>
+        <div id="marketing-automation"><MarketingAutomationSection/></div>
+        <div id="conversational-ai"><ConversationalAiSection/></div>
+        <div id="predictive-analytics"><PredictiveAnalyticsSection/></div>
         <PortfolioSection/>
         <ClientsSection/>
         <ContactCTA/>

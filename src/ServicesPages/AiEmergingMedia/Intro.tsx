@@ -11,7 +11,6 @@ const Intro = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   
   const pills = [
-    "AEO & GEO (LLM Search Visibility)",
     "AI-Powered Content & Creative Production",
     "Marketing Automation & Agentic Workflows",
     "Conversational AI & Chatbots",

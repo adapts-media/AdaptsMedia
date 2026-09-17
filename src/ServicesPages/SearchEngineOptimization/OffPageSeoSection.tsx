@@ -24,7 +24,7 @@ const OffPageSeoSection = () => {
       ref={containerRef}
       className="relative w-full py-24 md:py-32 flex justify-center overflow-hidden text-white"
       style={{
-        background: "radial-gradient(circle 600px at top left, rgba(255, 255, 255, 0.15) 0%, transparent 100%), radial-gradient(circle 600px at bottom right, rgba(255, 255, 255, 0.15) 0%, transparent 100%), #262626"
+        background: "radial-gradient(circle 600px at top left, rgba(250, 192, 46, 0.75) 0%, transparent 100%), radial-gradient(circle 600px at bottom right, rgba(250, 192, 46, 0.75) 0%, transparent 100%), #C12126"
       }}
     >
       <div className="max-w-[1350px] 2xl:max-w-[1600px] w-full mx-auto px-8 md:px-16 flex flex-col gap-16 relative z-10">
@@ -37,15 +37,14 @@ const OffPageSeoSection = () => {
               <div className="w-full h-full relative">
                 {/* Background Grid */}
                 <img
-                  src="/images/BrandingCreative/DigitalMarketingLogoBg.png"
-                  className="offpage-img-bg service-img-bg absolute inset-0 w-full h-full object-contain scale-110 z-0 opacity-40 pointer-events-none"
-                  style={{ filter: 'brightness(0)' }}
+                  src="/images/BrandingCreative/DesignSystemLogoBg.png"
+                  className="offpage-img-bg service-img-bg absolute inset-0 w-full h-full object-contain scale-110 z-0 opacity-80 pointer-events-none"
                   alt="Off-Page SEO Background Grid"
                 />
 
                 {/* Main Illustration */}
                 <img
-                  src="/images/BrandingCreative/DigitalMarketingLogo.png"
+                  src="/images/SEO Icons/image 68.png"
                   className="offpage-img-main service-img-main relative z-10 w-full h-full object-contain scale-[0.75]"
                   alt="Off-Page SEO Illustration"
                 />
@@ -69,7 +68,7 @@ const OffPageSeoSection = () => {
               Build Genuine Authority. Uplift Brand Distinction.
             </h2>
 
-            <div className="offpage-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-gray-300">
+            <div className="offpage-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-red-50/90">
               <p>
                 Rankings rely on modern brand signals and authority. Low-quality, spammy link schemes get websites penalized and waste budget. We execute targeted digital PR and high-authority link-building strategies that earn natural placements across industry-leading publications and contextually relevant domains.
               </p>

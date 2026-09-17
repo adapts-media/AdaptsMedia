@@ -5,14 +5,16 @@ import Footer from '@/components/layout/Footer';
 import SocialBar from '@/components/layout/SocialBar';
 import ContactCTA from '@/components/homepage/ContactCTA';
 import { getWordPressTeamMembers } from '@/lib/getPosts';
-import { buildMetadata, SITE_URL } from '@/lib/seo';
+import { buildMetadata } from '@/lib/seo';
+
+const WORDPRESS_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://cms.adaptsmedia.com";
 
 // Shared per-request cache — generateMetadata() and the page body both
 // need this, and calling fetch() twice for the same URL from two places
 // is wasted latency (see the equivalent fix in app/page.tsx).
 const getTeamYoast = cache(async () => {
   try {
-    const res = await fetch(`${SITE_URL}/wp-json/yoast/v1/get_head?url=${SITE_URL}/team/`, {
+    const res = await fetch(`${WORDPRESS_URL}/wp-json/yoast/v1/get_head?url=${WORDPRESS_URL}/team/`, {
       next: { revalidate: 3600 },
     });
     if (res.ok) {

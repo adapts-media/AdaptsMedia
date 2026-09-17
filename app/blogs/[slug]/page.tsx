@@ -1,4 +1,4 @@
-import { getSinglePost, getWordPressPosts, getResolvedAuthor } from "@/lib/getPosts";
+import { getSinglePost, getWordPressPosts, getResolvedAuthor, normalizeImageUrl } from "@/lib/getPosts";
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // now 301s here (see next.config.ts), so canonicalizing to it would
     // point search engines at a redirect instead of the real page.
     path: `/blogs/${slug}`,
-    image: yoast?.og_image?.[0]?.url || post._embedded?.['wp:featuredmedia']?.[0]?.source_url,
+    image: normalizeImageUrl(yoast?.og_image?.[0]?.url || post._embedded?.['wp:featuredmedia']?.[0]?.source_url),
     noindex: yoast?.robots?.index === 'noindex',
     type: 'article',
   });
@@ -93,7 +93,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           >
             <div className="relative w-full overflow-hidden shadow-2xl bg-gray-100 rounded-xl aspect-[16/9]">
               <Image 
-                src={post._embedded?.['wp:featuredmedia']?.[0]?.source_url || post.yoast_head_json?.og_image?.[0]?.url} 
+                src={normalizeImageUrl(post._embedded?.['wp:featuredmedia']?.[0]?.source_url || post.yoast_head_json?.og_image?.[0]?.url)} 
                 alt="Featured Image"
                 fill
                 priority

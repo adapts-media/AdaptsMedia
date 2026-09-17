@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo";
 import Hero from "@/ServicesPages/SearchEngineOptimization/Hero";
 import Intro from "@/ServicesPages/SearchEngineOptimization/Intro";
+import AeoGeoSection from "@/ServicesPages/SearchEngineOptimization/AeoGeoSection";
+import AiSeoGeoSection from "@/ServicesPages/SearchEngineOptimization/AiSeoGeoSection";
 import OnPageSeoSection from "@/ServicesPages/SearchEngineOptimization/OnPageSeoSection";
 import OffPageSeoSection from "@/ServicesPages/SearchEngineOptimization/OffPageSeoSection";
 import LocalSeoSection from "@/ServicesPages/SearchEngineOptimization/LocalSeoSection";
 import TechnicalSeoSection from "@/ServicesPages/SearchEngineOptimization/TechnicalSeoSection";
-import AiSeoGeoSection from "@/ServicesPages/SearchEngineOptimization/AiSeoGeoSection";
 import ContactCTA from "@/components/homepage/ContactCTA";
 import Footer from "@/components/layout/Footer";
 import PortfolioSection from "@/components/servicespage/PortfolioSection";
@@ -24,6 +25,7 @@ const page = () => {
     <div id="ai-search-optimization">
       <Hero />
       <Intro />
+      <div id="aeo-geo"><AeoGeoSection /></div>
       <div id="on-page-seo"><OnPageSeoSection /></div>
       <div id="off-page-seo"><OffPageSeoSection /></div>
       <div id="local-seo"><LocalSeoSection /></div>

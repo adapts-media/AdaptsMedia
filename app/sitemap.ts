@@ -3,7 +3,7 @@ import { SITE_URL } from "@/lib/seo";
 import { teamMembers } from "@/data/teamData";
 import { isAuthor, WORDPRESS_AUTHORS } from "@/lib/authors";
 
-const WORDPRESS_URL = process.env.WORDPRESS_URL || "https://adaptsmedia.com";
+const WORDPRESS_URL = process.env.WORDPRESS_URL || process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://cms.adaptsmedia.com";
 
 // Static marketing routes — everything under app/ that isn't dynamic,
 // admin-only, or intentionally duplicate content pointed elsewhere via

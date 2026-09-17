@@ -11,6 +11,7 @@ interface AuthorSectionProps {
     role: string;
     linkedin: string;
     email: string;
+    expertise?: string[];
   };
 }
 
@@ -60,6 +61,19 @@ const AuthorSection = ({ author }: AuthorSectionProps) => {
           <p className="text-white/80 text-sm md:text-base leading-relaxed mb-6 max-w-3xl">
             {authorDesc}
           </p>
+
+          {author.expertise && author.expertise.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-6">
+              {author.expertise.map((exp, idx) => (
+                <span
+                  key={idx}
+                  className="px-3 py-1 bg-white/10 border border-white/20 text-white text-xs rounded-full font-medium backdrop-blur-sm"
+                >
+                  {exp}
+                </span>
+              ))}
+            </div>
+          )}
 
           <div className="mt-auto">
             <Link 

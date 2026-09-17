@@ -491,7 +491,7 @@ const HeroSection = () => {
         <section className="hero-section">
           {/* Fixed background loop video */}
           <div className="hero-bg-video">
-            <video autoPlay loop muted playsInline preload="auto">
+            <video autoPlay loop muted playsInline preload="auto" suppressHydrationWarning>
               <source
                 src="/videos/AdaptsMedia_Banner_Video.mp4"
                 type="video/mp4"
@@ -541,6 +541,7 @@ const HeroSection = () => {
                       height="1080"
                       playsInline
                       muted
+                      suppressHydrationWarning
                       className="bunny-bg__video"
                     />
 

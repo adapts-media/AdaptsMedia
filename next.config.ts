@@ -61,6 +61,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'cms.adaptsmedia.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'adaptsmedia.com', 
         pathname: '/**',
       },

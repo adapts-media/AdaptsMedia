@@ -11,6 +11,7 @@ const Intro = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   
   const pills = [
+    "AEO & GEO",
     "On-Page SEO",
     "Off-Page SEO",
     "Local SEO",

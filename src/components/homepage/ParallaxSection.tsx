@@ -271,6 +271,7 @@ const ParallaxSection = () => {
                 muted
                 playsInline
                 preload="auto"
+                suppressHydrationWarning
                 poster="https://cdn.prod.website-files.com/678fc13a6195245eefbb1f34%2F684fe7a7e0b906dca269a766_CRISIS%20PRT1-mp4%20Comp%201_1-poster-00001.jpg"
                 className="parallax_image"
               >
@@ -291,6 +292,7 @@ const ParallaxSection = () => {
                 muted
                 playsInline
                 preload="auto"
+                suppressHydrationWarning
                 poster="https://cdn.prod.website-files.com/678fc13a6195245eefbb1f34%2F684fe7eb7bbb5f98f878e6b7_LG%20-%20photoreal%20fast-mp4%20Comp%201-poster-00001.jpg"
                 className="parallax_image"
               >
@@ -311,6 +313,7 @@ const ParallaxSection = () => {
                 muted
                 playsInline
                 preload="auto"
+                suppressHydrationWarning
                 poster="https://cdn.prod.website-files.com/678fc13a6195245eefbb1f34%2F684fe869756d11a7c52e93c5_the%20dude%20process_01-mp4%20Comp%201-poster-00001.jpg"
                 className="parallax_image"
               >
@@ -359,6 +362,7 @@ const ParallaxSection = () => {
                 muted
                 playsInline
                 preload="auto"
+                suppressHydrationWarning
                 poster="https://cdn.prod.website-files.com/678fc13a6195245eefbb1f34%2F684fe7c46bfd598b9144591f_COV%20-%20Tourism--mp4%20Comp%201_1-poster-00001.jpg"
                 className="parallax_image"
               >

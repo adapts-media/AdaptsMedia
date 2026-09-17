@@ -14,7 +14,9 @@ import { cache } from "react";
 import HorizontalScrollSection from "@/components/HorizontalScrollSection";
 import ParallaxSection from "@/components/homepage/ParallaxSection";
 import HeroSection from "@/components/homepage/HeroSection";
-import { buildMetadata, SITE_URL } from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo";
+
+const WORDPRESS_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://cms.adaptsmedia.com";
 
 // cache() memoizes this per request, so generateMetadata() and the page
 // body below share a single fetch instead of hitting WordPress twice for
@@ -23,7 +25,7 @@ import { buildMetadata, SITE_URL } from "@/lib/seo";
 // instance — a different object each call, which breaks fetch memoization).
 const getHomepageYoast = cache(async () => {
   try {
-    const res = await fetch(`${SITE_URL}/wp-json/yoast/v1/get_head?url=${SITE_URL}/`, {
+    const res = await fetch(`${WORDPRESS_URL}/wp-json/yoast/v1/get_head?url=${WORDPRESS_URL}/`, {
       next: { revalidate: 3600 },
       signal: AbortSignal.timeout(4000),
     });

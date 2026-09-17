@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { FaEnvelope, FaLinkedinIn } from "react-icons/fa";
@@ -17,11 +18,33 @@ interface AuthorPageClientProps {
     role: string;
     linkedin: string;
     email: string;
+    expertise?: string[];
   };
   posts: any[];
 }
 
 export default function AuthorPageClient({ authorData, posts }: AuthorPageClientProps) {
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+
+  const postCategories = useMemo(() => {
+    const cats = new Set<string>();
+    posts.forEach((p: any) => {
+      if (Array.isArray(p.categories)) {
+        p.categories.forEach((c: string) => cats.add(c));
+      }
+    });
+    return Array.from(cats);
+  }, [posts]);
+
+  const filteredPosts = useMemo(() => {
+    if (selectedCategory === "All") return posts;
+    return posts.filter((p: any) =>
+      p.categories?.some(
+        (c: string) => c.toLowerCase() === selectedCategory.toLowerCase()
+      )
+    );
+  }, [posts, selectedCategory]);
+
   const emailUrl = authorData.email.startsWith("mailto:") ? authorData.email : `mailto:${authorData.email}`;
 
   // Card & content animations
@@ -187,6 +210,25 @@ export default function AuthorPageClient({ authorData, posts }: AuthorPageClient
               >
                 {authorData.description}
               </motion.p>
+
+              {/* Areas of Expertise */}
+              {authorData.expertise && authorData.expertise.length > 0 && (
+                <motion.div variants={itemVariants} className="mt-6 pt-6 border-t border-white/15">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-blue-200 block mb-3 font-sans">
+                    Areas of Expertise
+                  </span>
+                  <div className="flex flex-wrap justify-center md:justify-start gap-2">
+                    {authorData.expertise.map((exp: string, idx: number) => (
+                      <span
+                        key={idx}
+                        className="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs md:text-sm rounded-full font-medium backdrop-blur-sm transition-all duration-300 shadow-sm"
+                      >
+                        {exp}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
             </div>
           </motion.div>
         </div>
@@ -201,7 +243,7 @@ export default function AuthorPageClient({ authorData, posts }: AuthorPageClient
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="border-b border-gray-100 pb-8 mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-4"
+            className="border-b border-gray-100 pb-8 mb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-4"
           >
             <div>
               <span className="text-[#004dc3] text-sm font-bold tracking-widest uppercase block mb-2 font-sans">
@@ -212,11 +254,47 @@ export default function AuthorPageClient({ authorData, posts }: AuthorPageClient
               </h2>
             </div>
             <p className="text-gray-500 font-medium font-sans">
-              Showing {posts.length} {posts.length === 1 ? 'post' : 'posts'}
+              Showing {filteredPosts.length} {filteredPosts.length === 1 ? 'post' : 'posts'}
             </p>
           </motion.div>
 
-          {posts.length > 0 ? (
+          {/* Topic / Category Filter Buttons */}
+          {postCategories.length > 1 && (
+            <div className="flex flex-wrap items-center gap-2 mb-12">
+              <button
+                type="button"
+                onClick={() => setSelectedCategory("All")}
+                className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300 ${
+                  selectedCategory === "All"
+                    ? "bg-[#004dc3] text-white shadow-md shadow-blue-500/20"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                }`}
+              >
+                All ({posts.length})
+              </button>
+              {postCategories.map((cat) => {
+                const count = posts.filter((p: any) =>
+                  p.categories?.some((c: string) => c.toLowerCase() === cat.toLowerCase())
+                ).length;
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-300 ${
+                      selectedCategory === cat
+                        ? "bg-[#004dc3] text-white shadow-md shadow-blue-500/20"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    }`}
+                  >
+                    {cat} ({count})
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {filteredPosts.length > 0 ? (
             <motion.div 
               variants={gridVariants}
               initial="hidden"
@@ -224,7 +302,7 @@ export default function AuthorPageClient({ authorData, posts }: AuthorPageClient
               viewport={{ once: true, margin: "-100px" }}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16"
             >
-              {posts.map((p: any) => (
+              {filteredPosts.map((p: any) => (
                 <motion.div 
                   key={p.slug} 
                   variants={cardVariants}
@@ -251,8 +329,15 @@ export default function AuthorPageClient({ authorData, posts }: AuthorPageClient
               className="text-center py-24 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200"
             >
               <p className="text-gray-400 text-lg mb-4 font-sans">
-                No published blog posts found for this author yet.
+                No published blog posts found for this category.
               </p>
+              <button
+                type="button"
+                onClick={() => setSelectedCategory("All")}
+                className="text-sm font-semibold text-[#004dc3] hover:underline"
+              >
+                Clear filter
+              </button>
             </motion.div>
           )}
         </div>

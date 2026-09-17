@@ -466,6 +466,7 @@ const OrangeSection = () => {
           loop
           muted
           playsInline
+          suppressHydrationWarning
           className="absolute z-10 top-1/2 -translate-y-1/2 right-0 w-[50%] h-[70%] object-cover opacity-30 mix-blend-multiply pointer-events-none"
           style={{
             maskImage: "radial-gradient(circle, black 30%, transparent 80%)",

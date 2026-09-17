@@ -28,7 +28,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     const lenis = lenisRef.current?.lenis;
     if (lenis) {
       lenis.resize();
-      lenis.scrollTo(target, { offset: -90, duration: 1.2 });
+      lenis.scrollTo(target, { offset: 0, duration: 1.2 });
     } else {
       (target as HTMLElement).scrollIntoView({ behavior: 'smooth' });
     }
@@ -46,7 +46,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
         const lenis = lenisRef.current?.lenis;
         if (target && lenis) {
           lenis.resize();
-          lenis.scrollTo(target, { offset: -90, duration: 1.2 });
+          lenis.scrollTo(target, { offset: 0, duration: 1.2 });
         } else if (attempts < maxAttempts) {
           attempts++;
           setTimeout(tryScroll, 60);

@@ -12,12 +12,10 @@ gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 const services = [
   {
     items: [
-      "AEO & GEO",
       "AI-Powered Content & Creative Production",
       "Predictive Analytics & AI Media Optimization",
     ],
     links: [
-      "/ai-emerging-media#aeo-geo",
       "/ai-emerging-media#ai-content",
       "/ai-emerging-media#predictive-analytics",
     ],

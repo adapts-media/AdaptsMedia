@@ -138,7 +138,7 @@ const SingleBlogHero = ({ title, author, authorSlug, date, categories }: SingleB
 
         {/* Meta — server renders hidden */}
         <div
-          className="blog-hero-meta flex flex-col items-center gap-1 mb-8"
+          className="blog-hero-meta flex flex-col items-center gap-2"
           style={{ opacity: 0 }}
         >
           {author && (
@@ -152,23 +152,20 @@ const SingleBlogHero = ({ title, author, authorSlug, date, categories }: SingleB
               </Link>
             </p>
           )}
-          <p className="text-xs md:text-sm font-sans text-white/60">
-            {date} <span className="mx-2">|</span> Category:{" "}
-            {categories.length > 0 ? categories[0] : "Insights"}
-          </p>
-        </div>
-
-        {/* Tags — each hidden individually for independent stagger */}
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          {categories.map((cat, index) => (
-            <span
-              key={index}
-              className="blog-hero-tag bg-[#fac02d] text-[#17313B] text-[10px] md:text-xs font-semibold px-4 py-1.5 rounded-full whitespace-nowrap"
-              style={{ opacity: 0 }}
-            >
-              {cat}
-            </span>
-          ))}
+          <div className="flex flex-wrap items-center justify-center gap-2 text-xs md:text-sm font-sans text-white/60">
+            <span>{date}</span>
+            <span className="mx-1 text-white/40">|</span>
+            <span>Category:</span>
+            {(categories.length > 0 ? categories : ["Insights"]).map((cat, index) => (
+              <span
+                key={index}
+                className="blog-hero-tag bg-[#fac02d] text-[#17313B] text-[10px] md:text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap inline-flex items-center"
+                style={{ opacity: 0 }}
+              >
+                {cat}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>

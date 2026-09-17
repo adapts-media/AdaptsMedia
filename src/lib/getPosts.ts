@@ -1,6 +1,16 @@
 import { teamMembers } from "@/data/teamData";
 
-const BASE_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://adaptsmedia.com";
+const BASE_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://cms.adaptsmedia.com";
+
+export function normalizeImageUrl(url?: string): string {
+  if (!url) return "/fallback.jpg";
+  const trimmed = url.trim();
+  if (trimmed.startsWith("//")) return `https:${trimmed}`;
+  if (trimmed.startsWith("http://") || trimmed.startsWith("https://") || trimmed.startsWith("/")) {
+    return trimmed;
+  }
+  return `https://${trimmed}`;
+}
 
 export function decodeHtmlEntities(str: string): string {
   if (!str) return "";
@@ -49,12 +59,13 @@ function formatWpPost(post: any) {
   if (cats.length === 0) cats = ["SEO", "Content Marketing", "Digital Strategy"];
 
   const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
-  const imageUrl = 
+  const rawImageUrl = 
     featuredMedia?.media_details?.sizes?.medium_large?.source_url || 
     featuredMedia?.media_details?.sizes?.large?.source_url || 
     featuredMedia?.source_url || 
     post.yoast_head_json?.og_image?.[0]?.url ||
     "/fallback.jpg";
+  const imageUrl = normalizeImageUrl(rawImageUrl);
 
   return {
     title: decodeHtmlEntities(post.title?.rendered || ""),
@@ -166,12 +177,20 @@ export async function getResolvedAuthor(post: any) {
     email = matchingMember.socials.email;
   }
 
+  const postCategories: string[] = post?.categories || post?._embedded?.['wp:term']?.[0]?.filter((t: any) => t.taxonomy === 'category').map((c: any) => c.name) || [];
+
+  const expertise = Array.from(new Set([
+    ...(matchingMember?.expertise || []),
+    ...postCategories,
+  ])).filter(Boolean);
+
   return {
     name: matchingMember?.name || authorName,
     slug: authorSlug,
     description: schemaPerson?.description || matchingMember?.aboutLong || matchingMember?.bio || "Digital Marketing Expert at Adapts Media.",
-    avatar: matchingMember?.image || post._embedded?.author?.[0]?.avatar_urls?.['96'] || "/images/Team/AshishGupta.png",
+    avatar: normalizeImageUrl(matchingMember?.image || post._embedded?.author?.[0]?.avatar_urls?.['96'] || "/images/Team/AshishGupta.png"),
     role: matchingMember?.role || "Digital Marketing Specialist",
+    expertise: expertise.length > 0 ? expertise : ["Digital Marketing", "Strategy"],
     linkedin,
     email,
   };
@@ -238,7 +257,7 @@ export async function getWordPressTeamMembers() {
         const roleMatch = block.match(/<h5[^>]*>(.*?)<\/h5>/i);
         const bioMatch = block.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
 
-        const img = imgMatch ? imgMatch[1].trim() : '';
+        const img = normalizeImageUrl(imgMatch ? imgMatch[1].trim() : '');
         const name = nameMatch ? decodeHtmlEntities(nameMatch[1].replace(/<[^>]+>/g, '').trim()) : '';
         const rawRole = roleMatch ? decodeHtmlEntities(roleMatch[1].replace(/<[^>]+>/g, '').trim()) : '';
         const bio = bioMatch ? decodeHtmlEntities(bioMatch[1].replace(/<[^>]+>/g, '').trim().replace(/\s+/g, ' ')) : '';
