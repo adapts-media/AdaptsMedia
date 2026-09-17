@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto, Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
+import ScrollArrow from "@/components/layout/ScrollArrow";
 
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import Script from "next/script";
@@ -103,6 +104,7 @@ export default function RootLayout({
           <main style={{ paddingTop: '0px' }}>
             {children}
           </main>
+          <ScrollArrow />
         </SmoothScroll>
         {/* Google Tag Manager - Loads only after the page is interactive */}
         <Script id="gtm" strategy="afterInteractive">
