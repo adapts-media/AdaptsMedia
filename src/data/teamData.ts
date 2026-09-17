@@ -250,7 +250,7 @@ export const teamMembers: TeamMember[] = [
     image: "https://cms.adaptsmedia.com/wp-content/uploads/2024/03/9D58B824-2720-439C-B186-4A909C7B9ED7.jpg",
     initials: "DV",
     initialsBg: "bg-emerald-600",
-    bio: "Catalogue E-commerce Specialist with 7+ years of expertise, associated with Adapts Media managing Marketing, PPC Advertising, Product Growth & Brand Strategy, Frontend & Backend, Brand Store & A+ Content, E-com Retail Services, Campaigns and reporting on KPIs/ROI & Performance across diverse Digital Platforms and Regions.",
+    bio: "Catalogue E-commerce Specialist with 9+ years of expertise, associated with Adapts Media managing Marketing, PPC Advertising, Product Growth & Brand Strategy, Frontend & Backend, Brand Store & A+ Content, E-com Retail Services, Campaigns and reporting on KPIs/ROI & Performance across diverse Digital Platforms and Regions.",
     location: "Gurugram, India",
     memberSince: 2022,
     expertise: ["E-Commerce Management", "Catalogue Optimization", "PPC Advertising", "Brand Strategy"],

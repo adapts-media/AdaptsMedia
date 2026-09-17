@@ -76,17 +76,6 @@ export default function TeamMemberProfileClient({
                 </div>
 
                 <div className="flex items-center gap-3">
-                  {member.socials.linkedin && (
-                    <a
-                      href={member.socials.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#FAC02E]/20 hover:text-[#FAC02E] flex items-center justify-center transition-all duration-300 border border-white/10"
-                      aria-label="LinkedIn"
-                    >
-                      <FaLinkedinIn className="w-4 h-4" />
-                    </a>
-                  )}
                   {member.socials.email && (
                     <a
                       href={`mailto:${member.socials.email}`}
