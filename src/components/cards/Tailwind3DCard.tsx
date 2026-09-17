@@ -56,18 +56,18 @@ const Tailwind3DCard = ({
           className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none bg-gradient-to-tr from-transparent via-white/5 to-transparent"
         />
 
-        {/* Content Layer */}
+        {/* Content Layer with gradient overlay for contrast */}
         <div
-          className="absolute inset-0 z-20 flex flex-col justify-end p-6 bg-transparent"
+          className="absolute inset-0 z-20 flex flex-col justify-end p-6 bg-gradient-to-t from-black/90 via-black/40 to-transparent"
         >
           {/* Logo */}
           {logo && (
-            <div className="mb-4 relative w-32 h-10 select-none pointer-events-none">
+            <div className="mb-4 relative w-36 h-12 select-none pointer-events-none">
               <Image
                 src={logo}
                 alt="Brand Logo"
                 fill
-                className="w-full h-full object-contain object-left"
+                className="w-full h-full object-contain object-left drop-shadow-md"
               />
             </div>
           )}

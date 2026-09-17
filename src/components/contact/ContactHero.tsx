@@ -92,7 +92,7 @@ const ContactHero = () => {
             What's Next
           </h1>
           <p className="hero-subheading text-base md:text-lg text-white max-w-md leading-relaxed">
-            Whether you're launching a new brand, scaling your business, or looking for a strategic marketing partner, we're ready to help.
+            Whether you’re launching something new or taking your business to the next level, we’re here to make it happen. Reach out to start the conversation.
           </p>
         </div>
 

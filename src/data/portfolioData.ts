@@ -54,7 +54,7 @@ export const allCaseStudies: Project[] = [
     tagline: "Turning Vision into Brand Reality",
     tags: ["Branding", "AI Execution", "Marketing"],
     bgImage: "/images/portfolio/TheBliss/Mask group.png",
-    logoSrc: "/images/portfolio/TheBliss/thebliss@4x 1.png",
+    logoSrc: "/images/thebliss@4x 1.png",
     industry: "Wellness",
     service: "UI/UX Design",
     objective: "Branding",

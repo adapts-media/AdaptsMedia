@@ -18,7 +18,7 @@ export default function ContactPage() {
     <main className="min-h-screen bg-white">
       <ContactHero />
       
-      <ContactIntroText />
+      {/* <ContactIntroText /> */}
 
       <ContactFormSection />
 

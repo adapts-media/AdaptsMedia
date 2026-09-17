@@ -143,7 +143,7 @@ const AiIntelligence = () => {
                 AI &amp; <br /> Intelligence
               </h2>
               <p className="ai-desc text-lg md:text-3xl opacity-90 mb-20 font-light max-w-3xl">
-                Build visibility beyond digital. We create impactful moments that connect your brand with the right audience, online and offline.
+            We help brands get found, get recommended and move faster using AI - before the competition works out how.
               </p>
             </div>
 
