@@ -8,7 +8,7 @@ export interface TeamMember {
   initialsBg: string;
   bio: string;
   location: string;
-  memberSince: number;
+  memberSince?: number;
   expertise: string[];
   topics: string[];
   aboutLong: string;

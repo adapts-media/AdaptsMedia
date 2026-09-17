@@ -7,6 +7,8 @@ import ContactCTA from '@/components/homepage/ContactCTA';
 import { getWordPressTeamMembers } from '@/lib/getPosts';
 import { buildMetadata } from '@/lib/seo';
 
+export const revalidate = 60;
+
 const WORDPRESS_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://cms.adaptsmedia.com";
 
 // Shared per-request cache — generateMetadata() and the page body both

@@ -14,6 +14,8 @@ import { buildMetadata } from '@/lib/seo'
 
 import { getWordPressTeamMembers } from '@/lib/getPosts'
 
+export const revalidate = 60;
+
 export const metadata: Metadata = buildMetadata({
   title: 'About Us | Adapts Media',
   description:

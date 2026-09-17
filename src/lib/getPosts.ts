@@ -287,17 +287,23 @@ export async function getSinglePost(slug: string) {
 }
 
 
-export async function getWordPressTeamMembers() {
-  if (memoryTeamCache) return memoryTeamCache;
+let lastTeamFetchTime = 0;
+const TEAM_CACHE_TTL_MS = 60 * 1000; // 60 seconds
+
+export async function getWordPressTeamMembers(forceRefresh = false) {
+  const now = Date.now();
+  if (!forceRefresh && memoryTeamCache && (now - lastTeamFetchTime < TEAM_CACHE_TTL_MS)) {
+    return memoryTeamCache;
+  }
 
   const { teamMembers } = await import('@/data/teamData');
   const teamUrl = `${BASE_URL}/team/`;
 
   try {
-    const res = await fetch(teamUrl, { next: { revalidate: 3600 }, signal: AbortSignal.timeout(8000) });
+    const res = await fetch(teamUrl, { next: { revalidate: 60 }, signal: AbortSignal.timeout(8000) });
     if (!res.ok) {
-      memoryTeamCache = teamMembers;
-      return teamMembers;
+      if (!memoryTeamCache) memoryTeamCache = teamMembers;
+      return memoryTeamCache;
     }
 
     const html = await res.text();
@@ -321,39 +327,49 @@ export async function getWordPressTeamMembers() {
 
         if (name && img) {
           const existing = teamMembers.find(t => t.slug === slug || t.name.toLowerCase() === name.toLowerCase());
-          const role = rawRole || existing?.role || "Digital Marketing Specialist";
+          const role = rawRole || existing?.role || "Team Member";
+
+          const badges = Array.from(new Set([role, ...(existing?.badges || [])])).filter(Boolean);
+          const expertise = existing?.expertise && existing.expertise.length > 0
+            ? existing.expertise
+            : [role, "Digital Strategy", "Client Growth"];
 
           parsed.push({
             id: id++,
             name,
             slug,
             role,
-            image: img,
+            image: img || existing?.image || "/fallback.jpg",
             initials: existing?.initials || name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase(),
             initialsBg: existing?.initialsBg || "bg-blue-600",
             bio: bio || existing?.bio || `${role} at Adapts Media.`,
-            location: existing?.location || (role.includes('India') ? "Gurugram, India" : "Dubai, UAE"),
-            memberSince: existing?.memberSince || 2023,
-            expertise: existing?.expertise || [role, "Digital Marketing", "Strategy"],
+            location: existing?.location || (role.includes('India') || bio.toLowerCase().includes('india') ? "Gurugram, India" : "Dubai, UAE"),
+            expertise,
             topics: existing?.topics || ["Digital Marketing"],
             aboutLong: bio || existing?.aboutLong || `${name} is ${role} at Adapts Media.`,
-            badges: existing?.badges || [role],
-            socials: existing?.socials || { linkedin: "https://www.linkedin.com/company/adaptsmedia/?original_referer=https%3A%2F%2Fwww%2Egoogle%2Ecom%2F&originalSubdomain=ae", email: "info@adaptsmedia.com" }
+            badges,
+            socials: existing?.socials || { linkedin: "https://www.linkedin.com/company/adaptsmedia", email: "info@adaptsmedia.com" }
           });
         }
       }
 
       if (parsed.length > 0) {
         memoryTeamCache = parsed;
+        lastTeamFetchTime = now;
         return parsed;
       }
     }
   } catch (error) {
-    console.warn("WordPress team fetch warning, using local team data:", (error as Error).message);
+    console.warn("WordPress team fetch warning, using fallback team data:", (error as Error).message);
   }
 
-  memoryTeamCache = teamMembers;
-  return teamMembers;
+  if (!memoryTeamCache) memoryTeamCache = teamMembers;
+  return memoryTeamCache;
+}
+
+export async function getWordPressTeamMemberBySlug(slug: string) {
+  const members = await getWordPressTeamMembers();
+  return members.find((m: any) => m.slug === slug || m.slug.toLowerCase() === slug.toLowerCase()) || null;
 }
 
 

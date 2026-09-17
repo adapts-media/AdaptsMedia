@@ -11,15 +11,20 @@ import { getMemberProfileUrl } from "@/lib/authors";
 
 interface TeamMemberProfileClientProps {
   member: TeamMember;
+  otherMembers?: TeamMember[];
 }
 
 export default function TeamMemberProfileClient({
   member,
+  otherMembers: propOtherMembers,
 }: TeamMemberProfileClientProps) {
   // Get other team members for the "More voices" section
   const otherMembers = useMemo(() => {
+    if (propOtherMembers && propOtherMembers.length > 0) {
+      return propOtherMembers.filter((m) => m.slug !== member.slug);
+    }
     return teamMembers.filter((m) => m.slug !== member.slug);
-  }, [member.slug]);
+  }, [member.slug, propOtherMembers]);
 
   return (
     <div className="w-full bg-white text-gray-900 min-h-screen">
@@ -96,22 +101,7 @@ export default function TeamMemberProfileClient({
             </div>
           </div>
 
-          {/* Right Block: Member Since Badge */}
-          {member.memberSince && (
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="hidden lg:flex flex-col items-center justify-center bg-white/5 backdrop-blur-md border border-white/10 px-8 py-6 rounded-2xl shrink-0"
-            >
-              <span className="text-3xl font-light text-[#FAC02E] block mb-1">
-                {member.memberSince}
-              </span>
-              <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/50">
-                team member since
-              </span>
-            </motion.div>
-          )}
+
         </div>
       </section>
 
@@ -175,12 +165,7 @@ export default function TeamMemberProfileClient({
                   <span className="text-gray-500">Office Location</span>
                   <span className="font-semibold text-gray-800 text-right">{member.location}</span>
                 </li>
-                {member.memberSince && (
-                  <li className="flex justify-between text-sm">
-                    <span className="text-gray-500">Member Since</span>
-                    <span className="font-semibold text-gray-800 text-right">{member.memberSince}</span>
-                  </li>
-                )}
+
                 {member.expertise && member.expertise.length > 0 && (
                   <li className="flex justify-between text-sm">
                     <span className="text-gray-500">Primary Focus</span>

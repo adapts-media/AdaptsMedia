@@ -1,10 +1,12 @@
 import { notFound, redirect } from "next/navigation";
-import { teamMembers } from "@/data/teamData";
+import { teamMembers as fallbackTeamMembers } from "@/data/teamData";
+import { getWordPressTeamMembers, getWordPressTeamMemberBySlug } from "@/lib/getPosts";
 import TeamMemberProfileClient from "@/components/team/TeamMemberProfileClient";
 import ContactCTA from "@/components/homepage/ContactCTA";
 import Footer from "@/components/layout/Footer";
-import SocialBar from "@/components/layout/SocialBar";
 import { isAuthor, getAuthorSlug } from "@/lib/authors";
+
+export const revalidate = 60;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -12,7 +14,7 @@ interface PageProps {
 
 export async function generateStaticParams() {
   // Authors do not have team profiles — exclude them from static generation
-  return teamMembers
+  return fallbackTeamMembers
     .filter((member) => !isAuthor(member.slug))
     .map((member) => ({
       slug: member.slug,
@@ -31,7 +33,9 @@ export async function generateMetadata({ params }: PageProps) {
     };
   }
 
-  const member = teamMembers.find((m) => m.slug === resolvedParams.slug);
+  const member = (await getWordPressTeamMemberBySlug(resolvedParams.slug)) ||
+    fallbackTeamMembers.find((m) => m.slug === resolvedParams.slug);
+
   if (!member) {
     return {
       title: "Team Member Not Found | Adapts Media",
@@ -69,7 +73,9 @@ export default async function TeamMemberPage({ params }: PageProps) {
     redirect(`/author/${authorSlug}`);
   }
 
-  const member = teamMembers.find((m) => m.slug === resolvedParams.slug);
+  const allMembers = await getWordPressTeamMembers();
+  const member = allMembers.find((m: any) => m.slug === resolvedParams.slug) ||
+    fallbackTeamMembers.find((m) => m.slug === resolvedParams.slug);
 
   if (!member) {
     notFound();
@@ -77,7 +83,10 @@ export default async function TeamMemberPage({ params }: PageProps) {
 
   return (
     <>
-      <TeamMemberProfileClient member={member} />
+      <TeamMemberProfileClient
+        member={member}
+        otherMembers={allMembers.filter((m: any) => m.slug !== member.slug)}
+      />
       <div id="contact">
         <ContactCTA />
       </div>
@@ -85,3 +94,4 @@ export default async function TeamMemberPage({ params }: PageProps) {
     </>
   );
 }
+
