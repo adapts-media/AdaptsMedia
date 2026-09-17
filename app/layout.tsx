@@ -86,6 +86,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     images: [DEFAULT_OG_IMAGE],
   },
+  verification: {
+    google: "f2Dv_CyeV7dVoWumnbyKkd6cu5x7NfL_HHLakbyQYxs",
+  },
 };
 
 export default function RootLayout({
@@ -113,6 +116,26 @@ export default function RootLayout({
           j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
           })(window,document,'script','dataLayer','GTM-WQDF4T6');`}
+        </Script>
+
+        {/*
+          Google tag (gtag.js) — Universal Analytics (UA-126226610-1) and
+          Google Ads conversion tracking (AW-823750854). Loaded once and
+          configured for both IDs on the shared dataLayer/gtag, rather than
+          loading gtag.js twice (once per ID) — same tracking outcome,
+          Google's own recommended pattern when running multiple gtag
+          products on one page.
+        */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-823750854"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-config" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-126226610-1');
+          gtag('config', 'AW-823750854');`}
         </Script>
       </body>
     </html>
