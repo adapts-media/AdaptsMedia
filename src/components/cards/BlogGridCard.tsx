@@ -55,7 +55,7 @@ export default function BlogGridCard({
       className="group flex flex-col w-full cursor-pointer"
     >
       {/* Image Container */}
-      <div className="relative w-full aspect-[16/10] overflow-hidden rounded-xl bg-gray-100">
+      <div className="relative w-full aspect-[16/11] overflow-hidden rounded-xl bg-gray-100">
         <Image
           src={imgSrc}
           alt={title}
@@ -63,7 +63,7 @@ export default function BlogGridCard({
           unoptimized
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           onError={() => setImgSrc("/fallback.jpg")}
-          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+          className="object-cover object-bottom transition-transform duration-500 ease-out group-hover:scale-105"
         />
       </div>
 
