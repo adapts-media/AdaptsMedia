@@ -5,7 +5,6 @@ import HyundaiProjectOverview from "@/components/portfolio/HyundaiProjectOvervie
 import HyundaiChallengeSection from "@/components/portfolio/HyundaiChallengeSection";
 import HyundaiApproachSection from "@/components/portfolio/HyundaiApproachSection";
 import HyundaiServicesSection from "@/components/portfolio/HyundaiServicesSection";
-import HyundaiOutcomeSection from "@/components/portfolio/HyundaiOutcomeSection";
 import PortfolioSection from "@/components/servicespage/PortfolioSection";
 import ContactCTA from "@/components/homepage/ContactCTA";
 import SocialBar from "@/components/layout/SocialBar";
@@ -136,8 +135,6 @@ export default function HyundaiMobisCaseStudy() {
       {/* ── SERVICES DELIVERED SECTION ── */}
       <HyundaiServicesSection />
 
-      {/* ── THE OUTCOME SECTION ── */}
-      <HyundaiOutcomeSection />
 
       <PortfolioSection />
       <ContactCTA />

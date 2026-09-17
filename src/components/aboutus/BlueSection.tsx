@@ -232,7 +232,8 @@ const BlueSection = () => {
               ref={introParaRef}
               className="text-sm sm:text-base md:text-lg text-white/90 font-light leading-relaxed max-w-xl will-change-[transform,opacity]"
             >
-              End-to-end solutions built to help brands grow, connect, and perform across every touchpoint.
+              End-to-end solutions built to help brands grow, connect, and perform across every touchpoint. No guesswork. No wasted effort.
+Just focused, effective execution.
             </p>
           </div>
 
@@ -308,7 +309,7 @@ const BlueSection = () => {
         </div>
 
         {/* Bottom Section: Explanatory Paragraph Block */}
-        <div className="w-full pt-4 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+        {/* <div className="w-full pt-4 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
           <div
             ref={bottomBlockRef}
             className="max-w-3xl w-full flex flex-col sm:flex-row gap-4 sm:gap-12 md:gap-20 opacity-0 will-change-[transform,opacity]"
@@ -320,7 +321,7 @@ const BlueSection = () => {
               No guesswork. No wasted effort. <br className="hidden sm:block" /> Just focused, effective execution.
             </p>
           </div>
-        </div>
+        </div> */}
 
       </div>
     </section>

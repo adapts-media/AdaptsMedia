@@ -26,14 +26,17 @@ export default function HyundaiApproachSection() {
         <div className="lg:col-span-7 flex items-center justify-center relative w-full h-[520px] md:h-[650px] order-2 lg:order-1">
           <div className="relative w-full max-w-[560px] h-full flex items-center justify-center">
             <div className="w-full h-full relative">
-              {/* 1. RED SPARKLE STAR MATRIX BACKGROUND (EXACT AS SCREENSHOT) */}
-              <div className="service-img-bg absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[460px] h-[460px] sm:w-[540px] sm:h-[540px] md:w-[620px] md:h-[620px] z-0 pointer-events-none">
+              {/* 1. RED SPARKLE STAR MATRIX BACKGROUND (Centered directly behind phone mockups) */}
+              <div
+                className="absolute left-1/2 top-1/2 w-[380px] h-[380px] sm:w-[460px] sm:h-[460px] md:w-[530px] md:h-[530px] z-0 pointer-events-none"
+                style={{ transform: "translate(-50%, -50%)" }}
+              >
                 <Image
                   src="/images/portfolio/Hyundai/group all red.png"
                   alt="Hyundai Red Star Pattern"
                   fill
-                  sizes="(max-width: 768px) 460px, 620px"
-                  className="object-contain opacity-90"
+                  sizes="(max-width: 768px) 460px, 530px"
+                  className="object-contain opacity-95"
                   priority
                 />
               </div>

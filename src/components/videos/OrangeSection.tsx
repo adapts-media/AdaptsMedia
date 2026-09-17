@@ -31,7 +31,7 @@ const OrangeSection = () => {
 
   const introWords = [
     "We", "combine", "strategy,", "creativity,", "and", "technology",
-    "to", "deliver", "marketing", "that", "performs", "not", "just", "looks", "good."
+    "to", "deliver", "marketing", "that", "performs,", "not", "just", "looks", "good."
   ];
 
   const bodyParagraph1 = [
