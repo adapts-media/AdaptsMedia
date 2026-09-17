@@ -57,6 +57,15 @@ const nextConfig = {
     ];
   },
   images: {
+    // Restored — this Vercel project's Image Optimization quota is
+    // exhausted (every /_next/image request 402s with
+    // OPTIMIZED_IMAGE_REQUEST_PAYMENT_REQUIRED), which was breaking
+    // images across the live site. Removing this again requires either
+    // upgrading the Vercel plan/enabling pay-as-you-go for Image
+    // Optimization, or waiting for the usage window to reset — see the
+    // conversation for the plan-vs-cost tradeoff; don't just flip this
+    // back without addressing that first.
+    unoptimized: true,
     qualities: [70, 75, 80, 85, 90, 95, 100],
     remotePatterns: [
       {
