@@ -25,15 +25,20 @@ interface ServiceCategory {
   items: ServiceItem[]
 }
 
+// Each category's `items` are that service page's actual first 3 sections,
+// in the order they're rendered on the page (verified against each
+// app/<service>/page.tsx and each section's own "service-category" label) —
+// previously these were placeholder names that didn't match any real
+// section on the linked pages.
 const services: ServiceCategory[] = [
   {
     number: "01",
     title: "Performance<br />Marketing",
     href: "/performance-marketing",
     items: [
-      { name: "Affiliate Channels", href: "/performance-marketing#affiliate-marketing" },
-      { name: "Cost Per Action", href: "/performance-marketing#performance-marketing" },
-      { name: "ROI Model", href: "/performance-marketing#media-planning" },
+      { name: "Programmatic Advertising", href: "/performance-marketing#programmatic-advertising" },
+      { name: "Display Campaign Management", href: "/performance-marketing#display-campaigns" },
+      { name: "Media Planning & Buying", href: "/performance-marketing#media-planning" },
     ],
   },
   {
@@ -41,9 +46,9 @@ const services: ServiceCategory[] = [
     title: "Social &<br />Content",
     href: "/social-content",
     items: [
-      { name: "Content Strategy", href: "/social-content#content-strategy" },
-      { name: "Leverage Influencers", href: "/social-content#influencer-marketing" },
-      { name: "Paid Social", href: "/social-content#paid-social" },
+      { name: "Social Media Management", href: "/social-content#social-media-management" },
+      { name: "Paid Social Advertising", href: "/social-content#paid-social" },
+      { name: "Influencer Marketing", href: "/social-content#influencer-marketing" },
     ],
   },
   {
@@ -51,9 +56,9 @@ const services: ServiceCategory[] = [
     title: "Web & Digital<br />Experience",
     href: "/web-digital-experience",
     items: [
-      { name: "UX/UI", href: "/web-digital-experience#ux-ui" },
-      { name: "Front & Back End", href: "/web-digital-experience#web-development" },
-      { name: "API Integration", href: "/web-digital-experience#api-integration" },
+      { name: "UX & UI Design", href: "/web-digital-experience#ux-ui" },
+      { name: "Web Development", href: "/web-digital-experience#web-development" },
+      { name: "E-commerce Development", href: "/web-digital-experience#ecommerce-development" },
     ],
   },
   {
@@ -61,9 +66,9 @@ const services: ServiceCategory[] = [
     title: "Branding &<br />Creative",
     href: "/branding-creative",
     items: [
-      { name: "Identity", href: "/branding-creative#identity" },
-      { name: "Campaigns", href: "/branding-creative#campaigns" },
-      { name: "Design Systems", href: "/branding-creative#design-systems" },
+      { name: "Brand Identity & Logo Design", href: "/branding-creative#identity" },
+      { name: "Brand Strategy", href: "/branding-creative#brand-strategy" },
+      { name: "Campaign Creative", href: "/branding-creative#campaigns" },
     ],
   },
   {
@@ -72,8 +77,8 @@ const services: ServiceCategory[] = [
     href: "/public-relations",
     items: [
       { name: "Strategic PR", href: "/public-relations#strategic-pr" },
-      { name: "Press Releases", href: "/public-relations#press-releases" },
-      { name: "Events and Activation", href: "/public-relations#events-activation" },
+      { name: "Press Releases & Media Outreach", href: "/public-relations#press-releases" },
+      { name: "Events & Activations", href: "/public-relations#events-activation" },
     ],
   },
   {
@@ -81,9 +86,9 @@ const services: ServiceCategory[] = [
     title: "Strategy &<br />Consulting",
     href: "/strategy-consulting",
     items: [
-      { name: "Industry and Competitor Analysis", href: "/strategy-consulting#industry-analysis" },
-      { name: "Tailor-made Growth Strategies", href: "/strategy-consulting#growth-strategies" },
-      { name: "Targeted Ads and Email Campaigns", href: "/strategy-consulting#targeted-campaigns" },
+      { name: "Market Research", href: "/strategy-consulting#market-research" },
+      { name: "Industry & Competitor Analysis", href: "/strategy-consulting#industry-analysis" },
+      { name: "Audience & Consumer Insights", href: "/strategy-consulting#audience-insights" },
     ],
   },
 ]
