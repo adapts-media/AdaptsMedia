@@ -72,10 +72,10 @@ const nextConfig = {
       { source: "/programmatic/amazon-dsp/", destination: "/performance-marketing", permanent: true },
       { source: "/seo-services", destination: "/performance-marketing", permanent: true },
       { source: "/seo-services/", destination: "/performance-marketing", permanent: true },
-      { source: "/data-analytics", destination: "/performance-marketing", permanent: true },
-      { source: "/data-analytics/", destination: "/performance-marketing", permanent: true },
-      { source: "/market-research", destination: "/performance-marketing", permanent: true },
-      { source: "/market-research/", destination: "/performance-marketing", permanent: true },
+      { source: "/data-analytics", destination: "/strategy-consulting", permanent: true },
+      { source: "/data-analytics/", destination: "/strategy-consulting", permanent: true },
+      { source: "/market-research", destination: "/strategy-consulting", permanent: true },
+      { source: "/market-research/", destination: "/strategy-consulting", permanent: true },
       // Redirect /case-studies index to /portfolio (specific /case-studies/:slug pages remain active)
       {
         source: "/case-studies",
