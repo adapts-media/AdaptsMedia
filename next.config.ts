@@ -43,17 +43,6 @@ const nextConfig = {
         destination: "/blogs",
         permanent: true,
       },
-      // WordPress permalink for SEO services is /seo-services/ — map it to Next.js route
-      {
-        source: "/seo-services",
-        destination: "/ai-search-optimization",
-        permanent: true,
-      },
-      {
-        source: "/seo-services/",
-        destination: "/ai-search-optimization",
-        permanent: true,
-      },
       // Redirect previous /search-engine-optimization route to /ai-search-optimization
       {
         source: "/search-engine-optimization",
@@ -65,6 +54,28 @@ const nextConfig = {
         destination: "/ai-search-optimization",
         permanent: true,
       },
+      // Old WordPress performance-marketing sub-service permalinks — all
+      // consolidated onto the single /performance-marketing page.
+      { source: "/sem-services", destination: "/performance-marketing", permanent: true },
+      { source: "/sem-services/", destination: "/performance-marketing", permanent: true },
+      { source: "/display-campaign-management", destination: "/performance-marketing", permanent: true },
+      { source: "/display-campaign-management/", destination: "/performance-marketing", permanent: true },
+      { source: "/ad-operations-for-publishers", destination: "/performance-marketing", permanent: true },
+      { source: "/ad-operations-for-publishers/", destination: "/performance-marketing", permanent: true },
+      { source: "/ad-operations-for-advertising-agencies", destination: "/performance-marketing", permanent: true },
+      { source: "/ad-operations-for-advertising-agencies/", destination: "/performance-marketing", permanent: true },
+      { source: "/media-planning-and-buying", destination: "/performance-marketing", permanent: true },
+      { source: "/media-planning-and-buying/", destination: "/performance-marketing", permanent: true },
+      { source: "/programmatic", destination: "/performance-marketing", permanent: true },
+      { source: "/programmatic/", destination: "/performance-marketing", permanent: true },
+      { source: "/programmatic/amazon-dsp", destination: "/performance-marketing", permanent: true },
+      { source: "/programmatic/amazon-dsp/", destination: "/performance-marketing", permanent: true },
+      { source: "/seo-services", destination: "/performance-marketing", permanent: true },
+      { source: "/seo-services/", destination: "/performance-marketing", permanent: true },
+      { source: "/data-analytics", destination: "/performance-marketing", permanent: true },
+      { source: "/data-analytics/", destination: "/performance-marketing", permanent: true },
+      { source: "/market-research", destination: "/performance-marketing", permanent: true },
+      { source: "/market-research/", destination: "/performance-marketing", permanent: true },
       // Redirect /case-studies index to /portfolio (specific /case-studies/:slug pages remain active)
       {
         source: "/case-studies",
