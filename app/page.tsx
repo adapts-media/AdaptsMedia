@@ -44,7 +44,15 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return buildMetadata({
     title: yoast?.title || "Adapts Media | AI-Powered Digital Marketing Agency in Dubai",
-    description: yoast?.description || "Expert digital marketing solutions in Dubai and globally.",
+    // Hardcoded rather than sourced from Yoast — WordPress's current value
+    // is close but not this exact wording, and the live site was actually
+    // showing the fallback string below anyway (the Yoast fetch here has
+    // a 4s timeout against a Cloudflare-fronted origin; a static
+    // regeneration pass that missed that window bakes the fallback in
+    // until the next one, same class of staleness as the /wp-admin
+    // reliability issues on that WP install). Fixing it here guarantees
+    // this exact copy regardless of WordPress's state.
+    description: "Adapts Media provides full-service marketing solutions, including SEO, paid media, programmatic and web development for brands across the UAE, UK, US, and Asia.",
     path: "/",
     image: yoast?.og_image?.[0]?.url,
   });
