@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -18,44 +18,7 @@ const AboutOrangeSection = () => {
   const rightColRef = useRef<HTMLDivElement>(null);
   const compassContainerRef = useRef<HTMLDivElement>(null);
   const compassFloatRef = useRef<HTMLDivElement>(null);
-  const compassVideoRef = useRef<HTMLVideoElement>(null);
-  const compassCanvasRef = useRef<HTMLCanvasElement>(null);
   const closingRef = useRef<HTMLDivElement>(null);
-
-  // Draw the compass video onto a canvas frame-by-frame, stripping its baked-in
-  // black background to real alpha transparency (luma-based chroma key). This
-  // replaces relying on an SVG filter / mix-blend-mode applied to a <video>
-  // element, both of which are unreliable on mobile WebKit — video decoding
-  // there often bypasses the normal CSS compositing pipeline. Manual canvas
-  // pixel manipulation has no such dependency and works identically everywhere.
-  useEffect(() => {
-    const video = compassVideoRef.current;
-    const canvas = compassCanvasRef.current;
-    if (!video || !canvas) return;
-    const ctx = canvas.getContext("2d", { willReadFrequently: true });
-    if (!ctx) return;
-
-    const SIZE = 500;
-    canvas.width = SIZE;
-    canvas.height = SIZE;
-
-    let rafId: number;
-    const draw = () => {
-      if (video.readyState >= 2) {
-        ctx.drawImage(video, 0, 0, SIZE, SIZE);
-        const frame = ctx.getImageData(0, 0, SIZE, SIZE);
-        const data = frame.data;
-        for (let i = 0; i < data.length; i += 4) {
-          const luma = (data[i] + data[i + 1] + data[i + 2]) / 3;
-          data[i + 3] = Math.max(0, Math.min(255, (luma - 12) * 2.4));
-        }
-        ctx.putImageData(frame, 0, 0);
-      }
-      rafId = requestAnimationFrame(draw);
-    };
-    rafId = requestAnimationFrame(draw);
-    return () => cancelAnimationFrame(rafId);
-  }, []);
 
   // Pre-split content to ensure SSR safety and eliminate layout shifts (FOUC-free)
   const headlineLines = [
@@ -521,6 +484,21 @@ const AboutOrangeSection = () => {
                 ref={compassFloatRef}
                 className="relative w-full h-full flex items-center justify-center will-change-transform"
               >
+                {/* SVG Filter to remove black background (Chroma Key) with smooth edge blending */}
+                <svg width="0" height="0" className="absolute">
+                  <defs>
+                    <filter id="remove-black" colorInterpolationFilters="sRGB">
+                      <feColorMatrix
+                        type="matrix"
+                        values="1 0 0 0 0
+                                0 1 0 0 0
+                                0 0 1 0 0
+                                1.5 1.5 1.5 0 -0.1"
+                      />
+                    </filter>
+                  </defs>
+                </svg>
+
                 {/* Warm ambient glow behind the compass */}
                 <div
                   className="absolute inset-0 rounded-full pointer-events-none"
@@ -531,23 +509,18 @@ const AboutOrangeSection = () => {
                   }}
                 />
 
-                {/* Hidden source video — decoded frames are drawn onto the canvas below */}
+                {/* Video Compass */}
                 <video
-                  ref={compassVideoRef}
                   src="/assets/moving compass_1.webm"
                   autoPlay
                   muted
                   loop
                   playsInline
                   suppressHydrationWarning
-                  aria-hidden="true"
-                  className="absolute w-px h-px opacity-0 pointer-events-none"
-                />
-
-                {/* Video Compass (chroma-keyed onto canvas — see effect above) */}
-                <canvas
-                  ref={compassCanvasRef}
                   className="w-full h-full object-contain scale-140 md:scale-180 pointer-events-none"
+                  style={{
+                    filter: "url(#remove-black)",
+                  }}
                 />
               </div>
             </div>
