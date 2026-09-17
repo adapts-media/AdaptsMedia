@@ -102,6 +102,20 @@ export default function RootLayout({
       className={`${openSans.variable} ${roboto.variable} ${cormorant.variable} ${dmSans.variable} h-full antialiased`}
     >
       <body>
+        {/* Google Tag Manager (noscript) — per Google's install instructions,
+            placed immediately after the opening <body> tag so GTM (and tags
+            wired through it) still fire for users with JavaScript disabled. */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-WQDF4T6"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+            title="Google Tag Manager"
+          />
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
+
         <SmoothScroll>
           <Navbar />
           <main style={{ paddingTop: '0px' }}>
