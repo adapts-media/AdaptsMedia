@@ -113,13 +113,24 @@ function formatWpPost(post: any) {
   if (cats.length === 0) cats = ["SEO", "Digital Marketing", "Social Media"];
 
   const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
-  const rawImageUrl = 
-    featuredMedia?.media_details?.sizes?.medium_large?.source_url || 
-    featuredMedia?.media_details?.sizes?.large?.source_url || 
-    featuredMedia?.source_url || 
+  const rawImageUrl =
+    featuredMedia?.media_details?.sizes?.medium_large?.source_url ||
+    featuredMedia?.media_details?.sizes?.large?.source_url ||
+    featuredMedia?.source_url ||
     post.yoast_head_json?.og_image?.[0]?.url ||
     "/fallback.jpg";
   const imageUrl = normalizeImageUrl(rawImageUrl);
+
+  // Distilled from yoast_head_json.schema — the only parts of it that
+  // getResolvedAuthor() ever reads back out when given a *list* post
+  // (i.e. via getPostsByAuthor -> getAllWordPressPosts). Keeping the full
+  // raw yoast_head_json + _embedded on every post here was costing ~15KB/
+  // post: across ~130+ posts that's a 3.7MB+ list payload, which is over
+  // Next's 2MB per-entry data-cache limit — so this fetch was silently
+  // never cached and re-fetched in full on every request that needed it
+  // (the blog listing, the sitemap, every author page).
+  const authorDescription: string | undefined = schemaPerson?.description;
+  const authorLinkedIn: string | undefined = schemaPerson?.sameAs?.find((url: string) => url.includes("linkedin.com"));
 
   return {
     title: decodeHtmlEntities(post.title?.rendered || ""),
@@ -128,10 +139,10 @@ function formatWpPost(post: any) {
     date: parsedDate,
     author: authorName,
     authorSlug: authorSlug,
+    authorDescription,
+    authorLinkedIn,
     categories: cats,
     content: "",
-    yoast_head_json: post.yoast_head_json,
-    _embedded: post._embedded,
   };
 }
 
@@ -142,11 +153,11 @@ export async function getAllWordPressPosts() {
 
   try {
     const p1Promise = fetch(
-      `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=100&page=1&_fields=title,slug,date,categories,featured_media,_links,_embedded,yoast_head_json`,
+      `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=100&page=1&_fields=title,slug,date,categories,featured_media,_embedded,yoast_head_json`,
       { next: { revalidate: 1800 }, signal: AbortSignal.timeout(10000) }
     );
     const p2Promise = fetch(
-      `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=100&page=2&_fields=title,slug,date,categories,featured_media,_links,_embedded,yoast_head_json`,
+      `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=100&page=2&_fields=title,slug,date,categories,featured_media,_embedded,yoast_head_json`,
       { next: { revalidate: 1800 }, signal: AbortSignal.timeout(10000) }
     );
 
@@ -179,7 +190,7 @@ export async function getWordPressPosts(limit: number = 30) {
 
   try {
     const res = await fetch(
-      `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=${safeLimit}&_fields=title,slug,date,categories,featured_media,_links,_embedded,yoast_head_json`,
+      `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=${safeLimit}&_fields=title,slug,date,categories,featured_media,_embedded,yoast_head_json`,
       { next: { revalidate: 1800 }, signal: AbortSignal.timeout(8000) }
     );
 
@@ -197,31 +208,51 @@ export async function getWordPressPosts(limit: number = 30) {
   }
 }
 
+/**
+ * `post` here is either a raw WP post (has yoast_head_json/_embedded — the
+ * shape getSinglePost() returns) or an already-formatted one from
+ * getWordPressPosts()/getAllWordPressPosts() (has authorDescription/
+ * authorLinkedIn instead — see formatWpPost's comment for why the raw
+ * blobs aren't kept on those). Prefer the pre-derived fields when present
+ * and fall back to extracting from the raw shape otherwise, so this works
+ * with both callers.
+ */
 export async function getResolvedAuthor(post: any) {
   const schemaPerson = post.yoast_head_json?.schema?.['@graph']?.find(
     (item: any) => item['@type'] === 'Person'
   );
 
-  const authorName = post.yoast_head_json?.author || schemaPerson?.name || "Shruti Goswami";
+  // post.author is a *string name* on formatted list posts, but a numeric
+  // WordPress user ID on raw posts (from getSinglePost) — only trust it
+  // here when it's actually the string shape.
+  const authorName =
+    (typeof post.author === "string" ? post.author : undefined) ||
+    post.yoast_head_json?.author ||
+    schemaPerson?.name ||
+    "Shruti Goswami";
 
-  let authorSlug = "shruti-goswami";
-  if (schemaPerson?.url) {
-    authorSlug = schemaPerson.url.split('/author/')[1]?.replace(/\//g, '') || authorSlug;
-  } else {
-    authorSlug = authorName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  let authorSlug = post.authorSlug;
+  if (!authorSlug) {
+    if (schemaPerson?.url) {
+      authorSlug = schemaPerson.url.split('/author/')[1]?.replace(/\//g, '') || "shruti-goswami";
+    } else {
+      authorSlug = authorName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    }
   }
 
   const team = await getWordPressTeamMembers();
-  const matchingMember = team.find((m: any) => 
+  const matchingMember = team.find((m: any) =>
     m.name.toLowerCase().trim() === authorName.toLowerCase().trim() ||
     m.slug === authorSlug ||
     (authorSlug === "jailee-cruz" && (m.slug === "jailee-dela-cruz" || m.name.toLowerCase().includes("jailee")))
   );
 
+  const schemaDescription = post.authorDescription ?? schemaPerson?.description;
+  const schemaLinkedIn = post.authorLinkedIn ?? schemaPerson?.sameAs?.find((url: string) => url.includes("linkedin.com"));
+
   let linkedin = "https://www.linkedin.com/company/adaptsmedia/?original_referer=https%3A%2F%2Fwww%2Egoogle%2Ecom%2F&originalSubdomain=ae";
-  if (schemaPerson?.sameAs) {
-    const li = schemaPerson.sameAs.find((url: string) => url.includes("linkedin.com"));
-    if (li) linkedin = li;
+  if (schemaLinkedIn) {
+    linkedin = schemaLinkedIn;
   } else if (matchingMember?.socials?.linkedin) {
     linkedin = matchingMember.socials.linkedin;
   }
@@ -243,7 +274,7 @@ export async function getResolvedAuthor(post: any) {
   return {
     name: matchingMember?.name || authorName,
     slug: authorSlug,
-    description: schemaPerson?.description || matchingMember?.aboutLong || matchingMember?.bio || "Digital Marketing Expert at Adapts Media.",
+    description: schemaDescription || matchingMember?.aboutLong || matchingMember?.bio || "Digital Marketing Expert at Adapts Media.",
     avatar: normalizeImageUrl(matchingMember?.image || post._embedded?.author?.[0]?.avatar_urls?.['96'] || "/images/Team/AshishGupta.png"),
     role: matchingMember?.role || "Digital Marketing Specialist",
     expertise: expertise.length > 0 ? expertise : ["Digital Marketing", "Strategy"],

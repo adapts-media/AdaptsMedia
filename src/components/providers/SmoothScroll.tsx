@@ -122,11 +122,19 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       lenis.on("scroll", ScrollTrigger.update);
     }
 
+    // ScrollTrigger.refresh() recalculates every registered trigger's
+    // position on the page — real work, not free. document.body resizes
+    // constantly during page load (images/video/fonts loading in shift
+    // layout) and this ResizeObserver was calling refresh() on every one
+    // of those with no debounce, which is a good way to spend a chunk of
+    // the main thread right when the page is trying to feel responsive.
+    let resizeTimeout: ReturnType<typeof setTimeout> | null = null;
     const resizeObserver = new ResizeObserver(() => {
       if (lenisRef.current?.lenis) {
         lenisRef.current.lenis.resize();
       }
-      ScrollTrigger.refresh();
+      if (resizeTimeout) clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => ScrollTrigger.refresh(), 200);
     });
     if (document?.body) {
       resizeObserver.observe(document.body);
@@ -135,6 +143,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     return () => {
       gsap.ticker.remove(update);
       resizeObserver.disconnect();
+      if (resizeTimeout) clearTimeout(resizeTimeout);
     };
   }, [isMobile]);
 
