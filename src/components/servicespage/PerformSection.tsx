@@ -52,7 +52,7 @@ export default function PerformSection() {
           <div className="flex flex-col items-start">
 
             <h2 className="text-4xl md:text-7xl min-[1300px]:text-7xl font-medium leading-[1.05] -tracking-wide max-w-2xl">
-              Built to Perform. <br/> Designed to Scale.
+              Built to Perform, <br/> Designed to Scale.
             </h2>
           </div>
         </div>

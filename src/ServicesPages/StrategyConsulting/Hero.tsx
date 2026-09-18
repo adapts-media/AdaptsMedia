@@ -94,7 +94,7 @@ const Hero = () => {
         </div>
 
         {/* Right Side */}
-        <div className="relative z-10 flex flex-col justify-center items-start text-left max-w-lg mx-auto w-full">
+        <div className="relative z-10 flex flex-col justify-center items-start text-left max-w-xl mx-auto w-full">
           <h2 className="hero-right-title mb-6 text-3xl leading-snug md:text-5xl font-opensans font-normal leading-[1.2] pb-2 text-left w-full">
             Decisions Built on Data. <br /> Strategies Built to Win.
           </h2>

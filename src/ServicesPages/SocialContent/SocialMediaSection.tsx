@@ -41,7 +41,7 @@ const SocialMediaSection = () => {
 
             <div className="socialmedia-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-blue-50/90">
               <p>
-                Consistency isn't enough. Relevance is everything. We manage your social presence across platforms with sharp intent, strategic timing & platform-native content. No generic templates, No auto-pilot publishing.
+                Consistency isn't enough. Relevance is everything. We manage your social presence across platforms with sharp intent, strategic timing & platform-native content. No generic templates.
               </p>
               <p>
                 We build content calendars aligned directly with your commercial goals & product launches. With platform-specific positioning, we ensure active channel growth & a clear brand voice, keeping your brand top-of-mind for your audience that actually moves the needle.

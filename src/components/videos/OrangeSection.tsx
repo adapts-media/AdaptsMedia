@@ -40,7 +40,7 @@ const OrangeSection = () => {
   ];
 
   const bodyParagraph2 = [
-    "We are a new-generation agency built to bridge that gap — bringing together",
+    "We are a new-generation agency built to bridge that gap, bringing together",
     "strategic thinking, creative excellence, and data-driven execution under one",
     "roof. Every solution we design is rooted in understanding your business, your",
     "audience, and your growth ambitions."
@@ -545,7 +545,7 @@ const OrangeSection = () => {
                 {/* Emotional climax closing statement */}
                 <div ref={closingRef} className="mb-8 opacity-0 will-change-[transform,opacity,filter] py-2">
                   <h2 className="text-[clamp(1.1rem,1.8vw,1.65rem)] bg-gradient-to-r from-white to-[#FAC02E] bg-clip-text text-transparent font-heading font-medium leading-tight">
-                    We don&apos;t just deliver campaigns. <br /> We build momentum.
+                    We don&apos;t just deliver campaigns, <br /> We build momentum.
                   </h2>
                 </div>
               </div>

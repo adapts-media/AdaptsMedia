@@ -137,7 +137,7 @@ export default function Footer() {
                 <h4 className="text-sm font-semibold text-white mb-3">Services</h4>
                 <ul className="space-y-2 text-xs text-white/70 font-light">
                   <li><Link href="/performance-marketing#sem-google-ads" className="hover:text-white transition-colors">SEM Agency</Link></li>
-                  <li><Link href="/strategy-consulting#data-analytics" className="hover:text-white transition-colors">Best Data Analytics Services</Link></li>
+                  <li><Link href="/strategy-consulting#data-analytics" className="hover:text-white transition-colors">Data Analytics Services</Link></li>
                   <li><Link href="/branding-creative#visual-design" className="hover:text-white transition-colors">Creative Designing</Link></li>
                   <li><Link href="/ai-search-optimization" className="hover:text-white transition-colors">AI Search Optimization</Link></li>
                   <li><Link href="/social-content#sms-marketing" className="hover:text-white transition-colors">SMS Campaign</Link></li>

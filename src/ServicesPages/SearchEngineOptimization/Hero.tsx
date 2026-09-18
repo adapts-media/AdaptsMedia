@@ -100,7 +100,7 @@ const Hero = () => {
             Where Organic Search <br /> Drives Proven Revenue
           </h2>
           <p className="hero-desc text-2xl font-opensans font-extralight leading-tight tracking-wide text-white text-left w-full">
-            Ready to rank? Get organic SEO services for business that bring you buyers, not just traffic. SEO agency services and consulting for long term growth. Ask now.
+            We build organic search strategies that are measured, scalable, and accountable from keyword ranking to pipeline revenue.
           </p>
         </div>
       </div>

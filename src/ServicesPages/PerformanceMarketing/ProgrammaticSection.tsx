@@ -36,7 +36,7 @@ const ProgrammaticSection = () => {
               Programmatic Advertising
             </span>
             <h2 className="programmatic-title service-title text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.25] pb-2 mb-8 max-w-2xl font-heading font-normal">
-              Precision Targeting at Scale. Automated. Always On.
+              Precision Targeting at Scale, Automated & Always On.
             </h2>
 
             <div className="programmatic-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-blue-50/90">

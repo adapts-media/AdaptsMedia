@@ -66,7 +66,7 @@ const IndustryAnalysisSection = () => {
               Industry & Competitor Analysis
             </span>
             <h2 className="analysis-title service-title text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.25] pb-2 mb-8 max-w-2xl font-heading font-normal">
-              Understand The Field. Find The Gaps & Move First.
+              Understand The Field, Find The Gaps & Move First.
             </h2>
 
             <div className="analysis-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-gray-300">
