@@ -66,7 +66,7 @@ const AdOpsPublishersSection = () => {
               Ad Operations for Publishers
             </span>
             <h2 className="adops-pub-title service-title text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.25] pb-2 mb-8 max-w-2xl font-heading font-normal">
-              Maximise Yield, <br/> Fill Every Impression, <br/> Protect Your Inventory.
+              Maximise Yield, <br/> Fill Every Impression, <br/> Protect Your Inventory
             </h2>
 
             <div className="adops-pub-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-gray-300">

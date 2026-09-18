@@ -36,7 +36,7 @@ const AffiliateMarketingSection = () => {
               Affiliate Marketing
             </span>
             <h2 className="affiliate-title service-title text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.25] pb-2 mb-8 max-w-2xl font-heading font-normal">
-              Pay Only for Customers, Scale Without Risk.
+              Pay Only for Customers, Scale Without Risk
             </h2>
 
             <div className="affiliate-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-blue-50/90">

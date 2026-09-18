@@ -36,7 +36,7 @@ const PerformanceMarketingSection = () => {
               Performance Marketing
             </span>
             <h2 className="perf-title service-title text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.25] pb-2 mb-8 max-w-2xl font-heading font-normal">
-              Pay for Results, <br/> Scale What Works, <br/> Cut What Does Not.
+              Pay for Results, <br/> Scale What Works, <br/> Cut What Does Not
             </h2>
 
             <div className="perf-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-red-50/90">

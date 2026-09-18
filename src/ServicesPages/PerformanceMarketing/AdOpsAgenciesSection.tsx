@@ -33,7 +33,7 @@ const AdOpsAgenciesSection = () => {
               Ad Operations for Advertising Agencies
             </span>
             <h2 className="adops-agency-title service-title text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.25] pb-2 mb-8 max-w-2xl text-slate-900 font-heading font-normal">
-              Flawless Campaign Execution, No Errors, No Delays.
+              Flawless Campaign Execution, No Errors, No Delays
             </h2>
 
             <div className="adops-agency-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-slate-600">
