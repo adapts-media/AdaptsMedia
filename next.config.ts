@@ -87,6 +87,8 @@ const nextConfig = {
         destination: "/portfolio",
         permanent: true,
       },
+      { source: "/client", destination: "/portfolio", permanent: true },
+      { source: "/client/", destination: "/portfolio", permanent: true },
       // Redirect /contact-us alias to /contact
       {
         source: "/contact-us",
