@@ -3,6 +3,7 @@ import { Roboto, Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import ScrollArrow from "@/components/layout/ScrollArrow";
+import CookieConsent from "@/components/layout/CookieConsent";
 
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import Script from "next/script";
@@ -122,6 +123,7 @@ export default function RootLayout({
             {children}
           </main>
           <ScrollArrow />
+          <CookieConsent />
         </SmoothScroll>
         {/* Google Tag Manager - Loads only after the page is interactive */}
         <Script id="gtm" strategy="afterInteractive">

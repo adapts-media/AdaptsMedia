@@ -66,7 +66,7 @@ const ContentStrategySection = () => {
               Content Strategy
             </span>
             <h2 className="contentstrategy-title service-title text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.25] pb-2 mb-8 max-w-2xl font-heading font-normal">
-              Clear Direction. Unified Messaging. Maximum Content Mileage.
+              Clear Direction, Unified Messaging, Maximum Content Mileage
             </h2>
 
             <div className="contentstrategy-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-blue-50/90">

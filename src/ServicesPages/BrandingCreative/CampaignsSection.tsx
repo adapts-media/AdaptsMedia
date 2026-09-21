@@ -24,7 +24,7 @@ const CampaignsSection = () => {
       ref={containerRef} 
       className="relative w-full py-24 md:py-32 flex justify-center overflow-hidden text-white"
       style={{
-        background: "radial-gradient(circle 600px at top left, rgba(255, 255, 255, 0.15) 0%, transparent 100%), radial-gradient(circle 600px at bottom right, rgba(255, 255, 255, 0.15) 0%, transparent 100%), #262626"
+        background: "radial-gradient(circle 600px at top left, rgba(250, 192, 46, 0.75) 0%, transparent 100%), radial-gradient(circle 600px at bottom right, rgba(250, 192, 46, 0.75) 0%, transparent 100%), #C12126"
       }}
     >
 
@@ -38,7 +38,7 @@ const CampaignsSection = () => {
               <div className="w-full h-full relative">
                 {/* 1. THE BACKGROUND IMAGE */}
                 <Image 
-                  src="/images/BrandingCreative/DigitalMarketingLogoBg.png" 
+                  src="/images/BrandingCreative/DesignSystemLogoBg.png" 
                   fill
                   className="campaigns-img-bg service-img-bg absolute inset-0 w-full h-full object-contain scale-110 z-0 opacity-80 pointer-events-none" 
                   alt="Logo Background Grid" 
@@ -68,10 +68,10 @@ const CampaignsSection = () => {
               Campaign Creative
             </span>
             <h2 className="campaigns-title service-title text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.25] pb-2 mb-8 max-w-2xl font-heading font-normal">
-              Creative That Works in the Real World. Not Just in Decks.
+              Creative That Works in the Real World, Not Just in Decks
             </h2>
 
-            <div className="campaigns-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-gray-300">
+            <div className="campaigns-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-red-50/90">
               <p>
                 A great campaign idea means nothing without execution that lands. We develop campaign concepts from initial brief through to final production assets, with a creative approach rooted in your brand positioning and built for the channels where your audience actually spends time.
               </p>
@@ -92,14 +92,14 @@ const CampaignsSection = () => {
               <div key={idx} className="campaigns-deliverable-item service-deliverable-item flex items-start gap-2.5">
                 <div className="service-deliverable-icon mt-1 flex-shrink-0">
                   <svg
-                    className="w-4 h-4 text-[#e21b22]"
+                    className="w-4 h-4 text-[#FAC02E]"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
                     <path d="M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2L12 2Z" />
                   </svg>
                 </div>
-                <span className="service-deliverable-text text-sm md:text-[15px] text-gray-200 leading-snug">
+                <span className="service-deliverable-text text-sm md:text-[15px] text-white/90 leading-snug">
                   {item}
                 </span>
               </div>

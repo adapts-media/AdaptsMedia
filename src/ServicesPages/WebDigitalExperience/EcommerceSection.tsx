@@ -36,7 +36,7 @@ const EcommerceSection = () => {
               E-commerce Development
             </span>
             <h2 className="ecommerce-title service-title text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.25] pb-2 mb-8 max-w-2xl font-heading font-normal">
-              Smarter Storefronts. Higher Conversion Rates. More Revenue.
+              Smarter Storefronts, Higher Conversion Rates, More Revenue
             </h2>
 
             <div className="ecommerce-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-red-50/90">

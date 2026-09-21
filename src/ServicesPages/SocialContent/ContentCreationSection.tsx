@@ -33,7 +33,7 @@ const ContentCreationSection = () => {
               Content Creation
             </span>
             <h2 className="creation-title service-title text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.25] pb-2 mb-8 max-w-2xl text-slate-900 font-heading font-normal">
-              Built for Current Algorithms. Designed for Real Engagement.
+              Built for Current Algorithms, Designed for Real Engagement
             </h2>
 
             <div className="creation-desc service-desc space-y-6 max-w-2xl text-[17px] md:text-[19px] font-light leading-relaxed text-slate-600">
