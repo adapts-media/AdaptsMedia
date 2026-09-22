@@ -113,7 +113,7 @@ export default function HorizontalScrollSection() {
           {/* Panel 2 – Video Panel */}
           <div className="relative md:w-screen w-full md:h-screen h-auto min-h-screen flex-shrink-0 flex flex-col justify-end">
             <div className="absolute inset-0 z-0">
-              <video autoPlay muted loop playsInline suppressHydrationWarning className="w-full h-full object-cover">
+              <video autoPlay muted loop playsInline suppressHydrationWarning poster="/default-og.jpg" className="w-full h-full object-cover">
                 <source src="/assets/Comp.mp4" type="video/mp4" />
               </video>
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -145,7 +145,7 @@ export default function HorizontalScrollSection() {
           {/* Panel 4 – Video Panel */}
           <div className="relative md:w-screen w-full md:h-screen h-auto min-h-screen flex-shrink-0 flex flex-col justify-end">
             <div className="absolute inset-0 z-0">
-              <video autoPlay muted loop playsInline suppressHydrationWarning className="w-full h-full object-cover">
+              <video autoPlay muted loop playsInline suppressHydrationWarning poster="/default-og.jpg" className="w-full h-full object-cover">
                 <source src="/assets/video_bg2.mp4" type="video/mp4" />
               </video>
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />

@@ -19,6 +19,7 @@ const ContactCTA = () => {
         muted
         playsInline
         suppressHydrationWarning
+        poster="/images/Awards_Bg.png"
         style={{
           // This creates a smooth fade-out towards the edges
           maskImage: 'radial-gradient(circle, black 50%, transparent 95%)',

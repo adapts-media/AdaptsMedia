@@ -22,6 +22,7 @@ const ConnectedThinking = () => {
                 muted
                 playsInline
                 suppressHydrationWarning
+                poster="/default-og.jpg"
                 style={{
                     maskImage: 'radial-gradient(circle, black 40%, transparent 90%)',
                     WebkitMaskImage: 'radial-gradient(circle, black 40%, transparent 90%)',
@@ -46,6 +47,7 @@ const ConnectedThinking = () => {
                 muted
                 playsInline
                 suppressHydrationWarning
+                poster="/default-og.jpg"
                 style={{
                     maskImage: 'radial-gradient(circle, black 50%, transparent 95%)',
                     WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 95%)',
