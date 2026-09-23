@@ -1,14 +1,20 @@
 import "server-only";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import type { Lead } from "@prisma/client";
 
-const resendApiKey = process.env.RESEND_API_KEY;
+const smtpUser = process.env.SMTP_USER;
+const smtpPass = process.env.SMTP_PASS;
 const notifyTo = process.env.LEAD_NOTIFICATION_EMAIL;
-// Resend requires the "from" address to be on a domain you've verified
-// with them; falls back to their shared sandbox sender for local/dev use.
-const notifyFrom = process.env.LEAD_NOTIFICATION_FROM || "Adapts Media Leads <onboarding@resend.dev>";
 
-const resend = resendApiKey ? new Resend(resendApiKey) : null;
+const transporter =
+  smtpUser && smtpPass
+    ? nodemailer.createTransport({
+        host: process.env.SMTP_HOST || "smtp.gmail.com",
+        port: Number(process.env.SMTP_PORT) || 465,
+        secure: true,
+        auth: { user: smtpUser, pass: smtpPass },
+      })
+    : null;
 
 const TYPE_LABELS: Record<string, string> = {
   start_project: "Start a Project",
@@ -21,9 +27,9 @@ const TYPE_LABELS: Record<string, string> = {
  * lead is already durably saved in the database by the time this runs.
  */
 export async function sendLeadNotification(lead: Lead) {
-  if (!resend || !notifyTo) {
+  if (!transporter || !notifyTo) {
     console.warn(
-      "[email] Skipping lead notification — RESEND_API_KEY or LEAD_NOTIFICATION_EMAIL is not set."
+      "[email] Skipping lead notification — SMTP_USER/SMTP_PASS or LEAD_NOTIFICATION_EMAIL is not set."
     );
     return;
   }
@@ -39,8 +45,8 @@ export async function sendLeadNotification(lead: Lead) {
   const subject = `New ${TYPE_LABELS[lead.type] || lead.type} lead — ${lead.name}`;
 
   try {
-    await resend.emails.send({
-      from: notifyFrom,
+    await transporter.sendMail({
+      from: `Adapts Media Leads <${smtpUser}>`,
       to: notifyTo,
       replyTo: lead.email,
       subject,
