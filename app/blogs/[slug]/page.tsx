@@ -28,7 +28,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // point search engines at a redirect instead of the real page.
     path: `/blogs/${slug}`,
     image: normalizeImageUrl(yoast?.og_image?.[0]?.url || post._embedded?.['wp:featuredmedia']?.[0]?.source_url),
-    noindex: yoast?.robots?.index === 'noindex',
+    // Deliberately NOT mirroring yoast?.robots?.index here. WordPress/Yoast
+    // is configured noindex on every post on purpose, to keep Google from
+    // indexing the cms.adaptsmedia.com origin as a duplicate of this
+    // content — that's a statement about the CMS, not about this page.
+    // adaptsmedia.com/blogs/[slug] is the canonical, publicly indexable
+    // copy and should always index regardless of what the CMS's own Yoast
+    // settings say.
     type: 'article',
   });
 }
