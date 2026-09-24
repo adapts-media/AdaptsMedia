@@ -12,6 +12,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Read the official Privacy Policy of Adapts Media. Learn how we collect, handle, protect, and process your personal information across our global digital marketing services.",
   path: "/privacy-policy",
+  noindex: true,
 });
 
 export default async function PrivacyPolicyPage() {

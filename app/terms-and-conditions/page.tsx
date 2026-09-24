@@ -12,6 +12,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Read the official Terms and Conditions of Adapts Media. Understand the rules, rights, and responsibilities governing your use of our digital marketing services and website.",
   path: "/terms-and-conditions",
+  noindex: true,
 });
 
 export default async function TermsAndConditionsPage() {

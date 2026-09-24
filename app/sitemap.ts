@@ -32,8 +32,6 @@ const STATIC_ROUTES: Array<{ path: string; changeFrequency: MetadataRoute.Sitema
   { path: "/blogs", changeFrequency: "daily", priority: 0.8 },
   { path: "/contact", changeFrequency: "yearly", priority: 0.6 },
   { path: "/start-project", changeFrequency: "yearly", priority: 0.6 },
-  { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.5 },
-  { path: "/terms-and-conditions", changeFrequency: "yearly", priority: 0.5 },
 ];
 
 type WPPostSummary = { slug: string; modified: string };
