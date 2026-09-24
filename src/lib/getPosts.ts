@@ -84,6 +84,24 @@ let memoryPostsCache: any[] | null = null;
 let memoryAllPostsCache: any[] | null = null;
 let memoryTeamCache: any[] | null = null;
 
+let lastPostsFetchTime = 0;
+let lastAllPostsFetchTime = 0;
+const POSTS_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+// WordPress sits behind Cloudflare/hosting-level bot protection that has
+// intermittently returned a 200 OK with an HTML challenge page instead of
+// JSON. That single bad response, if trusted, used to get baked into
+// Next's fetch data cache (`next: { revalidate }`) for the full TTL window
+// — silently showing a broken/truncated post list to every visitor until
+// it expired. These fetches now opt out of that cache (`cache: "no-store"`)
+// and manage their own short-TTL in-memory cache instead, so a bad
+// response is never trusted: it's validated (real JSON, plausible
+// content) before it's allowed to replace the last-known-good result, and
+// any failure just serves what was already cached rather than breaking.
+function isJsonResponse(res: Response): boolean {
+  return (res.headers.get("content-type") || "").includes("json");
+}
+
 function formatWpPost(post: any) {
   let authorName = post.yoast_head_json?.author;
   if (!authorName && post._embedded?.author && post._embedded.author.length > 0) {
@@ -147,59 +165,80 @@ function formatWpPost(post: any) {
 }
 
 export async function getAllWordPressPosts() {
-  if (memoryAllPostsCache && memoryAllPostsCache.length > 0) {
-    return memoryAllPostsCache;
+  const isFresh = memoryAllPostsCache && (Date.now() - lastAllPostsFetchTime < POSTS_CACHE_TTL_MS);
+  if (isFresh) {
+    return memoryAllPostsCache as any[];
   }
 
   try {
     const p1Promise = fetch(
       `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=100&page=1&_fields=title,slug,date,categories,featured_media,_embedded,yoast_head_json`,
-      { next: { revalidate: 1800 }, signal: AbortSignal.timeout(10000) }
+      { cache: "no-store", signal: AbortSignal.timeout(10000) }
     );
     const p2Promise = fetch(
       `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=100&page=2&_fields=title,slug,date,categories,featured_media,_embedded,yoast_head_json`,
-      { next: { revalidate: 1800 }, signal: AbortSignal.timeout(10000) }
+      { cache: "no-store", signal: AbortSignal.timeout(10000) }
     );
 
     const [res1, res2] = await Promise.allSettled([p1Promise, p2Promise]);
     let allRawPosts: any[] = [];
 
-    if (res1.status === "fulfilled" && res1.value.ok) {
+    if (res1.status === "fulfilled" && res1.value.ok && isJsonResponse(res1.value)) {
       const posts1 = await res1.value.json();
       if (Array.isArray(posts1)) allRawPosts = allRawPosts.concat(posts1);
     }
-    if (res2.status === "fulfilled" && res2.value.ok) {
+    if (res2.status === "fulfilled" && res2.value.ok && isJsonResponse(res2.value)) {
       const posts2 = await res2.value.json();
       if (Array.isArray(posts2)) allRawPosts = allRawPosts.concat(posts2);
     }
 
-    if (allRawPosts.length > 0) {
+    // Guard against a partial/blocked response silently regressing an
+    // already-good, larger cached list — only accept results that are at
+    // least as complete as what we already know is real.
+    const previousCount = memoryAllPostsCache?.length ?? 0;
+    if (allRawPosts.length > 0 && allRawPosts.length >= previousCount) {
       const formatted = allRawPosts.map(formatWpPost);
       memoryAllPostsCache = formatted;
+      lastAllPostsFetchTime = Date.now();
       return formatted;
     }
   } catch (error) {
     console.warn("getAllWordPressPosts warning:", (error as Error).message);
   }
 
+  if (memoryAllPostsCache) return memoryAllPostsCache;
   return getWordPressPosts(100);
 }
 
 export async function getWordPressPosts(limit: number = 30) {
   const safeLimit = Math.min(Math.max(limit, 1), 100);
+  const isFresh = memoryPostsCache && (Date.now() - lastPostsFetchTime < POSTS_CACHE_TTL_MS);
+  if (isFresh) {
+    return memoryPostsCache as any[];
+  }
 
   try {
     const res = await fetch(
       `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=${safeLimit}&_fields=title,slug,date,categories,featured_media,_embedded,yoast_head_json`,
-      { next: { revalidate: 1800 }, signal: AbortSignal.timeout(8000) }
+      { cache: "no-store", signal: AbortSignal.timeout(8000) }
     );
 
     if (!res.ok) throw new Error(`WordPress API returned status: ${res.status}`);
+    if (!isJsonResponse(res)) throw new Error("WordPress API returned a non-JSON response (likely a bot-protection challenge page)");
 
     const posts = await res.json();
-    const formattedPosts = posts.map(formatWpPost);
+    if (!Array.isArray(posts)) throw new Error("WordPress API returned an unexpected shape");
 
+    // Same guard as getAllWordPressPosts — never let a smaller/blocked
+    // response overwrite a cache we already know was good.
+    const previousCount = memoryPostsCache?.length ?? 0;
+    if (posts.length < previousCount) {
+      return memoryPostsCache as any[];
+    }
+
+    const formattedPosts = posts.map(formatWpPost);
     memoryPostsCache = formattedPosts;
+    lastPostsFetchTime = Date.now();
     return formattedPosts;
   } catch (error) {
     if (memoryPostsCache) return memoryPostsCache;
@@ -294,25 +333,42 @@ export async function getPostsByAuthor(authorSlug: string) {
 }
 
 
+// Per-slug last-known-good cache. A transient bot-protection block should
+// never 404 a real post that loaded successfully before — better to serve
+// a few minutes stale than a hard 404 that search engines and users hit
+// directly. Only a genuinely missing post (a real, parsed empty result)
+// clears an entry.
+const singlePostCache = new Map<string, { post: any; time: number }>();
+
 export async function getSinglePost(slug: string) {
   if (!BASE_URL) return null;
 
   const url = `${BASE_URL}/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_embed`;
+  const cached = singlePostCache.get(slug);
+  if (cached && Date.now() - cached.time < POSTS_CACHE_TTL_MS) {
+    return cached.post;
+  }
 
   try {
-    const res = await fetch(url, { next: { revalidate: 1800 }, signal: AbortSignal.timeout(4000) });
+    const res = await fetch(url, { cache: "no-store", signal: AbortSignal.timeout(4000) });
 
-    if (!res.ok) return null;
-
-    const posts = await res.json();
-
-    if (!posts || posts.length === 0) {
+    if (!res.ok || !isJsonResponse(res)) {
+      if (cached) return cached.post;
       return null;
     }
 
+    const posts = await res.json();
+
+    if (!Array.isArray(posts) || posts.length === 0) {
+      singlePostCache.delete(slug);
+      return null;
+    }
+
+    singlePostCache.set(slug, { post: posts[0], time: Date.now() });
     return posts[0];
   } catch (error) {
     console.warn(`Single post fetch error [${slug}]:`, (error as Error).message);
+    if (cached) return cached.post;
     return null;
   }
 }
