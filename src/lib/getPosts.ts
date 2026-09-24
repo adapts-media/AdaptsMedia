@@ -29,6 +29,42 @@ export const WP_CATEGORY_MAP: Record<number, string> = {
   217: "Ad Operations",
 };
 
+// The 23 raw WordPress categories above are too granular for a reader-
+// facing filter. Groups them into the same handful of buckets already
+// used site-wide (contact form subjects, services nav) so the blog filter
+// stays consistent with the rest of the site instead of introducing its
+// own separate taxonomy.
+const TOPIC_GROUP_MAP: Record<string, string> = {
+  "Online Marketing": "Performance Marketing",
+  "Google Ads": "Performance Marketing",
+  "PPC": "Performance Marketing",
+  "Media Planning": "Performance Marketing",
+  "Search Engine Marketing": "Performance Marketing",
+  "Ad Operations": "Performance Marketing",
+  "E-Commerce Marketing": "Performance Marketing",
+  "Social Media": "Social & Content",
+  "Meme Marketing": "Social & Content",
+  "Video Marketing": "Social & Content",
+  "Email Marketing": "Social & Content",
+  "Web Development": "Web & Digital Experience",
+  "Browser": "Web & Digital Experience",
+  "Graphic Design": "Branding & Creative",
+  "Artificial Intelligence": "AI & Emerging Media",
+  "Metaverse": "AI & Emerging Media",
+  "Voice Search": "AI & Emerging Media",
+  "Cryptocurrency": "AI & Emerging Media",
+  "SEO": "AI Search Optimization",
+  "KPIs for Digital Marketing": "Strategy & Consulting",
+  "Case Study": "Strategy & Consulting",
+  "Marketing": "Strategy & Consulting",
+  "Services": "Strategy & Consulting",
+  "Digital Marketing": "Digital Marketing",
+};
+
+export function groupTopic(category: string): string {
+  return TOPIC_GROUP_MAP[category] || category;
+}
+
 export function cleanCategoryOrExpertise(item: any): string | null {
   if (item === null || item === undefined) return null;
   const num = typeof item === 'number' ? item : (!isNaN(Number(item)) && String(item).trim() !== '' ? Number(item) : null);

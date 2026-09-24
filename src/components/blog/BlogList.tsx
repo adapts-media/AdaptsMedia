@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { groupTopic } from "@/lib/getPosts";
 import BlogGridCard from "@/components/cards/BlogGridCard";
 import BlogHero from "@/components/blog/BlogHero";
 import Tailwind3DCard from "@/components/cards/Tailwind3DCard";
@@ -185,10 +186,13 @@ export default function BlogList({ posts }: { posts: any[] }) {
   // data supports (see the real "categories" field from formatWpPost()).
   // Industry / Marketing Goal / Tags filters were removed: they had no
   // corresponding data anywhere in WordPress, so their dropdown options
-  // were hardcoded and could never actually filter anything.
+  // were hardcoded and could never actually filter anything. The site's
+  // 23 raw WordPress categories are grouped down to the same handful of
+  // buckets used site-wide (see groupTopic()) so the filter list stays
+  // short and consistent with the rest of the site.
   const filteredPosts = activeTopic === ALL_TOPICS
     ? posts
-    : posts.filter((post: any) => (post.categories || []).includes(activeTopic));
+    : posts.filter((post: any) => (post.categories || []).some((c: string) => groupTopic(c) === activeTopic));
 
   // Sliced posts for display
   const displayedPosts = filteredPosts.slice(0, visibleCount);
@@ -199,7 +203,7 @@ export default function BlogList({ posts }: { posts: any[] }) {
 
   const uniqueTopics = [
     ALL_TOPICS,
-    ...Array.from(new Set(posts.flatMap((post: any) => post.categories || []))).sort(),
+    ...Array.from(new Set(posts.flatMap((post: any) => (post.categories || []).map(groupTopic)))).sort(),
   ];
 
   return (
