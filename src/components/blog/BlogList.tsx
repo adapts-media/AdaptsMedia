@@ -38,6 +38,16 @@ export default function BlogList({ posts }: { posts: any[] }) {
       strokeDashoffset: 2000,
     });
 
+    // Explicit initial hidden states, set up front rather than relying on
+    // .from() to capture them — .from() ties the "hidden" state to tween
+    // construction itself, which was leaving .filter-btn-apply stuck at
+    // opacity:0 (its tween's start value never resolved to a playable
+    // state, unlike the portfolio filter bar's equivalent animation,
+    // which uses this same set-then-.to() pattern reliably).
+    gsap.set(".filter-title", { opacity: 0, y: 20 });
+    gsap.set(".filter-item", { opacity: 0, y: 25, scale: 0.96 });
+    gsap.set(".filter-btn-apply", { opacity: 0, y: 25, scale: 0.96 });
+
     // Create the ScrollTrigger-based entrance timeline
     const entranceTl = gsap.timeline({
       scrollTrigger: {
@@ -48,9 +58,9 @@ export default function BlogList({ posts }: { posts: any[] }) {
     });
 
     // 1. Title fade up
-    entranceTl.from(".filter-title", {
-      opacity: 0,
-      y: 20,
+    entranceTl.to(".filter-title", {
+      opacity: 1,
+      y: 0,
       duration: 0.6,
       ease: "power2.out",
     });
@@ -59,10 +69,10 @@ export default function BlogList({ posts }: { posts: any[] }) {
     const fields = gsap.utils.toArray<HTMLElement>(".filter-item");
     const paths = fields.map((f) => f.querySelector(".border-draw-path")).filter(Boolean);
 
-    entranceTl.from(fields, {
-      opacity: 0,
-      y: 25,
-      scale: 0.96,
+    entranceTl.to(fields, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
       duration: 0.45,
       ease: "power2.out",
       stagger: 0.1,
@@ -75,10 +85,10 @@ export default function BlogList({ posts }: { posts: any[] }) {
       stagger: 0.1,
     }, "<");
 
-    entranceTl.from(".filter-btn-apply", {
-      opacity: 0,
-      y: 25,
-      scale: 0.96,
+    entranceTl.to(".filter-btn-apply", {
+      opacity: 1,
+      y: 0,
+      scale: 1,
       duration: 0.45,
       ease: "power2.out",
     }, "-=0.25");
