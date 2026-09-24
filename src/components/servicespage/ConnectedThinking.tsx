@@ -6,6 +6,7 @@ import PublicRelations from '../layout/PublicRelations'
 import StrategyConsulting from '../layout/StrategyConsulting'
 import AiIntelligence from '../layout/AiIntelligence'
 import SearchEngineOptimization from '../layout/SearchEngineOptimization'
+import OnlineReputationManagement from '../layout/OnlineReputationManagement'
 
 const ConnectedThinking = () => {
   return (
@@ -63,10 +64,57 @@ const ConnectedThinking = () => {
                 <BrandingCreative/>
             </div>
         </div>
-        <PublicRelations/>
-        <StrategyConsulting/>
-        <AiIntelligence/>
-        <SearchEngineOptimization/>
+        {/* --- Shared Video Container for Public Relations and Strategy & Consulting --- */}
+        <div className="relative w-full">
+            {/* The Video Overlay */}
+            <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                suppressHydrationWarning
+                poster="/default-og.jpg"
+                style={{
+                    maskImage: 'radial-gradient(circle, black 50%, transparent 95%)',
+                    WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 95%)',
+                }}
+                className="absolute inset-0 z-0 w-full h-[70%] object-cover mix-blend-multiply opacity-75 blur-xs pointer-events-none"
+            >
+                <source src="/assets/video_bg3.mp4" type="video/mp4" />
+            </video>
+
+            {/* The Components that sit over the video */}
+            <div className="relative z-10">
+                <PublicRelations/>
+                <StrategyConsulting/>
+            </div>
+        </div>
+        {/* --- Shared Video Container for AI Intelligence and Search Engine Optimization --- */}
+        <div className="relative w-full">
+            {/* The Video Overlay */}
+            <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                suppressHydrationWarning
+                poster="/default-og.jpg"
+                style={{
+                    maskImage: 'radial-gradient(circle, black 50%, transparent 95%)',
+                    WebkitMaskImage: 'radial-gradient(circle, black 50%, transparent 95%)',
+                }}
+                className="absolute inset-0 z-0 w-full h-[70%] object-cover mix-blend-multiply opacity-75 blur-xs pointer-events-none"
+            >
+                <source src="/assets/video_bg3.mp4" type="video/mp4" />
+            </video>
+
+            {/* The Components that sit over the video */}
+            <div className="relative z-10">
+                <AiIntelligence/>
+                <SearchEngineOptimization/>
+            </div>
+        </div>
+        <OnlineReputationManagement/>
         
     </div>
   )

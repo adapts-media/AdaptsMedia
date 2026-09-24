@@ -146,6 +146,7 @@ export default function Footer() {
                   <li><Link href="/performance-marketing#display-campaigns" className="hover:text-white transition-colors">Display Campaign Management</Link></li>
                   <li><Link href="/performance-marketing#programmatic-advertising" className="hover:text-white transition-colors">Programmatic Advertising</Link></li>
                   <li><Link href="/performance-marketing#adops-solutions" className="hover:text-white transition-colors">Ad Operations for Advertising Agencies</Link></li>
+                  <li><Link href="/online-reputation-management" className="hover:text-white transition-colors">Online Reputation Management</Link></li>
                 </ul>
               </div>
             </div>

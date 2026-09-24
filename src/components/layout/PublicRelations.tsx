@@ -128,14 +128,6 @@ const PublicRelations = () => {
 
   return (
     <section ref={containerRef} className="bg-transparent relative text-white py-20 font-sans overflow-hidden">
-      {/* Background Image */}
-      <Image
-        src="/images/Services_Bg.png" 
-        alt=""
-        fill
-        className="absolute z-0 pointer-events-none object-cover opacity-50" 
-      />
-    
       <div className="relative z-50 max-w-[1350px] 2xl:max-w-[1600px] w-full px-8 md:px-16 mx-auto">
         
         {/* Flex Wrapper: Performance Marketing on Left, Image on Right */}

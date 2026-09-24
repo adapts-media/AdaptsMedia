@@ -91,6 +91,36 @@ const services: ServiceCategory[] = [
       { name: "Audience & Consumer Insights", href: "/strategy-consulting#audience-insights" },
     ],
   },
+  {
+    number: "07",
+    title: "AI &<br />Intelligence",
+    href: "/ai-emerging-media",
+    items: [
+      { name: "AI-Powered Content Creation", href: "/ai-emerging-media#ai-content" },
+      { name: "Predictive Analytics & Media", href: "/ai-emerging-media#predictive-analytics" },
+      { name: "Conversational AI & Chatbots", href: "/ai-emerging-media#conversational-ai" },
+    ],
+  },
+  {
+    number: "08",
+    title: "Search Engine<br />Optimization",
+    href: "/ai-search-optimization",
+    items: [
+      { name: "AEO & GEO", href: "/ai-search-optimization#aeo-geo" },
+      { name: "On-Page SEO", href: "/ai-search-optimization#on-page-seo" },
+      { name: "Technical SEO", href: "/ai-search-optimization#technical-seo" },
+    ],
+  },
+  {
+    number: "09",
+    title: "Online Reputation<br />Management",
+    href: "/online-reputation-management",
+    items: [
+      { name: "Review & Ratings Management", href: "/online-reputation-management#review-management" },
+      { name: "Forum & Community Reputation", href: "/online-reputation-management#forum-community-reputation" },
+      { name: "Search & Narrative Management", href: "/online-reputation-management#search-narrative-management" },
+    ],
+  },
 ]
 
 // ─── Arrow SVG ────────────────────────────────────────────────────────────────
@@ -308,6 +338,38 @@ const ServicesSection = () => {
           row.removeEventListener("mouseleave", onLeave)
         })
       })
+
+      // ── 9b. Service card number glow hover (desktop) ───────────────────────
+      gsap.utils.toArray<HTMLElement>(".service-card").forEach((card) => {
+        const num = card.querySelector<HTMLElement>(".service-number")
+        if (!num) return
+
+        const onCardEnter = () => {
+          gsap.to(num, {
+            opacity: 1,
+            filter: "blur(1px) drop-shadow(0 0 20px rgba(255,255,255,0.95)) drop-shadow(0 0 35px rgba(255,255,255,0.65))",
+            duration: 0.35,
+            ease: "power2.out",
+            overwrite: "auto",
+          })
+        }
+        const onCardLeave = () => {
+          gsap.to(num, {
+            opacity: 0.5,
+            filter: "blur(2px) drop-shadow(0 0 0px rgba(255,255,255,0))",
+            duration: 0.35,
+            ease: "power2.out",
+            overwrite: "auto",
+          })
+        }
+
+        card.addEventListener("mouseenter", onCardEnter)
+        card.addEventListener("mouseleave", onCardLeave)
+        cleanups.push(() => {
+          card.removeEventListener("mouseenter", onCardEnter)
+          card.removeEventListener("mouseleave", onCardLeave)
+        })
+      })
     }
 
     if (!isMobile && sectionRef.current) {
@@ -375,14 +437,14 @@ const ServicesSection = () => {
           {services.map((service, index) => (
             <div key={index} style={{ perspective: "900px" }}>
               <div
-                className="service-card flex flex-col text-white"
+                className="service-card flex flex-col text-white group cursor-pointer"
                 style={{ transformStyle: "preserve-3d", willChange: "transform" }}
               >
                 {/* Number & Title link to service page */}
-                <Link href={service.href} className="no-underline text-white block group cursor-pointer">
+                <Link href={service.href} className="no-underline text-white block group/link cursor-pointer">
                   {/* Number */}
                   <span
-                    className="service-number text-7xl font-heading font-normal opacity-50 mb-[-12px] leading-none text-white blur-[2px] inline-block transition-opacity duration-300 group-hover:opacity-80"
+                    className="service-number text-7xl font-heading font-normal opacity-50 mb-[-12px] leading-none text-white blur-[2px] inline-block transition-all duration-300 group-hover:!opacity-100 group-hover:!blur-[1px] group-hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.95)] group-hover:drop-shadow-[0_0_35px_rgba(255,255,255,0.65)]"
                     style={{ marginLeft: "-32px" }}
                   >
                     {service.number}

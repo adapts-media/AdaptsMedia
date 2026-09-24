@@ -10,6 +10,7 @@ export const CONTACT_SUBJECTS = [
   { id: "strategy-consulting", label: "Strategy & Consulting" },
   { id: "ai-emerging-media", label: "AI & Emerging Media" },
   { id: "ai-search-optimization", label: "AI Search Optimization" },
+  { id: "online-reputation-management", label: "Online Reputation Management" },
   { id: "other", label: "Other" },
 ];
 
