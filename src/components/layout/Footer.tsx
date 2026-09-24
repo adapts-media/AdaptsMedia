@@ -261,16 +261,16 @@ export default function Footer() {
               <p>© 2026 Adapts Media® | All Rights Reserved.</p>
             </div>
 
-            {/* Right: Privacy Policy & Terms (commented out for now) */}
-            {/* <div className="flex items-center gap-4">
+            {/* Right: Privacy Policy & Terms */}
+            <div className="flex items-center gap-4">
               <Link href="/privacy-policy" className="hover:text-white transition-colors">
                 Privacy Policy
               </Link>
               <span>|</span>
               <Link href="/terms-and-conditions" className="hover:text-white transition-colors">
-                Terms And Conditions
+                Terms and Conditions
               </Link>
-            </div> */}
+            </div>
           </div>
         </div>
       </section>
