@@ -156,9 +156,9 @@ function formatWpPost(post: any) {
   } else {
     authorSlug = authorName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
   }
-  
+
   const parsedDate = post.date ? new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : "June 30, 2026";
-  
+
   let rawCats = post._embedded?.['wp:term']?.[0]?.filter((t: any) => t.taxonomy === 'category').map((c: any) => c.name) || [];
   if (rawCats.length === 0 && Array.isArray(post.categories)) {
     rawCats = post.categories;
@@ -431,7 +431,7 @@ export async function getWordPressTeamMembers(forceRefresh = false) {
 
     const html = await res.text();
     const cardBlocks = html.split(/<div[^>]*class=["'][^"']*card-wrapper[^"']*["']/gi).slice(1);
-    
+
     if (cardBlocks.length > 0) {
       const parsed: any[] = [];
       let id = 1;
@@ -496,4 +496,4 @@ export async function getWordPressTeamMemberBySlug(slug: string) {
 }
 
 
-
+

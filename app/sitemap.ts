@@ -2,8 +2,12 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
 import { teamMembers } from "@/data/teamData";
 import { isAuthor, WORDPRESS_AUTHORS } from "@/lib/authors";
+import fallbackPosts from "@/data/posts-fallback.json";
 
-const WORDPRESS_URL = process.env.WORDPRESS_URL || process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://cms.adaptsmedia.com";
+const RAW_WORDPRESS_URL = process.env.WORDPRESS_URL || process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://cms.adaptsmedia.com";
+const WORDPRESS_URL = (RAW_WORDPRESS_URL.includes("adaptsmedia.com") && !RAW_WORDPRESS_URL.includes("cms.adaptsmedia.com"))
+  ? "https://cms.adaptsmedia.com"
+  : RAW_WORDPRESS_URL.replace(/\/+$/, "");
 
 // Static marketing routes — everything under app/ that isn't dynamic,
 // admin-only, or intentionally duplicate content pointed elsewhere via
@@ -44,7 +48,14 @@ async function getAllPostSlugs(): Promise<WPPostSummary[]> {
     try {
       const res = await fetch(
         `${WORDPRESS_URL}/wp-json/wp/v2/posts?per_page=${perPage}&page=${page}&_fields=slug,modified`,
-        { next: { revalidate: 3600 }, signal: AbortSignal.timeout(5000) }
+        {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+            "Accept": "application/json",
+          },
+          next: { revalidate: 3600 },
+          signal: AbortSignal.timeout(8000),
+        }
       );
       if (!res.ok) break;
       const batch: WPPostSummary[] = await res.json();
@@ -53,6 +64,13 @@ async function getAllPostSlugs(): Promise<WPPostSummary[]> {
     } catch {
       break;
     }
+  }
+
+  if (posts.length === 0) {
+    return fallbackPosts.map((p) => ({
+      slug: p.slug,
+      modified: p.rawDate || new Date().toISOString(),
+    }));
   }
 
   return posts;

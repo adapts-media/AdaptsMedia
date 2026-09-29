@@ -259,6 +259,11 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'adaptsmedia.info',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'adaptsmedia.com', 
         pathname: '/**',
       },
