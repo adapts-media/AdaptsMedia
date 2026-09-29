@@ -8,6 +8,18 @@ jobs:
   build:
     name: Build & type-check
     runs-on: ubuntu-latest
+    # Dummy values so postinstall (`prisma generate`, which needs
+    # DATABASE_URL just to resolve prisma.config.ts — not to connect to
+    # anything) and the build step both succeed. The real values live only
+    # in the server's .env; this CI build never ships, it's purely a
+    # validation gate before the deploy step below.
+    env:
+      NEXT_PUBLIC_WORDPRESS_URL: https://adaptsmedia.info/cmsmedia
+      WORDPRESS_URL: https://adaptsmedia.info/cmsmedia
+      DATABASE_URL: postgresql://user:password@host/dbname
+      ADMIN_USERNAME: ci
+      ADMIN_PASSWORD: ci
+      SESSION_SECRET: ci-build-only-not-a-real-secret
     steps:
       - uses: actions/checkout@v4
 
@@ -23,18 +35,6 @@ jobs:
 
       - name: Build
         run: npm run build
-        env:
-          # Dummy values so the build step (which touches env-dependent
-          # code paths at module load time) doesn't fail here — the real
-          # values live only in the server's .env and are never used by
-          # this CI build, which exists purely as a validation gate before
-          # the deploy step below.
-          NEXT_PUBLIC_WORDPRESS_URL: https://adaptsmedia.info/cmsmedia
-          WORDPRESS_URL: https://adaptsmedia.info/cmsmedia
-          DATABASE_URL: postgresql://user:password@host/dbname
-          ADMIN_USERNAME: ci
-          ADMIN_PASSWORD: ci
-          SESSION_SECRET: ci-build-only-not-a-real-secret
 
   deploy:
     name: Deploy to production
