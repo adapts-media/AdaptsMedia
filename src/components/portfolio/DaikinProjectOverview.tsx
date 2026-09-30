@@ -1,0 +1,151 @@
+"use client";
+
+import { useRef } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger, SplitText } from "gsap/all";
+
+gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
+
+export default function DaikinProjectOverview() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const el = containerRef.current?.querySelector(".reveal-text") as HTMLElement;
+      if (!el) return;
+
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      if (prefersReducedMotion) {
+        gsap.set(el.querySelectorAll(".word"), {
+          opacity: 1,
+          color: (i, target) => {
+            const isHighlight = target.closest(".highlight") !== null;
+            return isHighlight ? "#0097e6" : "#1a1a2e";
+          },
+        });
+        return;
+      }
+
+      // Split paragraph into words
+      const split = new SplitText(el, {
+        type: "words",
+        wordsClass: "word",
+      });
+
+      // Set initial dimmed state
+      gsap.set(split.words, {
+        opacity: 0.25,
+        color: "#9ca3af",
+        scale: (i, target) => (target.closest(".highlight") ? 0.96 : 1),
+        transformOrigin: "center center",
+      });
+
+      let currentDelay = 0;
+      const delays = split.words.map((word, i) => {
+        const htmlWord = word as HTMLElement;
+        const isHighlight = htmlWord.closest(".highlight") !== null;
+        const prevIsHighlight =
+          i > 0 &&
+          (split.words[i - 1] as HTMLElement).closest(".highlight") !== null;
+
+        if (isHighlight && !prevIsHighlight) {
+          currentDelay += 0.07;
+        } else {
+          currentDelay += 0.03;
+        }
+
+        htmlWord.dataset.finalColor = isHighlight ? "#0097e6" : "#1a1a2e";
+        return currentDelay;
+      });
+
+      // Create the reveal animation
+      gsap.to(split.words, {
+        opacity: 1,
+        color: (i, target) =>
+          (target as HTMLElement).dataset.finalColor || "#1a1a2e",
+        scale: 1,
+        stagger: (i) => delays[i],
+        ease: "none",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 80%",
+          end: "bottom 60%",
+          scrub: 1,
+        },
+      });
+
+      // Pills fade-up
+      gsap.fromTo(
+        ".overview-pill",
+        { opacity: 0, y: 15 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+
+      return () => {
+        split.revert();
+      };
+    },
+    { scope: containerRef }
+  );
+
+  return (
+    <section className="w-full bg-white py-12 md:py-16 lg:py-20 flex justify-center font-sans overflow-hidden">
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+          .reveal-text .word {
+            display: inline-block;
+            margin: 0 0.12em;
+            will-change: transform, opacity, color;
+          }
+        `,
+        }}
+      />
+
+      <div
+        ref={containerRef}
+        className="max-w-[1350px] 2xl:max-w-[1600px] w-full px-8 md:px-16 flex flex-col items-center"
+      >
+        {/* Label Tag */}
+        <div className="mb-6 md:mb-8 flex justify-center w-full">
+          <span className="overview-pill inline-flex items-center justify-center rounded-full border border-[#d2ecfa] bg-[#eef7fc] px-6 py-2.5 md:px-7 md:py-3 text-center text-sm md:text-[15px] font-medium text-[#0097e6] shadow-xs transition-all duration-300">
+            Project Overview
+          </span>
+        </div>
+
+        {/* Main Text Content */}
+        <div className="w-full max-w-[960px] mx-auto">
+          <p className="intro-paragraph reveal-text text-[clamp(20px,2.2vw,34px)] font-normal text-[#1a1a2e] leading-[1.5] tracking-[-0.01em] font-heading mx-auto text-center">
+            Daikin, a global leader in air conditioning technology, needed to overhaul its product presence on{" "}
+            <span className="highlight text-[#0097e6] font-semibold">
+              Amazon Marketplace
+            </span>. The brand&apos;s existing listings lacked detailed descriptions, technical clarity, and visual appeal, leaving buyers uninformed about product energy efficiency and unique features.
+            <span className="block h-4 md:h-6" />
+            The goal was to build{" "}
+            <span className="highlight text-[#0097e6] font-semibold">
+              high-quality Amazon A+ content
+            </span>{" "}
+            to better educate shoppers, elevate product value, and{" "}
+            <span className="highlight text-[#0097e6] font-semibold">
+              increase conversion rates
+            </span>.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}

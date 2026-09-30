@@ -21,17 +21,7 @@ const BookmarkIcon = () => (
   </svg>
 );
 
-const FlowerLogo = () => (
-  <svg width="70" height="80" className="md:w-[90px] md:h-[104px]" viewBox="0 0 52 52" fill="none">
-    <circle cx="26" cy="26" r="25" stroke="white" strokeWidth="1.5" />
-    <g transform="translate(26,26)">
-      {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
-        <ellipse key={i} cx="0" cy="-9" rx="4" ry="8" fill="white" transform={`rotate(${angle})`} opacity="0.9" />
-      ))}
-      <circle cx="0" cy="0" r="3.5" fill="white" />
-    </g>
-  </svg>
-);
+
 
 const descriptions: Record<number, string> = {
   1: "Engineering confidence and authentic representation for a global automotive leader.",
@@ -401,12 +391,10 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
       <div className="absolute bottom-0 left-8 md:left-16 lg:left-20 right-8 md:right-16 lg:right-20 pb-16 md:pb-[60px] z-[4] flex flex-col gap-6 md:gap-4 pointer-events-auto">
         <div className="flex flex-col items-start w-full">
           <div className="portfolio-logo w-full flex justify-start md:justify-start">
-            {p.logoSrc ? (
+            {p.logoSrc && (
               <div className="relative w-40 h-16">
                 <Image src={p.logoSrc} alt={p.brand} fill sizes="160px" className="object-contain object-left" />
               </div>
-            ) : (
-              <FlowerLogo />
             )}
           </div>
         </div>
@@ -521,7 +509,7 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
                 {/* Top Row: Client Logo & Industry Tag */}
                 <div className="flex justify-between items-start w-full">
                   <div className="parallax-logo w-40 h-16 relative flex items-center justify-start will-change-transform">
-                    {p.logoSrc ? (
+                    {p.logoSrc && (
                       <div className="relative w-full h-full">
                         <Image
                           src={p.logoSrc}
@@ -531,8 +519,6 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
                           className="object-contain object-left"
                         />
                       </div>
-                    ) : (
-                      <FlowerLogo />
                     )}
                   </div>
                   <div className="parallax-tags flex flex-wrap gap-2">

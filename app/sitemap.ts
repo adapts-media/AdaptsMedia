@@ -2,12 +2,8 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
 import { teamMembers } from "@/data/teamData";
 import { isAuthor, WORDPRESS_AUTHORS } from "@/lib/authors";
-import fallbackPosts from "@/data/posts-fallback.json";
 
-const RAW_WORDPRESS_URL = process.env.WORDPRESS_URL || process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://cms.adaptsmedia.com";
-const WORDPRESS_URL = (RAW_WORDPRESS_URL.includes("adaptsmedia.com") && !RAW_WORDPRESS_URL.includes("cms.adaptsmedia.com"))
-  ? "https://cms.adaptsmedia.com"
-  : RAW_WORDPRESS_URL.replace(/\/+$/, "");
+const WORDPRESS_URL = process.env.WORDPRESS_URL || process.env.NEXT_PUBLIC_WORDPRESS_URL || "https://cms.adaptsmedia.com";
 
 // Static marketing routes — everything under app/ that isn't dynamic,
 // admin-only, or intentionally duplicate content pointed elsewhere via
@@ -26,6 +22,11 @@ const STATIC_ROUTES: Array<{ path: string; changeFrequency: MetadataRoute.Sitema
   { path: "/web-digital-experience", changeFrequency: "monthly", priority: 0.7 },
   { path: "/online-reputation-management", changeFrequency: "monthly", priority: 0.7 },
   { path: "/case-studies/hyundai-mobis", changeFrequency: "yearly", priority: 0.6 },
+  { path: "/case-studies/etoile-la-boutique", changeFrequency: "yearly", priority: 0.6 },
+  { path: "/case-studies/myaccountant", changeFrequency: "yearly", priority: 0.6 },
+  { path: "/case-studies/alpha-nero", changeFrequency: "yearly", priority: 0.6 },
+  { path: "/case-studies/daikin", changeFrequency: "yearly", priority: 0.6 },
+  { path: "/case-studies/aani", changeFrequency: "yearly", priority: 0.6 },
   // /portfolio now has its own copy (see PortfolioHero/PortfolioList's
   // `variant` prop) rather than duplicating /case-studies, so it's back
   // to self-canonical and belongs in the sitemap again. Its
@@ -48,14 +49,7 @@ async function getAllPostSlugs(): Promise<WPPostSummary[]> {
     try {
       const res = await fetch(
         `${WORDPRESS_URL}/wp-json/wp/v2/posts?per_page=${perPage}&page=${page}&_fields=slug,modified`,
-        {
-          headers: {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-            "Accept": "application/json",
-          },
-          next: { revalidate: 3600 },
-          signal: AbortSignal.timeout(8000),
-        }
+        { next: { revalidate: 3600 }, signal: AbortSignal.timeout(5000) }
       );
       if (!res.ok) break;
       const batch: WPPostSummary[] = await res.json();
@@ -64,13 +58,6 @@ async function getAllPostSlugs(): Promise<WPPostSummary[]> {
     } catch {
       break;
     }
-  }
-
-  if (posts.length === 0) {
-    return fallbackPosts.map((p) => ({
-      slug: p.slug,
-      modified: p.rawDate || new Date().toISOString(),
-    }));
   }
 
   return posts;

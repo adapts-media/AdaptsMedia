@@ -11,8 +11,6 @@ export const metadata: Metadata = buildMetadata({
   path: "/blogs",
 });
 
-export const revalidate = 300; // Cache and revalidate every 5 minutes (ISR)
-
 export default async function AllBlogsPage() {
   const posts = await getAllWordPressPosts();
 

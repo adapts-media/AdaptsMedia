@@ -88,6 +88,17 @@ export function sanitizeCategoriesList(items: any[]): string[] {
 export function normalizeImageUrl(url?: string): string {
   if (!url) return "/fallback.jpg";
   let trimmed = url.trim();
+
+  // Fix legacy or mismatched CMS subpaths (e.g. /cmsmedia/wp-content/ -> /wp-content/)
+  if (trimmed.includes("/cmsmedia/wp-content/")) {
+    trimmed = trimmed.replace("/cmsmedia/wp-content/", "/wp-content/");
+  }
+
+  // Rewrite adaptsmedia.info/cmsmedia/ to cms.adaptsmedia.com/
+  if (trimmed.includes("adaptsmedia.info/cmsmedia/")) {
+    trimmed = trimmed.replace("adaptsmedia.info/cmsmedia/", "cms.adaptsmedia.com/");
+  }
+
   if (trimmed.startsWith("//")) {
     trimmed = `https:${trimmed}`;
   } else if (trimmed.startsWith("http://")) {
@@ -167,10 +178,17 @@ function formatWpPost(post: any) {
   if (cats.length === 0) cats = ["SEO", "Digital Marketing", "Social Media"];
 
   const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
+  const schemaImage = post.yoast_head_json?.schema?.['@graph']?.find(
+    (item: any) => item['@type'] === 'ImageObject' && (item.url || item.contentUrl)
+  );
+
   const rawImageUrl =
     featuredMedia?.media_details?.sizes?.medium_large?.source_url ||
     featuredMedia?.media_details?.sizes?.large?.source_url ||
+    featuredMedia?.media_details?.sizes?.full?.source_url ||
     featuredMedia?.source_url ||
+    schemaImage?.url ||
+    schemaImage?.contentUrl ||
     post.yoast_head_json?.og_image?.[0]?.url ||
     "/fallback.jpg";
   const imageUrl = normalizeImageUrl(rawImageUrl);
@@ -208,15 +226,19 @@ export async function getAllWordPressPosts() {
 
   try {
     const p1Promise = fetch(
-      `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=100&page=1&_fields=title,slug,date,categories,featured_media,_embedded,yoast_head_json`,
-      { cache: "no-store", signal: AbortSignal.timeout(10000) }
+      `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=50&page=1&_fields=title,slug,date,categories,featured_media,_embedded,_links,yoast_head_json`,
+      { cache: "no-store", signal: AbortSignal.timeout(20000) }
     );
     const p2Promise = fetch(
-      `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=100&page=2&_fields=title,slug,date,categories,featured_media,_embedded,yoast_head_json`,
-      { cache: "no-store", signal: AbortSignal.timeout(10000) }
+      `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=50&page=2&_fields=title,slug,date,categories,featured_media,_embedded,_links,yoast_head_json`,
+      { cache: "no-store", signal: AbortSignal.timeout(20000) }
+    );
+    const p3Promise = fetch(
+      `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=50&page=3&_fields=title,slug,date,categories,featured_media,_embedded,_links,yoast_head_json`,
+      { cache: "no-store", signal: AbortSignal.timeout(20000) }
     );
 
-    const [res1, res2] = await Promise.allSettled([p1Promise, p2Promise]);
+    const [res1, res2, res3] = await Promise.allSettled([p1Promise, p2Promise, p3Promise]);
     let allRawPosts: any[] = [];
 
     if (res1.status === "fulfilled" && res1.value.ok && isJsonResponse(res1.value)) {
@@ -226,6 +248,10 @@ export async function getAllWordPressPosts() {
     if (res2.status === "fulfilled" && res2.value.ok && isJsonResponse(res2.value)) {
       const posts2 = await res2.value.json();
       if (Array.isArray(posts2)) allRawPosts = allRawPosts.concat(posts2);
+    }
+    if (res3.status === "fulfilled" && res3.value.ok && isJsonResponse(res3.value)) {
+      const posts3 = await res3.value.json();
+      if (Array.isArray(posts3)) allRawPosts = allRawPosts.concat(posts3);
     }
 
     // Guard against a partial/blocked response silently regressing an
@@ -255,8 +281,8 @@ export async function getWordPressPosts(limit: number = 30) {
 
   try {
     const res = await fetch(
-      `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=${safeLimit}&_fields=title,slug,date,categories,featured_media,_embedded,yoast_head_json`,
-      { cache: "no-store", signal: AbortSignal.timeout(8000) }
+      `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=${safeLimit}&_fields=title,slug,date,categories,featured_media,_embedded,_links,yoast_head_json`,
+      { cache: "no-store", signal: AbortSignal.timeout(15000) }
     );
 
     if (!res.ok) throw new Error(`WordPress API returned status: ${res.status}`);
@@ -386,7 +412,7 @@ export async function getSinglePost(slug: string) {
   }
 
   try {
-    const res = await fetch(url, { cache: "no-store", signal: AbortSignal.timeout(4000) });
+    const res = await fetch(url, { cache: "no-store", signal: AbortSignal.timeout(15000) });
 
     if (!res.ok || !isJsonResponse(res)) {
       if (cached) return cached.post;
