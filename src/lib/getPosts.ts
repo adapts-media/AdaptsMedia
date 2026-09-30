@@ -89,16 +89,6 @@ export function normalizeImageUrl(url?: string): string {
   if (!url) return "/fallback.jpg";
   let trimmed = url.trim();
 
-  // Fix legacy or mismatched CMS subpaths (e.g. /cmsmedia/wp-content/ -> /wp-content/)
-  if (trimmed.includes("/cmsmedia/wp-content/")) {
-    trimmed = trimmed.replace("/cmsmedia/wp-content/", "/wp-content/");
-  }
-
-  // Rewrite adaptsmedia.info/cmsmedia/ to cms.adaptsmedia.com/
-  if (trimmed.includes("adaptsmedia.info/cmsmedia/")) {
-    trimmed = trimmed.replace("adaptsmedia.info/cmsmedia/", "cms.adaptsmedia.com/");
-  }
-
   if (trimmed.startsWith("//")) {
     trimmed = `https:${trimmed}`;
   } else if (trimmed.startsWith("http://")) {
