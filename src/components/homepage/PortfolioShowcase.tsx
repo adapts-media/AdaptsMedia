@@ -486,7 +486,7 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
           return (
             <div
               key={p.id}
-              className="portfolio-card relative w-[80vw] max-w-[1100px] h-[72vh] md:h-[76vh] shrink-0 rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_15px_45px_rgba(0,0,0,0.4)] cursor-none bg-[#161c28]"
+              className="portfolio-card relative w-[80vw] max-w-[1100px] h-[72vh] md:h-[76vh] [@media(max-height:820px)]:md:h-[86vh] shrink-0 rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_15px_45px_rgba(0,0,0,0.4)] cursor-none bg-[#161c28]"
               style={{
                 filter: "blur(6px)",
                 opacity: 0.6,
@@ -512,7 +512,7 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
               </div>
 
               {/* Card Content Layer */}
-              <div className="relative z-20 h-full w-full flex flex-col justify-between p-8 md:p-14 lg:p-16">
+              <div className="relative z-20 h-full w-full flex flex-col justify-between p-8 md:p-14 lg:p-16 [@media(max-height:820px)]:md:py-8 [@media(max-height:820px)]:lg:py-9">
 
                 {/* Top Row: Client Logo & Industry Tag */}
                 <div className="flex justify-between items-start w-full">
@@ -537,10 +537,10 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
                 </div>
 
                 {/* Bottom Row: Text content & CTA */}
-                <div className="flex flex-col gap-4 max-w-2xl">
+                <div className="flex flex-col gap-4 [@media(max-height:820px)]:gap-2.5 max-w-2xl [@media(max-height:820px)]:max-w-3xl">
 
                   {/* Title split in lines */}
-                  <h2 className="parallax-title font-heading font-light text-[clamp(1.8rem,3.2vw,3rem)] leading-tight text-white tracking-tight will-change-transform">
+                  <h2 className="parallax-title font-heading font-light text-[clamp(1.8rem,3.2vw,3rem)] [@media(max-height:820px)]:text-[clamp(1.5rem,2.4vw,2.25rem)] leading-tight text-white tracking-tight will-change-transform">
                     <span className="block overflow-hidden py-[0.05em]">
                       <span className="title-line inline-block origin-bottom-left text-white/50 text-[0.45em] uppercase tracking-[0.2em] font-sans font-normal leading-normal">
                         {p.displayName || p.brand}
@@ -578,7 +578,7 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
                   </div>
 
                   {/* Glassmorphic Call-to-action */}
-                  <div className="parallax-cta mt-6 pointer-events-auto w-fit">
+                  <div className="parallax-cta mt-6 [@media(max-height:820px)]:mt-3 pointer-events-auto w-fit">
                     <Link
                       href={p.detailSlug ? `/case-studies/${p.detailSlug}` : "/portfolio"}
                       prefetch={false}
