@@ -328,9 +328,18 @@ export default function PortfolioList({ variant = "portfolio" }: PortfolioListPr
     return matchIndustry && matchService && matchObjective;
   });
 
-  const uniqueIndustries = [copy.allLabel, "Automotive", "F&B", "Wellness", "Finance"];
-  const uniqueServices = ["All Services", "Web Development", "Social Media", "UI/UX Design", "Branding"];
-  const uniqueObjectives = ["All Objectives", "Performance", "Branding", "Marketing"];
+  const uniqueIndustries = [
+    copy.allLabel,
+    ...Array.from(new Set(allCaseStudies.map((s) => s.industry).filter((x): x is string => Boolean(x)))),
+  ];
+  const uniqueServices = [
+    "All Services",
+    ...Array.from(new Set(allCaseStudies.map((s) => s.service).filter((x): x is string => Boolean(x)))),
+  ];
+  const uniqueObjectives = [
+    "All Objectives",
+    ...Array.from(new Set(allCaseStudies.map((s) => s.objective).filter((x): x is string => Boolean(x)))),
+  ];
 
   return (
     <div ref={containerRef} className="w-full bg-[#12161c] text-white font-heading">

@@ -1,11 +1,11 @@
 "use client";
+
 import Image from "next/image";
 import { motion } from "framer-motion";
-import MyAccountantProjectOverview from "@/components/portfolio/MyAccountantProjectOverview";
-import MyAccountantChallengeSection from "@/components/portfolio/MyAccountantChallengeSection";
-import MyAccountantApproachSection from "@/components/portfolio/MyAccountantApproachSection";
-import MyAccountantServicesSection from "@/components/portfolio/MyAccountantServicesSection";
-import MyAccountantOutcomeSection from "@/components/portfolio/MyAccountantOutcomeSection";
+import TheCapheVietnamProjectOverview from "@/components/portfolio/TheCapheVietnamProjectOverview";
+import TheCapheVietnamChallengeSection from "@/components/portfolio/TheCapheVietnamChallengeSection";
+import TheCapheVietnamApproachSection from "@/components/portfolio/TheCapheVietnamApproachSection";
+import TheCapheVietnamServicesSection from "@/components/portfolio/TheCapheVietnamServicesSection";
 import PortfolioSection from "@/components/servicespage/PortfolioSection";
 import ContactCTA from "@/components/homepage/ContactCTA";
 import Footer from "@/components/layout/Footer";
@@ -16,11 +16,11 @@ const BookmarkIcon = () => (
   </svg>
 );
 
-export default function MyAccountantCaseStudy() {
+export default function TheCapheVietnamCaseStudy() {
   return (
     <>
       {/* ── HERO SECTION ── */}
-      <section className="relative min-h-screen w-full overflow-hidden flex items-center pt-28 lg:pt-20 text-white bg-[#181818]">
+      <section className="relative min-h-screen w-full overflow-hidden flex items-center pt-28 lg:pt-20 text-white bg-[#1a120b]">
         {/* Hero Background Image with subtle zoom/parallax */}
         <motion.div
           initial={{ scale: 1.12, opacity: 0 }}
@@ -29,14 +29,17 @@ export default function MyAccountantCaseStudy() {
           className="absolute inset-0 z-0 pointer-events-none"
         >
           <Image
-            src="/images/Case Studies/My accountant/My accountant.png"
-            alt="myaccountant Australian Payroll and Accounting Platform Case Study"
+            src="/images/Case Studies/The Caphe Vietnam/TCV Hero (1).png"
+            alt="The Caphe Vietnam Hero Background"
             fill
             quality={95}
             priority
-            className="object-cover object-right lg:object-center"
+            className="object-cover object-right"
           />
         </motion.div>
+
+        {/* Elegant dark overlay gradient on the left half */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/80 via-black/45 to-transparent pointer-events-none" />
 
         {/* Content wrapper */}
         <div className="relative z-10 max-w-[1350px] w-full mx-auto px-8 md:px-16 lg:px-20 py-12 flex flex-col justify-center text-left min-h-[calc(100vh-160px)]">
@@ -49,7 +52,6 @@ export default function MyAccountantCaseStudy() {
             }}
             className="max-w-[700px]"
           >
-
             {/* White Logo */}
             <motion.div
               variants={{
@@ -59,8 +61,8 @@ export default function MyAccountantCaseStudy() {
               className="relative w-48 h-14 mb-8"
             >
               <Image
-                src="/images/Case Studies/My accountant/MyAccountant_Logo_09whitelogo.svg"
-                alt="My Accountant White Logo"
+                src="/images/Case Studies/The Caphe Vietnam/TCVwhitelogo.png"
+                alt="The Caphe Vietnam White Logo"
                 fill
                 sizes="192px"
                 priority
@@ -76,8 +78,8 @@ export default function MyAccountantCaseStudy() {
               }}
               className="text-[clamp(34px,4.5vw,52px)] font-heading font-medium tracking-tight leading-snug text-white mb-6"
             >
-              Building a High-Trust, <br />
-              Lead-Generating Digital Brand
+              Driving Organic Search <br />
+              Visibility & Traffic
             </motion.h1>
 
             {/* Description */}
@@ -86,9 +88,9 @@ export default function MyAccountantCaseStudy() {
                 hidden: { opacity: 0, y: 25 },
                 visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
               }}
-              className="text-[clamp(15px,1.5vw,18px)] font-heading font-normal leading-relaxed text-white/90 mb-10 max-w-lg"
+              className="text-[clamp(15px,1.5vw,18px)] font-heading font-normal leading-relaxed text-white/90 mb-10 max-w-md"
             >
-              A phased digital growth partnership combining technical SEO, content, social media, email &amp; performance marketing to create a scalable acquisition engine in Australia.
+              Building search authority, cleaning technical indexation issues, and acquiring high-quality backlinks to boost organic traffic and conversions.
             </motion.p>
 
             {/* Divider line before tags */}
@@ -108,7 +110,7 @@ export default function MyAccountantCaseStudy() {
               }}
               className="flex flex-wrap gap-2.5"
             >
-              {["Technical SEO", "Paid Media (Meta & Google)", "Social Media", "Email Marketing", "Funnel Optimisation", "Payroll SaaS"].map((tag) => (
+              {["Technical SEO", "Keyword Research", "Content Strategy", "Link Building", "Competitor Analysis"].map((tag) => (
                 <motion.span
                   key={tag}
                   whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.15)", borderColor: "rgba(255, 255, 255, 0.4)" }}
@@ -123,19 +125,16 @@ export default function MyAccountantCaseStudy() {
       </section>
 
       {/* ── PROJECT OVERVIEW SECTION ── */}
-      <MyAccountantProjectOverview />
+      <TheCapheVietnamProjectOverview />
 
       {/* ── THE CHALLENGE SECTION ── */}
-      <MyAccountantChallengeSection />
+      <TheCapheVietnamChallengeSection />
 
       {/* ── OUR APPROACH SECTION ── */}
-      <MyAccountantApproachSection />
+      <TheCapheVietnamApproachSection />
 
       {/* ── SERVICES DELIVERED SECTION ── */}
-      <MyAccountantServicesSection />
-
-      {/* ── THE OUTCOME & KEY RESULTS SECTION ── */}
-      <MyAccountantOutcomeSection />
+      <TheCapheVietnamServicesSection />
 
       <PortfolioSection />
       <ContactCTA />

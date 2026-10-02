@@ -1,4 +1,4 @@
-import { getSinglePost, getWordPressPosts, getResolvedAuthor, normalizeImageUrl, sanitizeCategoriesList } from "@/lib/getPosts";
+import { getSinglePost, getWordPressPosts, getResolvedAuthor, normalizeImageUrl, sanitizeCategoriesList, decodeHtmlEntities } from "@/lib/getPosts";
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -73,7 +73,19 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   let cats = sanitizeCategoriesList(rawCats);
   if (cats.length === 0) cats = ["SEO", "Digital Marketing", "Social Media"];
 
-  const decodedTitle = post.title.rendered.replace(/&#(\d+);/g, (match: string, dec: number) => String.fromCharCode(dec));
+  const decodedTitle = decodeHtmlEntities(post.title?.rendered || "");
+
+  const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0];
+  const yoastImageCaption = post.yoast_head_json?.schema?.['@graph']?.find(
+    (item: any) => item['@type'] === 'ImageObject' && item.caption
+  )?.caption;
+  const rawFeaturedAlt =
+    (featuredMedia?.alt_text?.trim() ? featuredMedia.alt_text : null) ||
+    (yoastImageCaption?.trim() ? yoastImageCaption : null) ||
+    (featuredMedia?.title?.rendered?.trim() ? featuredMedia.title.rendered : null) ||
+    decodedTitle ||
+    "Featured Image";
+  const featuredMediaAlt = decodeHtmlEntities(rawFeaturedAlt).trim() || "Featured Image";
 
   return (
     <>
@@ -104,7 +116,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             <div className="relative w-full overflow-hidden shadow-2xl bg-gray-100 rounded-xl aspect-[16/9]">
               <Image 
                 src={normalizeImageUrl(post._embedded?.['wp:featuredmedia']?.[0]?.source_url || post.yoast_head_json?.og_image?.[0]?.url)} 
-                alt="Featured Image"
+                alt={featuredMediaAlt}
                 fill
                 priority
                 unoptimized

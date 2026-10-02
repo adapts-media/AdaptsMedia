@@ -51,6 +51,24 @@ export default function EtoileLaBoutiquePortfolioPage() {
             className="max-w-[700px]"
           >
 
+            {/* White Logo */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 25 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+              }}
+              className="relative w-48 h-14 mb-8"
+            >
+              <Image
+                src="/images/Case Studies/Etoile la boutique/etoilewhitelogo.svg"
+                alt="Etoile La Boutique White Logo"
+                fill
+                sizes="192px"
+                priority
+                className="object-contain object-left"
+              />
+            </motion.div>
+
             {/* Title */}
             <motion.h1
               variants={{

@@ -25,9 +25,13 @@ const BookmarkIcon = () => (
 
 const descriptions: Record<number, string> = {
   1: "Engineering confidence and authentic representation for a global automotive leader.",
-  2: "Crafting a premium Vietnamese coffee identity driven by creative AI storytelling.",
-  3: "Elevating luxury wellness spaces with clean aesthetics and human-centered design.",
-  4: "Powering secure, future-ready national payment systems across the Emirates.",
+  2: "Building search authority, cleaning technical indexation issues, and acquiring high-quality backlinks to boost organic traffic.",
+  10: "Crafting high-energy, creative digital banners to align the brand's online presence with its edgy streetwear aesthetic.",
+  5: "Building sustained, bilingual organic growth across the UAE, KSA & Qatar through SEO, content & website management.",
+  6: "A phased digital growth partnership combining technical SEO, content, social media, email & performance marketing.",
+  7: "Implementing a full website rebuild and SEO program that took Alpha Nero to a growing base of engaged, organic traffic.",
+  8: "Optimizing product listings with rich media, technical feature breakdowns, and conversion-focused copy.",
+  9: "Driving awareness, nationwide adoption, and app installs for the UAE's instant payment platform.",
 };
 
 interface PortfolioShowcaseProps {
@@ -158,8 +162,12 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
     const colors = [
       "#0b121c", // Hyundai Mobis: steel blue
       "#20150d", // The Caphe Vietnam: warm coffee brown
-      "#240f1a", // The Bliss: wellness violet
-      "#0a1c1d"  // Jaywan: national teal
+      "#1a1528", // IWYL: edgy streetwear violet/dark
+      "#121b24", // Etoile: luxury dark
+      "#0e1e28", // My Accountant: navy
+      "#181614", // Alpha Nero: charcoal
+      "#091a28", // Daikin: blue
+      "#1e1014", // Aani: maroon
     ];
 
     // Initialize all cards before adding animations to the master timeline (hidden & blurred by default)

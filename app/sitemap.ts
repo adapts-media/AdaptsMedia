@@ -22,6 +22,8 @@ const STATIC_ROUTES: Array<{ path: string; changeFrequency: MetadataRoute.Sitema
   { path: "/web-digital-experience", changeFrequency: "monthly", priority: 0.7 },
   { path: "/online-reputation-management", changeFrequency: "monthly", priority: 0.7 },
   { path: "/case-studies/hyundai-mobis", changeFrequency: "yearly", priority: 0.6 },
+  { path: "/case-studies/the-caphe-vietnam", changeFrequency: "yearly", priority: 0.6 },
+  { path: "/case-studies/iwyl", changeFrequency: "yearly", priority: 0.6 },
   { path: "/case-studies/etoile-la-boutique", changeFrequency: "yearly", priority: 0.6 },
   { path: "/case-studies/myaccountant", changeFrequency: "yearly", priority: 0.6 },
   { path: "/case-studies/alpha-nero", changeFrequency: "yearly", priority: 0.6 },

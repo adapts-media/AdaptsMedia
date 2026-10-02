@@ -58,12 +58,12 @@ export default function DaikinCaseStudy() {
               className="relative w-44 h-12 mb-8"
             >
               <Image
-                src="/images/DAIKIN_logo.svg.png"
-                alt="Daikin Logo"
+                src="/images/Case Studies/Daikin/Daikinwhitelogo.svg"
+                alt="Daikin White Logo"
                 fill
                 sizes="176px"
                 priority
-                className="object-contain object-left brightness-0 invert"
+                className="object-contain object-left"
               />
             </motion.div>
 
