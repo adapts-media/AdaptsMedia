@@ -29,7 +29,7 @@ export default function HyundaiMobisCaseStudy() {
           className="absolute inset-0 z-0 pointer-events-none"
         >
           <Image
-            src="/images/case-studies/Hyundai/hyundai-hero.png"
+            src="/images/Case Studies/Hyundai/Hyundai hero.png"
             alt="Hyundai Mobis Exploded Parts Background"
             fill
             quality={95}

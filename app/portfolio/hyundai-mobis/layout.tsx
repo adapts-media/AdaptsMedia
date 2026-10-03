@@ -12,7 +12,7 @@ export const metadata: Metadata = buildMetadata({
     "Building awareness, credibility, and engagement through a social-first content strategy focused on Hyundai Mobis Genuine Parts.",
   path: "/portfolio/hyundai-mobis",
   canonicalPath: "/case-studies/hyundai-mobis",
-  image: "/images/portfolio/Hyundai/Group.png",
+  image: "/images/Case Studies/Hyundai/Hyundai hero.png",
   type: "article",
 });
 
