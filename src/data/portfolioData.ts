@@ -27,7 +27,7 @@ export const allCaseStudies: Project[] = [
     displayName: "Hyundai Mobis",
     tagline: "Driving Awareness for Genuine Parts",
     tags: ["Branding", "AI Generation", "Marketing"],
-    bgImage: "/images/portfolio/Hyundai/butterfly_2 1.png",
+    bgImage: "/images/case-studies/Hyundai/hyundai-hero.png",
     cardImage: "/images/portfolio/Hyundai/HyundaiPortfolioCardImg2.png",
     logoSrc: "/images/portfolio/Hyundai/Group.png",
     industry: "Automotive",
